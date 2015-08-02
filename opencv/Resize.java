@@ -7,7 +7,7 @@ import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.core.Size;
 
-public class Test{
+public class Resize{
 	public static void main(String[] args){
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 		Mat im = Imgcodecs.imread("test.jpg");	// 入力画像の取得
