@@ -10,8 +10,8 @@ import org.opencv.core.Size;
 public class Sobel{
 	public static void main(String[] args){
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-		Mat gray = Imgcodecs.imread("test.jpg", 0);	// 入力画像の取得
+		Mat gray = Imgcodecs.imread("test.jpg", 0);
 		Imgproc.Sobel(gray, gray, gray.depth(), 2, 2);
-		Imgcodecs.imwrite("test2.jpg", gray);			// 画像データをJPG形式で保存
+		Imgcodecs.imwrite("test2.jpg", gray);
 	}
 }
