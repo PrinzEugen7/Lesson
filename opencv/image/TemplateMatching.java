@@ -12,8 +12,8 @@ public class CvTest {
 		Mat tmp = Imgcodecs.imread("tmp.jpg");					// テンプレート画像の取得
 		Mat result = new Mat();
 
-		Imgproc.matchTemplate(im, tmp, result, Imgproc.TM_CCOEFF_NORMED);		//テンプレートマッチング
-		Imgproc.threshold(result, result, 0.8, 1.0, Imgproc.THRESH_TOZERO); // 検出結果から相関係数がしきい値以下の部分を削除
+		Imgproc.matchTemplate(im, tmp, result, Imgproc.TM_CCOEFF_NORMED);	//テンプレートマッチング
+		Imgproc.threshold(result, result, 0.8, 1.0, Imgproc.THRESH_TOZERO); 	// 検出結果から相関係数がしきい値以下の部分を削除
 		// テンプレート画像の部分を元画像に赤色の矩形で囲む
 		for (int i=0;i<result.rows();i++) {
 			for (int j=0;j<result.cols();j++) {
