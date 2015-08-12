@@ -10,7 +10,7 @@ import org.opencv.imgproc.Imgproc;
 public class CvTest {
 	public static void main(String args[]){
 	System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-	Mat im = Imgcodecs.imread("test.jpg");					// 入力画像の取得			// 入力画像の取得
+	Mat im = Imgcodecs.imread("test.jpg");					// 入力画像の取得
         Mat mask = new Mat();							// マスク画像用
         Mat bgModel = new Mat();						// 背景モデル用
         Mat fgModel = new Mat();						// 前景モデル用
