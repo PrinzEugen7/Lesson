@@ -10,7 +10,7 @@ import com.drew.metadata.Tag;
 public class CvTest {
 	public static void main(String args[]) throws ImageProcessingException, IOException 
 	{
-	      File jpegFile = new File("test.jpg");
+	      File jpegFile = new File("test.jpg");								// JPEG画像の読み込み
 	      Metadata metadata = ImageMetadataReader.readMetadata(jpegFile);	// 画像からExif情報を抽出
 	      // Exif情報を全て表示
 	      for (Directory directory : metadata.getDirectories()) {
@@ -18,5 +18,5 @@ public class CvTest {
 	              System.out.println(tag);
 	          }
 	      }
-	    }
+	}
 }
