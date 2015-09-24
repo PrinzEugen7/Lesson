@@ -1,2 +1,3 @@
-filter: sepia(100%);
+.img-box {
+  filter: sepia(100%);
 }
