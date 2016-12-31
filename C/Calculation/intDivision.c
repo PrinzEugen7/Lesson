@@ -6,7 +6,7 @@ int main(void)
   int y = 3;  // 変数yの宣言・初期化
   int z = 0; 
   
-  z = 5 / 3;  // 5を3で割る
+  z = x / y;  // 5を3で割る
   
   printf("%d\n", z);  // 計算結果を表示
   
