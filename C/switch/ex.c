@@ -18,4 +18,5 @@ int main(void)
     default:
     printf("iは1～3以外です。");
   }
+  return 0;
 }
