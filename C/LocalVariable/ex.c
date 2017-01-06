@@ -7,5 +7,6 @@ int main()
          int y = 5;
           
      }
+     // 変数yはこの範囲では使えない
 　　　　return 0;
 }
