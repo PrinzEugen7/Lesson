@@ -1,8 +1,11 @@
 #include <stdio.h>
-     
+
 int main()
-{
-　　　　char name[ ] = "Yui";
-　　　　printf("お名前：%s", name);
+{ 　　// 変数xはこの括弧内で有効
+　　　　int x = 10;
+     { 　　// 変数yはこの括弧内で有効
+         int y = 5;
+          
+     }
 　　　　return 0;
 }
