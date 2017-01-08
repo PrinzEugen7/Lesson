@@ -3,7 +3,7 @@
 int main()
 {
     // 構造体の定義
-    struct score{
+    typedef struct score{
         int english;
         int math;
         char name[10];
