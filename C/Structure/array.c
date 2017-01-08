@@ -5,8 +5,8 @@ int main()
     // 変数の宣言
     int i = 0;
     
-    // 構造体の定義
-    typedef struct score{
+    // 構造体配列の定義
+    typedef struct score[3]{
         int english;      // 英語のと得点
         int math;         // 数学の得点
         char name[10];    // 受験者氏名
