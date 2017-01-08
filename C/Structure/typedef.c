@@ -4,11 +4,10 @@ int main()
 {
     // 構造体の定義
     typedef struct score{
-        int english;
-        int math;
-        char name[10];
+        int english;      // 英語のと得点
+        int math;         // 数学の得点
+        char name[10];    // 受験者氏名
     }SCORE;
     
-  return 0;
+    return 0;
 }
-
