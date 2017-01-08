@@ -20,7 +20,6 @@ int main()
     // メンバにデータを代入（更新）
     scores.english = 88;
     scores.math = 90;
-    scores.name = "kirino";
     
     // 各メンバのデータを表示
     printf("英語の得点：%d\n", scores.english);
