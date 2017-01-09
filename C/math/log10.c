@@ -3,7 +3,7 @@
  
 int main(void)
 {
-    double x = 2.0;
+    double x = 10;
     double y = 0; 
     // 10を底とする対数の計算
     y = log10(x);
