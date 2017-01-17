@@ -12,9 +12,10 @@ class MyClass():
 def main():
     # インスタンスの生成
     my = MyClass()
-
+    # インスタンス変数の値を取得
+    z = my.z 
     # インスタンス変数の中身を表示
-    print(my.z)
+    print(z)
 
 
 if __name__ == "__main__":
