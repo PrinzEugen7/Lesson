@@ -1,5 +1,9 @@
+var loadBtn = document.querySelector("#loadBtn");
+loadBtn.addEventListener('change', upload, false);
+
 // アップロード時の処理
 function upload(evt) {
+    //alert("error");
 	if (!isFileUpload()) {
 		alert("エラー：FileAPI非対応のブラウザです。");
 	} else {
@@ -8,7 +12,7 @@ function upload(evt) {
 		var file = evt.target.files[0];
 		var reader = new FileReader();
 		// ファイル読み取りを実行
-		reader.reader.readAsText(file);
+		reader.readAsText(file);
 		// ファイルの内容を表示
 		reader.onload = function(event) {
 			var result = event.target.result;
@@ -28,6 +32,3 @@ function isFileUpload() {
 	   }
 	   return isCompatible;
 }
-
-var loadBtn = document.querySelector("#loadBtn");
-loadBtn.addEventListener('change', upload, false);
