@@ -1,0 +1,22 @@
+category-box .ch {
+  width: 140px;
+  margin: 10px;
+  padding: 10px;
+  border: solid 1px #f5f5f5;
+  box-sizing: border-box;
+  box-shadow: 2px 2px 2px 2px #ccc;
+  background: transparent;
+}
+
+.category-box, .shop-box{
+  display: flex;
+  display: -moz-flex;
+  display: -o-flex;
+  display: -webkit-flex;
+  display: -ms-flex;
+  flex-direction: row;
+  -moz-flex-direction: row;
+  -o-flex-direction: row;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+}
