@@ -1,4 +1,3 @@
-
 function main(){
     // 変数の宣言・初期化
     var message = '艦隊のアイドル、那珂ちゃんだよー';
