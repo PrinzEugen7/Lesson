@@ -1,3 +1,3 @@
 function main(){
-    document.write('吹雪です！');
+    document.write('<b>吹雪</b>です！');
 }
