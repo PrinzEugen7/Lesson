@@ -4,5 +4,5 @@ function main(){
     // 変数の代入
     message = '艦隊のアイドル、那珂ちゃんだよー';
     // 表示
-    alert(pro);
+    alert(message);
 }
