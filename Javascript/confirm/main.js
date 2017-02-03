@@ -11,7 +11,4 @@ function main()
     {
         alert("都会なのん！");
     }
-	else
-	{
-	}
 }
