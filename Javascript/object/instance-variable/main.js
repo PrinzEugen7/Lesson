@@ -2,12 +2,12 @@
 var Kanmusu = function(name, type)
 {
     // メンバ変数(インスタンス変数)
-    this.name = name;
-    this.type  = type;
+    this.name = "艦名";
+    this.type = "艦種";
 }
 
 function main()
 {
     // インスタンスの生成
-    var fubuki = new Kanmusu("吹雪", "駆逐艦");
+    var fubuki = new Kanmusu();
 }
