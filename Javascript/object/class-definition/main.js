@@ -1,2 +1,4 @@
-var Kanmusu = function() {
+var Kanmusu = function()
+{
+  
 }
