@@ -11,18 +11,19 @@ var app = {
     }
 };
 
+// 初期化
 app.initialize();
 
-// 写真撮影ボタンを押した時に呼ばれる
+// 「撮影ボタン」が押された時の処理
 function takePictures(){
     navigator.camera.getPicture(cameraSuccess, cameraError, { quality: 80, destinationType: Camera.DestinationType.DATA_URL });
 }
-// 写真撮影が成功した時
+// 撮影成功時の処理
 function cameraSuccess(image){
     var img = document.getElementById("image");
     img.src = "data:image/jpeg;base64," + image;
 }
-// 失敗した時
+// 撮影失敗時の処理
 function cameraError(message){
     alert("Failed!!: " + message);
 }
