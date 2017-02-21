@@ -10,6 +10,7 @@ def main():
     })
     # 表示
     print(df)
+    print(df.dtypes)
 
 if __name__ == '__main__':
     main()
