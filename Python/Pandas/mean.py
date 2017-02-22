@@ -7,7 +7,7 @@ def main():
     # 計算
     mean = df['ATK'].mean()
     # 表示
-    print(mean)
+    print("mean:", mean)
 
 
 if __name__ == '__main__':
