@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,17 +19,19 @@
     <option value=1>1年</option>
 </select>
 
-<input type="button" value="西暦に変換" onclick="ToSeireki();"/>
+<input type="button"  id="to-wareki-button" value="西暦に変換" onclick="ToSeireki();"/>
 </form>
 
  <!-- 西暦→年号 -->
 <form name="to-nengo">
-西暦 <select id="seireki" name="seireki">
-    <option value=1900>1900年</option>
+西暦 <select id="seireki-year" name="seireki">
+    <option value=1931>1931年</option>
 </select>
 
-<input type="button" value="和暦に変換" onclick="ToWareki();"/>
+<input type="button" id="to-wareki-button" value="和暦に変換" onclick="ToWareki();"/>
 </form>
+ 
+<input type="input" id="result" value="ここに結果が表示されます。"/>
  
 </body>
 </html>
