@@ -1,5 +1,5 @@
 // selectタグのID取得
-var select = document.getElementById('select');
+var select = document.getElementById(selectタグのID名);
 // option要素の宣言
 var option = document.createElement('option');
 // option要素のvalue属性に値をセット
