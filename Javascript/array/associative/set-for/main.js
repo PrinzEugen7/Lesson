@@ -1,5 +1,5 @@
 // 初期化
-function setYearArray(min, max)
+function createAssArray(min, max)
 {
   var srcArray = [];
   // srcArrayにmin～maxまでの値を挿入
@@ -13,6 +13,6 @@ function setYearArray(min, max)
 function main()
 {
   // 連想配列
-  year = setYearArray(1999, 2017);
-	alert(year['1999年']);
+  year = createAssArray(1999, 2017);
+  alert(year['1999年']);
 }
