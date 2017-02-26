@@ -1,19 +1,4 @@
-function setSelect( idName, elementName, menu )
-{
-    // 入力ボックスの値を取得
-    var id = document.getElementById('select');
-
-    // メニュー項目のセット
-    for ( var i in menu ) 
-    {
-        var element = document.createElement('option');
-        element.setAttribute('value', i);
-        element.innerHTML = menu[i];
-        id.appendChild( element );
-    }
-}
-
-function wareki2year(nengo, wareki)
+function wareki2seireki(nengo, wareki)
 {
     if ((nengo == "平成") && (wareki > 0)) 
     {
@@ -34,8 +19,7 @@ function wareki2year(nengo, wareki)
     else{}
 }
 
-
-function year2wareki(year)
+function seireki2wareki(year)
 {
     if (year > 1988) 
     {
@@ -56,36 +40,56 @@ function year2wareki(year)
     else{}
 }
 
+
+// 初期化
+function createAssArray(min, max)
+{
+  var srcArray = [];
+  // srcArrayにmin～maxまでの値を挿入
+        for(var i = min; i <= max; i++)
+        {  
+        srcArray[i] = i + '年';   
+        }
+        return srcArray;
+}
+
+
+function setSelect( idName, elementName, menu )
+{
+    // 入力ボックスの値を取得
+    var id = document.getElementById(idName);
+
+    // メニュー項目のセット
+    for ( var i in menu ) 
+    {
+        var element = document.createElement(elementName);
+        element.setAttribute('value', i);
+        element.innerHTML = menu[i];
+        id.appendChild( element );
+    }
+}
+
 // 初期化
 function init()
 {
     // 連想配列
     var nengo = {
-        '平成' : '平成',
         '昭和' : '昭和',
         '大正' : '大正',
         '明治' : '明治'
     };
+	var nengoYear = createAssArray(2, 62);
+	var seirekiYear = createAssArray(2, 62);
     // selectの初期化
     setSelect( 'nengo', 'option', nengo );
+    setSelect( 'nengo-year', 'option', nengoYear );
+    setSelect( 'nengo-year', 'option', nengoYear );
 }
 
-function ToWareki()
+function main()
 {
     // 入力ボックスの値を取得
-    var year = document.year.select.value;
+    var str = document.formName.selectName.value;
     // 結果表示
-    var wareki = year2wareki(year);
-	    // 和暦を西暦に変換
-    alert(wareki);
-}
-
-function ToYear()
-{
-    // 入力ボックスの値を取得
-    var nengo = document.wareki.nengo.value;
-    var num = document.wareki.num.value;
-	    // 和暦を西暦に変換
-    year = wareki2year(nengo, num);
-    alert(year);
+    alert(str);  
 }
