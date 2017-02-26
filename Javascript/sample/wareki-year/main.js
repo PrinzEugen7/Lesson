@@ -79,11 +79,11 @@ function init()
         '明治' : '明治'
     };
 	var nengoYear = createAssArray(2, 62);
-	var seirekiYear = createAssArray(2, 62);
+	var seirekiYear = createAssArray(1931, 2017);
     // selectの初期化
     setSelect( 'nengo', 'option', nengo );
     setSelect( 'nengo-year', 'option', nengoYear );
-    setSelect( 'nengo-year', 'option', nengoYear );
+    setSelect( 'seireki-year', 'option', seirekiYear );
 }
 
 function main()
