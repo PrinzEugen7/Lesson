@@ -3,7 +3,7 @@ function createAssArray(min, max)
 {
   var srcArray = [];
   // srcArrayにmin～maxまでの値を挿入
-	for(var i = min; i < max; i++)
+	for(var i = min; i <= max; i++)
 	{  
         srcArray[i+'年'] = i;   
 	}
