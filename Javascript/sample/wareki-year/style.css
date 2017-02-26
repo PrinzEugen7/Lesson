@@ -1,0 +1,28 @@
+body {
+  background:#222;
+  color:#eee;
+}
+
+#nengo, #nengo-year, #seireki-year{
+  background:#444;
+	border:solid 1px #666;
+  color:#eee;
+}
+
+#to-wareki-button, #to-seireki-button {
+  background:#555;
+	border:solid 1px #888;
+  color:#eee;
+}
+
+#to-wareki-button:hover, #to-seireki-button:hover {
+  background:#00aa00;
+}
+
+#result{
+  background:#333;
+	border:solid 1px #4a4a4a;
+  color:#eee;
+	width:300px;
+	height:300px;
+}
