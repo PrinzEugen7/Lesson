@@ -1,4 +1,4 @@
-﻿function wareki2seireki(nengo, wareki)
+function wareki2seireki(nengo, wareki)
 {
     if ((nengo == "平成") && (wareki > 0)) 
     {
@@ -90,7 +90,7 @@ function init()
 function ToWareki()
 {
     // 入力ボックスの値を取得
-    var seireki = document.toWareki.seireki.value;
+    var seireki = document.toWareki.seirekiYear.value;
     wareki = seireki2wareki(seireki);
 	var result = "西暦" + seireki + "年 → " + wareki + "年"
     // 結果表示
