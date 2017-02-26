@@ -1,12 +1,12 @@
 function setSelect( idName, elementName, menu )
 {
     // 入力ボックスの値を取得
-    var id = document.getElementById('select');
+    var id = document.getElementById(idName);
 
     // メニュー項目のセット
     for ( var i in menu ) 
     {
-        var element = document.createElement('option');
+        var element = document.createElement(elementName);
         element.setAttribute('value', i);
         element.innerHTML = menu[i];
         id.appendChild( element );
