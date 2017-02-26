@@ -1,44 +1,112 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
-        <meta name="format-detection" content="telephone=no">
-        <meta name="msapplication-tap-highlight" content="no">
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
-        <link rel="stylesheet" type="text/css" href="css/index.css">
-		<link rel="stylesheet" type="text/css" href="css/style.css">
-        <title>西暦和暦変換</title>
-    </head>
-    <body onload="init();">
-<form name="toSeireki">
-<select id="nengo" name="nengo">
-    <option value="平成">平成</option>
-</select>
+function wareki2seireki(nengo, wareki)
+{
+    if ((nengo == "平成") && (wareki > 0)) 
+    {
+        return parseInt(wareki) + 1988;
+    }
+    else if ((nengo == "昭和") && (wareki > 0) && (wareki <= 64)) 
+    {
+        return parseInt(wareki) + 1925;
+    }
+    else if ((nengo == "大正") && (wareki > 0) && (wareki <= 15)) 
+    {
+        return parseInt(wareki) + 1911;
+    }
+    else if ((nengo == "明治") && (wareki > 0) && (wareki <= 45))
+    {
+        return parseInt(wareki) + 1867;
+    }
+    else{}
+}
 
-<select id="nengoYear" name="nengoYear">
-    <option value=1>1年</option>
-</select>
+function seireki2wareki(year)
+{
+    if (year > 1988) 
+    {
+        return "平成" + (year - 1988);
+    }
+    else if (year > 1925) 
+    {
+        return "昭和" + (year - 1925);
+    }
+    else if (year > 1911) 
+    {
+        return "大正" + (year - 1911);
+    }
+    else if (year > 1988)
+    {
+        return "明治" + (year - 1867);
+    }
+    else{}
+}
 
-<input type="button"  id="toWarekiButton" value="西暦に変換" onclick="ToSeireki();"/>
-</form>
 
-<br>
- <!-- 西暦→年号 -->
-<form name="toWareki">
-西暦 <select id="seirekiYear" name="seireki">
-    <option value=1931>1931年</option>
-</select>
+// 初期化
+function createAssArray(min, max)
+{
+  var srcArray = [];
+  // srcArrayにmin～maxまでの値を挿入
+        for(var i = min; i <= max; i++)
+        {  
+        srcArray[i] = i + '年';   
+        }
+        return srcArray;
+}
 
-<input type="button" id="toWarekiButton" value="和暦に変換" onclick="ToWareki();"/>
-</form>
- <br>
- 
-<form name="result">
-<textarea  id="result" name = "box" value="ここに結果が表示されます。"/></textarea>
-</form>
 
-        <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
-		<script type="text/javascript" src="js/main.js"></script>	
-    </body>
-</html>
+function setSelect( idName, elementName, menu )
+{
+    // 入力ボックスの値を取得
+    var id = document.getElementById(idName);
+
+    // メニュー項目のセット
+    for ( var i in menu ) 
+    {
+        var element = document.createElement(elementName);
+        element.setAttribute('value', i);
+        element.innerHTML = menu[i];
+        id.appendChild( element );
+    }
+}
+
+// 初期化
+function init()
+{
+    // 連想配列
+    var nengo = {
+        '昭和' : '昭和',
+        '大正' : '大正',
+        '明治' : '明治'
+    };
+	var nengoYear = createAssArray(2, 62);
+	var seirekiYear = createAssArray(1931, 2017);
+    // selectの初期化
+    setSelect( 'nengo', 'option', nengo );
+    setSelect( 'nengoYear', 'option', nengoYear );
+    setSelect( 'seirekiYear', 'option', seirekiYear );
+}
+
+// 西暦→和暦
+function ToWareki()
+{
+    // 入力ボックスの値を取得
+    var seireki = document.toWareki.seirekiYear.value;
+    wareki = seireki2wareki(seireki);
+	var result = "西暦" + seireki + "年 → " + wareki + "年"
+    // 結果表示
+	document.result.box.value = result + "\n" + document.result.box.value;
+
+}
+
+// 和暦→西暦
+function ToSeireki()
+{
+    // 入力ボックスの値を取得
+    var nengo = document.toSeireki.nengo.value;	
+    var nengoYear = document.toSeireki.nengoYear.value;
+    seireki = wareki2seireki(nengo, nengoYear);
+	result = nengo + nengoYear +"年 → 西暦" + seireki + "年"
+    // 結果表示
+	document.result.box.value = result + "\n" + document.result.box.value;
+}
+
