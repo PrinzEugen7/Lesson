@@ -5,6 +5,7 @@
 <title>Test</title>
 <!--外部ファイルに記述-->
 <script type="text/javascript" src="main.js"></script>
+<link rel='stylesheet' href='style.css' type='text/css' media='all'/>
 </head>
   
 <body onload="init();">
@@ -22,6 +23,7 @@
 <input type="button"  id="to-wareki-button" value="西暦に変換" onclick="ToSeireki();"/>
 </form>
 
+<br>
  <!-- 西暦→年号 -->
 <form name="to-nengo">
 西暦 <select id="seireki-year" name="seireki">
@@ -30,8 +32,8 @@
 
 <input type="button" id="to-wareki-button" value="和暦に変換" onclick="ToWareki();"/>
 </form>
- 
-<input type="input" id="result" value="ここに結果が表示されます。"/>
+ <br>
+<input type="input"  id="result" value="ここに結果が表示されます。"/>
  
 </body>
 </html>
