@@ -3,16 +3,19 @@ body {
     color:#eee;
 }
 
-#nengo, #nengoYear, #seirekiYear{
+#nengo, #seireki, #nengoYear, #seirekiYear{
     background:#444;
 	border:solid 1px #666;
     color:#eee;
+	font-size:200%;
+	margin: 10px 0 0 10px ;
 }
 
 #toWarekiButton, #toSeirekiButton {
     background:#555;
 	border:solid 1px #888;
     color:#eee;
+	font-size:200%;
 }
 
 #toWarekiButton:hover, #toSeirekiButton:hover {
@@ -20,9 +23,12 @@ body {
 }
 
 #result{
+    padding:3%;
+	font-size:200%;
     background:#333;
 	border:solid 1px #4a4a4a;
     color:#eee;
-	width:300px;
-	height:300px;
+	width:90%;
+	height:400px;
+    overflow: scroll;
 }
