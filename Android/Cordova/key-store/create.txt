@@ -1,0 +1,18 @@
+キーストアのパスワードを入力してください:
+新規パスワードを再入力してください:
+姓名は何ですか。
+[Unknown]: test
+組織単位名は何ですか。
+[Unknown]:
+組織名は何ですか。
+[Unknown]:
+都市名または地域名は何ですか。
+[Unknown]:
+都道府県名または州名は何ですか。
+[Unknown]:
+この単位に該当する2文字の国コードは何ですか。
+[Unknown]:
+CN=asumo, OU=Unknown, O=Unknown, L=Unknown, ST=Unknown, C=Unknownでよろしいですか。
+[いいえ]:y
+testの鍵パスワードを入力してください
+(キーストアのパスワードと同じ場合はRETURNを押してください):
