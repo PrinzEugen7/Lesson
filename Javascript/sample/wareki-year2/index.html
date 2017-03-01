@@ -1,18 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8">
-<title>Test</title>
-<!--外部ファイルに記述-->
-<script type="text/javascript" src="main.js"></script>
-</head>
-  
-<body>
-
-<!-- 選択メニュー -->
-
-
-<!DOCTYPE html>
+<!<!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
@@ -26,12 +12,12 @@
  
  <!-- 選択メニュー -->
 <form name="inputData">
-<select id="nengo" name="nengo">
-    <option value="西暦">西暦</option>
+<select id="nengo" name="nengo" onchange="setYear()">
+    <option value="" >年号選択</option>
 </select>
 
 <select id="year" name="year">
-    <option value=1>2017年</option>
+    <option value=''>年選択</option>
 </select>
 
 <select id="month" name="month">
@@ -52,7 +38,7 @@
  
   <!-- 結果 -->
 <form name="result">
-<textarea　id="result" name = "box" value="ここに結果が表示されます。"/></textarea>
+<textarea id="result" name = "box" value="ここに結果が表示されます。"/></textarea>
 </form>
 
 </body>
