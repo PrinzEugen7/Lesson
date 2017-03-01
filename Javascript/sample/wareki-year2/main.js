@@ -50,13 +50,13 @@ function seireki2wareki(year)
 
 
 // 初期化
-function createAssArray(min, max)
+function createAssArray(min, max, end)
 {
   var srcArray = [];
   // srcArrayにmin～maxまでの値を挿入
         for(var i = min; i <= max; i++)
         {  
-        srcArray[i] = i + '年';   
+        srcArray[i] = i + end;   
         }
         return srcArray;
 }
@@ -87,10 +87,14 @@ function init()
         '大正' : '大正',
         '明治' : '明治'
     };
-    var year = createAssArray(1931, 2017);
+    var year = createAssArray(1945, 2016, '年');
+    var month = createAssArray(2, 12, '月');
+    var day = createAssArray(2, 31, '日');
     // selectの初期化
     setSelect( 'nengo', 'option', nengo );
-    setSelect( 'year', 'option', nengoYear );
+    setSelect( 'year', 'option', year.sort(function(a,b){return(b-a);})  );
+    setSelect( 'month', 'option', month );
+    setSelect( 'day', 'option', day );
 }
 
 // 西暦→和暦
