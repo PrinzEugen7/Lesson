@@ -1,8 +1,10 @@
-function func() {
-  // ブロックスコープが使えない
-  {
-    var message = 'にゃんぱすー';
-  }
-  
-  alert(message);
+function main() {
+    (function () {
+        var hoge = 'hoge';
+    
+        var message = 'にゃんぱすー';
+    
+    }());
+    
+    alert(message);
 }
