@@ -82,21 +82,69 @@ function init()
 {
     // 連想配列
     var nengo = {
-        '平成' : '平成',
+        '西暦' : '西暦',
         '昭和' : '昭和',
         '大正' : '大正',
         '明治' : '明治'
     };
-    var year = createAssArray(1945, 2016, '年');
+
+    // selectの初期化
     var month = createAssArray(2, 12, '月');
     var day = createAssArray(2, 31, '日');
     // selectの初期化
-    setSelect( 'nengo', 'option', nengo );
-    setSelect( 'year', 'option', year.sort(function(a,b){return(b-a);})  );
+	setSelect( 'nengo', 'option', nengo );
     setSelect( 'month', 'option', month );
     setSelect( 'day', 'option', day );
 }
 
+// 初期化
+function setYear()
+{
+	clearSelect();
+    var nengo = document.inputData.nengo.value;
+
+    if(nengo =="西暦")
+	{
+        var year = createAssArray(1945, 2016, '年');
+        setSelect( 'year', 'option', year.sort(function(a,b){return(b-a);})  );
+
+	}
+    else if(nengo =="平成")
+	{
+        var year = createAssArray(1, 29, '年');
+        setSelect( 'year', 'option', year.sort(function(a,b){return(b-a);})  );
+
+	}
+    else if(nengo =="昭和")
+	{
+        var year = createAssArray(1, 64, '年');
+        setSelect( 'year', 'option', year.sort(function(a,b){return(b-a);})  );
+
+	}
+    else if(nengo =="大正")
+	{
+        var year = createAssArray(1, 15, '年');
+        setSelect( 'year', 'option', year.sort(function(a,b){return(b-a);})  );
+
+	}
+    else if(nengo =="明治")
+	{
+        var year = createAssArray(1, 45, '年');
+        setSelect( 'year', 'option', year.sort(function(a,b){return(b-a);})  );
+
+	}
+	else{ }
+}
+
+function clearSelect()
+{
+
+	var len = document.inputData.year.length;
+	if(len > 1) {
+		//optionsの配列番号にnullを入れることでデータが削除されます。
+		document.form1.select1.options[len - 1] = null;
+	}
+}
 // 西暦→和暦
 function ToWareki()
 {
