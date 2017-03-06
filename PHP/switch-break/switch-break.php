@@ -21,3 +21,5 @@ switch ($i)
     break;
 
 }
+
+?>
