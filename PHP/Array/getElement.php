@@ -6,3 +6,5 @@ foreach ($ships as $ship){
     print $ship;
     print "\n";
 }
+
+?>
