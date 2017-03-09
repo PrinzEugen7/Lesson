@@ -11,6 +11,6 @@ class Fubuki {
 }
 
 function main() {
-    const fubuki = Fubuki();
-    hubuki.alertArm();
+    const fubuki = new Fubuki();
+    fubuki.alertArm();
 }
