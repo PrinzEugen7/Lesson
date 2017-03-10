@@ -8,7 +8,7 @@
 
 // ユーザ名・パスワード
 $user = 'fubuki';
-$password = 'kongo';
+$pass = 'kongo';
 
 // Authorizationヘッダが無い場合
 if (!isset($_SERVER['PHP_AUTH_USER'])){
@@ -19,7 +19,7 @@ if (!isset($_SERVER['PHP_AUTH_USER'])){
     die('ページを閲覧するにはログインしてください');
 }else{
     // ログイン画面で「OK」ボタンが押された場合、ユーザ名とパスをチェック
-    if ($_SERVER['PHP_AUTH_USER'] != $user || $_SERVER['PHP_AUTH_PW'] != $password){
+    if ($_SERVER['PHP_AUTH_USER'] != $user || $_SERVER['PHP_AUTH_PW'] != $pass){
         header('WWW-Authenticate: Basic realm="Private Page"');
         header('HTTP/1.0 401 Unauthorized');
 	// ユーザ名とパスが間違っている場合
