@@ -13,7 +13,7 @@ session_name("fatego");
 // セッション名の取得
 $name = session_name();
 // セッション名の表示
-print "現在のセッション名は：$name";
+print "セッション名：$name";
 
 ?>
 </head>
