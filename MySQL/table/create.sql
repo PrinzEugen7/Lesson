@@ -3,5 +3,5 @@ name text,
 class text,
 atk int,
 hp int,
-Rarity int
+rarity int
 );
