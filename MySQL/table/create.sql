@@ -1,6 +1,6 @@
-CREATE TABLE 2011MonacoGP(
-Result int,
-CarNumber int,
-Driver text,
-Team text
+CREATE TABLE artoria(
+name text,
+class text,
+atk text,
+hp text
 );
