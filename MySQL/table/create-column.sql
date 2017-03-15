@@ -1,4 +1,4 @@
-CREATE TABLE artoria(
+CREATE TABLE sarvant.artoria(
 name text,
 class text,
 atk int,
