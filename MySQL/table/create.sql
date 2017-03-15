@@ -1,0 +1,1 @@
+CREATE TABLE sarvant.artoria;
