@@ -6,7 +6,7 @@ namespace Sample
     {
         static void Main() 
         {
-            Console.WriteLine("我が名はめぐみん！");
+            Console.WriteLine("我が名はめぐみん！"); // 我が名はめぐみん！
         }
     }
 }
