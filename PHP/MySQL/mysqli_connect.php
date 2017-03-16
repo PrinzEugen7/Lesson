@@ -6,14 +6,24 @@
 
 <?php
 
-$flag = mysqli_connect('localhost', 'root', 'password');
-// 接続失敗した場合
-if (!$flag) {
-    die('DBに接続失敗。'.mysqli_error());
+$link = mysqli_connect('localhost', 'root', 'password');
+// 接続失敗時
+if (!$link) {
+    print "DB接続失敗<br>";
 }
 
-// 接続成功した場合
-print "DBに接続成功";
+// 接続成功時
+print "DB接続成功<br>";
+
+$flag = mysqli_close($link);
+
+// 切断失敗時
+if (!$flag){
+    print "DB切断失敗<br>";
+}
+
+// 切断成功時
+print "DB切断成功<br>";
 
 ?>
 </head>
