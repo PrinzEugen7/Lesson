@@ -1,3 +1,5 @@
+
+
 # -*- coding: utf-8 -*-
 import mysql.connector
 
@@ -15,12 +17,16 @@ def main():
     # カーソル取得
     db = cnt.cursor(buffered=True)
 
+    # SQLクエリ実行（データ追加）
+    sql = 'INSERT INTO artoria(name) VALUES("nero claudius")';
+    db.execute(sql)
+    
     # SQLクエリ実行（データ取得）
     sql = 'SELECT name FROM artoria';
     db.execute(sql)
-    rows = db.fetchall()
-
+    
     # 表示
+    rows = db.fetchall()
     print(rows)
 
     # カーソル終了
@@ -30,3 +36,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
