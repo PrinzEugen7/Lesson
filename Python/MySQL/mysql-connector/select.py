@@ -25,7 +25,7 @@ def main():
 
     # カーソル終了
     db.close()
-    # MySQL接続
+    # MySQL切断
     cnt.close()
 
 if __name__ == "__main__":
