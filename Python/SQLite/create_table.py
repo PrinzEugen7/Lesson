@@ -1,20 +1,18 @@
-# -*- coding: utf-8 -*-
+# -*- coding: utf-8
 import sqlite3
 
 def main():
-    # DBに接続
-    db = sqlite3.connect("sarvant.db")
-    sql = """
-    create table artoria (
-                 name varchar,
-                 class varchar,
-                 atk integer,
-                 hp integer,
-                 rank varchar);
-   """
-    db.execute(sql)
-    # DB閉じる
+    # データベース開く
+    db = sqlite3.connect('sarvant.db')
+    c = db.cursor()
+    
+    # テーブル作成
+    c.execute('create table artoria (name text, atk int, hp int)')
+
+    # コミット
     db.commit()
+
+    # クローズ
     db.close()
 
 if __name__ == "__main__":
