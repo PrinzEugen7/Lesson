@@ -6,7 +6,8 @@ def main():
     db = sqlite3.connect("sarvant.db")
     c = db.cursor()
     c.execute("select name from artoria")
-    print(c)
+    result = c.fetchall()
+    print(result)
     # 処理実行
     db.commit()
     # DB閉じる
