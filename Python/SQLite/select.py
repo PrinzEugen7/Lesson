@@ -1,16 +1,27 @@
-# -*- coding: utf-8 -*-
+# -*- coding: utf-8
 import sqlite3
 
 def main():
-    # DBに接続
-    db = sqlite3.connect("sarvant.db")
+    # データベース開く
+    db = sqlite3.connect('sarvant.db')
     c = db.cursor()
-    c.execute("select name from artoria")
-    result = c.fetchall()
-    print(result)
-    # 処理実行
+    # テーブル作成
+    c.execute('create table artoria (name text, atk int, hp int)')
+
+    # データ追加(レコード登録)
+    sql = 'insert into artoria (name, atk, hp) values (?,?,?)'
+    data = ('artoria',11221,15150)
+    c.execute(sql, data)
+
+    # コミット
     db.commit()
-    # DB閉じる
+    
+    # データ（レコード）取得
+    sql = 'select * from artoria'
+    for row in c.execute(sql):
+        print(row)
+
+    # クローズ
     db.close()
 
 if __name__ == "__main__":
