@@ -54,7 +54,8 @@ def main():
     
     # 当たりの確率をパーセント表示
     score = 100*hit/len(result)
-    print(score, "[%]")
+    print(round(score, 3), "[%]")
+    
     
 if __name__ == "__main__":
     main()
