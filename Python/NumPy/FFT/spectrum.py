@@ -13,8 +13,7 @@ def main():
     amp = [np.sqrt(c.real ** 2 + c.imag ** 2) for c in F]  # 振幅スペクトル
     phase = [np.arctan2(int(c.imag), int(c.real)) for c in F]    # 位相スペクトル   
     freq = np.fft.fftfreq(len(f))  # 周波数軸の値を計算    
-    print(freq)
-    print(amp)
+    
     # グラフ作成
     plt.figure(1)
     
@@ -28,13 +27,13 @@ def main():
     plt.subplot(222)
     plt.plot(freq, amp)
     plt.ylim(0, 20)
-    plt.xlabel("Data number")    
+    plt.xlabel("Fequency")    
     plt.ylabel("Amplitude")
     
     # 位相
     plt.subplot(223)
-    plt.plot(freq, phase)
-    plt.xlabel("Data number")
+    plt.plot(freq, np.degrees(phase))
+    plt.xlabel("Fequency")   
     plt.ylabel("Phase[deg]")
     
     # グラフ表示
