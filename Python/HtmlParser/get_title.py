@@ -3,20 +3,25 @@ import urllib
 import html.parser as hp
 
 # HTMLParserを継承したクラスを定義
-class ParserTitle(hp.HTMLParser):
-    # コンストラクタ
-    def __init__(self):
+class ParserTag(hp.HTMLParser):
+ 
+    def __init__(self, target):
         hp.HTMLParser.__init__(self)
-        self.title_flag = False # タイトルタグのフラグ
- 
-    def handle_starttag(self, tag, attrs): # 開始タグを扱うメソッド
-        if tag == "title":
-            self.title_flag = True
- 
-    def handle_data(self, data): # 要素内のデータを扱うメソッド
-        if self.title_flag:
-            self.title = data
-            self.title_flag = False
+        self.flag = False    # タグが見つかったかのフラグ
+        self.target = target # 目標タグ
+        
+    # 開始タグを扱うメソッド  
+    def handle_starttag(self, tag, attrs): 
+        # 目標タグが見つかったら
+        if tag == self.target:
+            self.flag = True
+            
+    # タグ内のデータを扱うメソッド
+    def handle_data(self, data): 
+        # 目標タグが見つかれば
+        if self.flag:
+            self.data = data
+            self.flag = False
  
 def main():
     # 取得先URL
@@ -30,11 +35,11 @@ def main():
     html = html.decode('utf-8')
 
     # HTML解析(タイトルタグの値取得)     
-    parser = ParserTitle()        # パーサオブジェクトの生成
-    parser.feed(html) # パーサにHTMLを入力する
+    parser = ParserTag('title')
+    parser.feed(html)
     
     # タイトルタグの中身表示
-    print('Title:', parser.title) #Title: アルゴリズム速報
+    print('Title:', parser.data) # Title: アルゴリズム速報
     
     # 終了処理
     parser.close()
