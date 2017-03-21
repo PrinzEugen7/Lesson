@@ -15,7 +15,7 @@ def main():
     x = np.linspace(1, len(f), len(f))
     
     #　フィッティング
-    a1, a2, b = np.polyfit(x, f, 2)
+    a, b = np.polyfit(x, f, 1)
     
     # フィッティング直線
     fh = a * x + b
