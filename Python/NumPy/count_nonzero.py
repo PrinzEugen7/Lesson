@@ -10,7 +10,7 @@ def main():
     num = np.count_nonzero(A)
     
     # 結果表示
-    print(num) # 3
+    print(num) # 4
    
     
 if __name__ == "__main__":
