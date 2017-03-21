@@ -5,13 +5,13 @@ import html.parser as hp
 # HTMLParserを継承したクラスを定義
 class Parser(hp.HTMLParser):
     def handle_starttag(self, tag, attrs):
-        print("START :", tag, attrs)
+        print("開始タグ :", tag, attrs)
     def handle_endtag(self, tag):
-        print("END :", tag)
+        print("終了タグ :", tag)
     def handle_data(self, data):
-        print("DATA:", data)
+        print("データ:", data)
     def handle_comment(self, comment):
-        print("COMMENT:", comment)
+        print("コメント:", comment)
 
 def main():
     # 取得先URL
