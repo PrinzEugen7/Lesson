@@ -34,7 +34,7 @@ def main():
     parser.feed(html) # パーサにHTMLを入力する
     
     # タイトルタグの中身表示
-    print('Title:', parser.title)
+    print('Title:', parser.title) #Title: アルゴリズム速報
     
     # 終了処理
     parser.close()
