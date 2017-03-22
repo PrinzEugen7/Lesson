@@ -24,8 +24,8 @@ def fitting(x, f):
     
 def main():
      # CSVのロード(2015年と2016年のデータ)
-    data15 = np.genfromtxt("nikkei13.csv", delimiter=",", skip_header=1, dtype='float')
-    data16 = np.genfromtxt("nikkei14.csv", delimiter=",", skip_header=1, dtype='float')
+    data15 = np.genfromtxt("nikkei15.csv", delimiter=",", skip_header=1, dtype='float')
+    data16 = np.genfromtxt("nikkei16.csv", delimiter=",", skip_header=1, dtype='float')
     
     # 5行目を抽出(日経平均株価の終値)
     f15 = data15[:,4]/1000.0
