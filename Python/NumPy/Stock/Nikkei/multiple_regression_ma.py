@@ -1,5 +1,6 @@
 # -*- coding: utf-8
 import numpy as np
+import matplotlib.pyplot as plt
 
 # 移動平均線の計算(データ, 日数)
 def move_average(data, day):
