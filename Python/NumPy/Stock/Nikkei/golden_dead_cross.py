@@ -6,34 +6,27 @@ import matplotlib.pyplot as plt
 def move_average(data, day):
     return np.convolve(data, np.ones(day)/float(day), 'valid')
 
-# ゴールデンクロスの座標取得
-def golden_cross(f1, f2):
-    pt = []
+# ゴールデンクロス・デッドクロスの探索
+def search_cross(f1, f2, i=0):
+    golden = []
+    dead = []
     df = f1 - f2
-    i = 0
-    # 短い方(f1)が長い方(f2)を上に突き抜けた時の座標取得
-    for i in range( len(df)-1 ):            
+    for i in range( len(df)-1 ):        
+        # 短い方(f1)が長い方(f2)を上に突き抜けた時の座標取得
         if(df[i] < 0 and df[i+1] > 0):
-            pt.append([i, f1[i]])
-            
-    return np.array(pt)
-
-# デッドクロスの座標取得    
-def dead_cross(f1, f2):
-    pt = []
-    df = f1 - f2
-    i = 0
-    # 短い方(f1)が長い方(f2)を下に突き抜けた時の座標取得
-    for i in range( len(df)-1 ):
+            golden.append([i, f1[i]])
+        # 短い方(f1)が長い方(f2)を下に突き抜けた時の座標取得
         if(df[i] > 0 and df[i+1] < 0):
-            pt.append([i, f1[i]])            
-    return np.array(pt)
+            dead.append([i, f1[i]])
+            
+    return np.array(golden), np.array(dead)
 
     
 def main():
      # CSVのロード(2015年と2016年のデータ)
     data15 = np.genfromtxt("nikkei15.csv", delimiter=",", skip_header=1, dtype='float')
     data16 = np.genfromtxt("nikkei16.csv", delimiter=",", skip_header=1, dtype='float')
+
     # 5列目の終値だけを取り出し
     f15 = data15[:,4]
     f16 = data16[:,4]
@@ -49,8 +42,7 @@ def main():
     ma_75d = move_average(data, day)
     
     # ゴールデンクロスとデッドクロスの探索
-    gc = golden_cross(ma_25d, ma_75d)
-    dc = dead_cross(ma_25d, ma_75d)
+    gc, dc = search_cross(ma_25d, ma_75d)
 
     # グラフにプロット
     plt.plot(f16,  label="f")
