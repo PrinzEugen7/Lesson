@@ -23,7 +23,7 @@ def main():
         ma =  np.vstack([ma, move_average(data, day)])
 
     # データ保存
-    np.savetxt('moving_average.csv', ma.T, delimiter=",")
+    np.savetxt('ma16.csv', ma.T, delimiter=",")
 
 
     
