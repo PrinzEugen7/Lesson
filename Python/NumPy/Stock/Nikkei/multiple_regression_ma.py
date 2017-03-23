@@ -5,14 +5,13 @@ import numpy as np
 def move_average(data, day):
     return np.convolve(data, np.ones(day)/float(day), 'valid')
 
-    # 偏回帰係数の計算
+# 重回帰分析（偏回帰係数の計算）
 def stat(y, x):
-
     x = np.vstack([np.ones(x.shape[1]), x]) # 定数項, 説明変数
     return np.linalg.lstsq(x.T, y)[0]       # 偏回帰係数
 
 def main():
-    # CSVのロード(2015年と2016年のデータ)
+    # CSVのロード(2014年～2016年のデータ)
     data14 = np.genfromtxt("nikkei14.csv", delimiter=",", skip_header=1, dtype='float')
     data15 = np.genfromtxt("nikkei15.csv", delimiter=",", skip_header=1, dtype='float')
     data16 = np.genfromtxt("nikkei16.csv", delimiter=",", skip_header=1, dtype='float')
@@ -56,9 +55,5 @@ def main():
     # グラフ表示
     plt.show()
 
-
-
-    
 if __name__ == "__main__":
     main()
-
