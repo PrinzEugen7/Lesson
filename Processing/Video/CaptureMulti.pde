@@ -19,7 +19,7 @@ void setup()
 void draw()
 {
      /* カメラの画像を取得 */
-     if (cam1.available()&amp;&amp;cam2.available())
+     if (cam1.available() && cam2.available())
      {
          cam1.read();
          cam2.read();
