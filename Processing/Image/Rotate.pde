@@ -1,14 +1,16 @@
+
+
 float cx, cy, deg;
 PImage im;
 
 void setup() {
   // 画面サイズ
-  size(400, 400);
+  size(500, 500);
   // 画面中央の座標
   cx = width/2;
   cy = height/2;
   // 入力画像を取得
-  im = loadImage("test.png");
+  im = loadImage("test.jpg");
   // 画像を画面中央に配置
   imageMode(CENTER);
 }
