@@ -11,7 +11,8 @@ void setup() {
   // 画像取得
   im = loadImage("test.png");
   //　ウィンドウ作成
-  size(im.width, im.height);
+  surface.setResizable(true);
+  surface.setSize(im.width*2, im.height);   // 画面サイズ
   // スライダーの作成
   cp5 = new ControlP5(this);
   cp5.addSlider("th1",1,255,128,10,10,30,100);
