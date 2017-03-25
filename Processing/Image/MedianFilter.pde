@@ -1,8 +1,12 @@
 PImage im, gray; 
  
 void setup(){ 
-  im = loadImage("test.png");    // 入力画像の読み込み 
-  size(im.width*2, im.height);   // 画面サイズ
+  im = loadImage("test.jpg");    // 入力画像の読み込み 
+  surface.setResizable(true);
+  surface.setSize(im.width*2, im.height);   // 画面サイズ
+} 
+ 
+void draw(){
   gray = createImage(im.width, im.height, RGB);  // 出力画像用の画像配列(gray)を用意(サイズは入力画像と同じ) 
   im.filter(GRAY);               // グレースケール変換
   float a[] = new float[9];      // 周囲9画素分の画素値を格納するための配列を用意   
@@ -27,5 +31,3 @@ void setup(){
   image(gray, im.width, 0);        // 出力画像を画面右に貼る    
 } 
  
-void draw(){ 
-} 
