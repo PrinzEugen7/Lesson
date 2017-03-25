@@ -1,8 +1,9 @@
+
 PImage im, gray; 
  
 void setup(){ 
-  im = loadImage("test.png");    // 入力画像の読み込み 
-  size(im.width*2, im.height);   // 画面サイズ
+  im = loadImage("test.jpg");    // 入力画像の読み込み 
+  size(960, 270);   // 画面サイズ
   gray = createImage(im.width, im.height, RGB);  // 出力画像用の画像配列(gray)を用意(サイズは入力画像と同じ) 
   im.filter(GRAY);               // グレースケール変換
   float a; 
