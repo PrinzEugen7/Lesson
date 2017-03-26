@@ -1,6 +1,6 @@
 data = {"fubuki":1, "shirayuki":2}
 
-del_value = data.pop["fubuki"]
+del_value = data.pop("fubuki")
 
-print(del_value)
-#print(data) # {'shirayuki': 2}
+print(del_value) # 1
+print(data) # {'shirayuki': 2}
