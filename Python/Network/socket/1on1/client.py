@@ -7,7 +7,7 @@ def main():
 
     while(1):
         data = soc.recv(1024)
-        print "Server>", data       # サーバー側の書き込みを表示
+        print("Server>", data)      # サーバー側の書き込みを表示
         data = raw_input("Client>") # 入力待機
         soc.send(data)              # ソケットに入力したデータを送信
 
