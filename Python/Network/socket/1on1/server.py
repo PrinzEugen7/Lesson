@@ -12,7 +12,7 @@ def main():
         data = raw_input("Server>") # 入力待機(サーバー側)
         soc.send(data)              # ソケットにデータを送信
         data = soc.recv(1024)       # データを受信（1024バイトまで）
-        print "Client>",data        # サーバー側の書き込みを表示
+        print("Client>",data)       # サーバー側の書き込みを表示
         if data == "q":             # qが押されたら終了
             soc.close()
             break
