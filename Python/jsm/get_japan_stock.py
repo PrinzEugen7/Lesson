@@ -13,8 +13,7 @@ def get_stock(code, start_date, end_date):
     q = jsm.Quotes()
     target = q.get_historical_prices(code, jsm.DAILY, start_date = start, end_date = end)
     # 項目ごとにリストに格納して返す
-    stock = [data.date for data in target]
-    date = [data.date.today() for data in target]
+    date = [data.date for data in target]
     open = [data.open for data in target]
     close = [data.close for data in target]
     high = [data.high for data in target]
