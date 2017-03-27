@@ -29,7 +29,7 @@ def main():
     # 取得したデータの表示
     print("日付\t始値\t終値\t高値\t安値")
     for date, open, close, high, low in list(zip(*data)):
-        print(date.strftime("%m/%d"), "\t", open, "\t", open, "\t", close, "\t", high, "\t", low)
+        print(date.strftime("%m/%d"), "\t", open, "\t", close, "\t", high, "\t", low)
     
 if __name__ == "__main__":
     main()
