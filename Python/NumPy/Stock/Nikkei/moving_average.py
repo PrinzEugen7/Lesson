@@ -10,9 +10,9 @@ def main():
      # CSVのロード(2015年と2016年のデータ)
     data15 = np.genfromtxt("nikkei15.csv", delimiter=",", skip_header=1, dtype='float')
     data16 = np.genfromtxt("nikkei16.csv", delimiter=",", skip_header=1, dtype='float')
-    # 5列目の終値だけを取り出し
-    f15 = data15[:,4]
-    f16 = data16[:,4]
+    # 5列目の終値だけを日付古い順に並び替えて取り出し
+    f15, f16 = data15[:,4], data16[:,4]
+    f15, f16 = f15[::-1], f16[::-1]
     
     # 移動平均線(25日線)の計算
     day = 25    # 日数
@@ -26,14 +26,14 @@ def main():
     
     # グラフにプロット
     plt.plot(f16,  label="f")
-    plt.plot(ma_25d, label="MA 25d")
-    plt.plot(ma_75d, label="MA 75d")    
+    plt.plot(ma_25d, "--", color="r", label="MA 25d")
+    plt.plot(ma_75d, "--", color="g", label="MA 75d")  
     
     #　ラベル軸
     plt.xlabel("Day")
     plt.ylabel("f")
     # 凡例
-    plt.legend()
+    plt.legend(loc="4")
     # グリッド
     plt.grid()
     # グラフ表示
