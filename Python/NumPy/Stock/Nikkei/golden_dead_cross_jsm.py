@@ -46,8 +46,9 @@ def search_cross(f1, f2, i=0):
     
 def main():
     # 株価の取得(銘柄コード, 開始日, 終了日)
-    data15 = get_stock(8704, '2015-1-1', '2015-12-31')
-    data16 = get_stock(8704, '2016-1-5', '2016-12-31')
+    code = 8704
+    data15 = get_stock(code, '2015-1-1', '2015-12-31')
+    data16 = get_stock(code, '2016-1-5', '2016-12-31')
     data15 = np.array(data15)
     data16 = np.array(data16)
     # 終値だけを日付を古い順に並び替えて抽出
