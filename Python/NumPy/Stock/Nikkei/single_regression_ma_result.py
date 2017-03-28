@@ -26,10 +26,9 @@ def main():
     data15 = np.genfromtxt("nikkei15.csv", delimiter=",", skip_header=1, dtype='float')
     data16 = np.genfromtxt("nikkei16.csv", delimiter=",", skip_header=1, dtype='float')
 
-    # 5列目の終値だけを取り出し
-    f14 = data14[:,4]
-    f15 = data15[:,4]
-    f16 = data16[:,4]
+    # 5列目の終値だけを古い順に並び替えて取り出し
+    f14, f15, f16 = data14[:,4], data15[:,4], data16[:,4]
+    f14, f15, f16 = f14[::-1], f15[::-1], f16[::-1]
 
     # 2015年分と2016年分の移動平均線を計算
     days = [5, 25, 75, 200]
