@@ -27,9 +27,9 @@ def main():
     data15 = np.genfromtxt("nikkei15.csv", delimiter=",", skip_header=1, dtype='float')
     data16 = np.genfromtxt("nikkei16.csv", delimiter=",", skip_header=1, dtype='float')
     
-    # 5行目を抽出(日経平均株価の終値)
-    f15 = data15[:,4]/1000.0
-    f16 = data16[:,4]/1000.0
+    # 5行目を抽出(日経平均株価の終値を古い順に並び替え)
+    f15, f16 = data15[:,4]/1000.0, data16[:,4]/1000.0
+    f15, f16 = f15[::-1], f16[::-1]
     #　xの値を生成
     x15 = np.linspace(1, len(f15), len(f15))
     x16 = np.linspace(1, len(f16), len(f16))   
