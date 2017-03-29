@@ -33,24 +33,26 @@ def main():
     # 移動平均線の計算
     ma_25d = df['終値'].rolling(window=25).mean()
     ma_75d = df['終値'].rolling(window=75).mean()
+
+    # データフレームの列に移動平均線を追加
+    df['移動平均線(25日)'] = ma_25d 
+    df['移動平均線(75日)'] = ma_75d 
+    
     # 移動平均のクロス確認
     cross  = ma_25d > ma_75d
     golden = (cross != cross.shift(1)) & (cross == True)
     dead   = (cross != cross.shift(1)) & (cross == False)
     
-    index_g = [i for i, x in enumerate(golden) if x == 1]
-    index_d = [i for i, x in enumerate(dead) if x == -1]
-    print(index_g)
-    # クロスのラベルとデータを追加(GC:1, DC:-1, 何もなし:0)
-    df['クロス'] = [x+y*-1 for x,y in zip(golden, dead)]
-    #df[col_name] = np.append(np.array([0] * (long_day+3)), df[col_name][long_day+3:])
-    print(df)
+    # ゴールデンクロス・デッドクロスの発生位置（要素番号）をリストに格納
+    index_g = [i for i, x in enumerate(golden) if x == True]
+    index_d = [i for i, x in enumerate(dead) if x == True]
+       
     # グラフにプロット
     ax = df['終値'].plot(color="blue", label="Close")
-    ma_25d.columns = ["MA 25d"]
     ma_25d.plot(ax=ax, ls="--", color="red", label="MA 25d")
-    ma_75d.columns = ["MA 75d"]
     ma_75d.plot(ax=ax, ls="--", color="green", label="MA 75d")
+    df.iloc[index_g, 5].plot(ax=ax, ls='', marker='^', ms='10', color="green", label="Golden cross")
+    df.iloc[index_d, 5].plot(ax=ax, ls='', marker='v', ms='10', color="red", label="Dead cross")
     ax.grid()
     ax.legend()
 
