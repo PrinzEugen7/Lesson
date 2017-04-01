@@ -4,7 +4,7 @@ using System;
 public class TypeFubuki
 {
     // インスタンス変数
-    public string name;
+    public string name = "吹雪";
 }
 
 public class Test
@@ -13,7 +13,5 @@ public class Test
         {
                 // インスタンス生成
                 TypeFubuki fubuki = new TypeFubuki();
-                fubuki.name = "吹雪";
-
         }
 }
