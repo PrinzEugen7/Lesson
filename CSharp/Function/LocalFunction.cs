@@ -5,17 +5,17 @@ public class Test
         public static void Main()
         {
                 // 文字列宣言
-                var str = "沖田";
+                string str = "沖田";
                 
                 // ローカル関数
-                int myFunc(var x) {
+                int myFunc(string x) {
                    System.Console.WriteLine(str);
                    System.Console.WriteLine(x);
                    return 0;
                 };
                 
                 // ローカル関数の呼び出し
-                myFunc("モードレッド);
+                myFunc("武蔵");
 
         }
 }
