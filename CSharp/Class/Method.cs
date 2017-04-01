@@ -8,17 +8,17 @@ public class TypeFubuki
     public string type ="艦種";
     
     // コンストラクタ(初期化メソッド)
-    public TypeFubuki(string srcName, string srcType)
+    public TypeFubuki(string name, string type)
     {
-        name = srcName;
-        type = srcType;
+        this.name = name;
+        this.type = type;
     }
     
     // メソッド定義
     public void Print()
     {
         // 表示
-        System.Console.WriteLine(type + ":" + name);
+        System.Console.WriteLine(this.type + ":" + this.name);
     }
 }
 
