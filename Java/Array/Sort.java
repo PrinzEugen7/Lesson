@@ -15,6 +15,6 @@ class Test
             Arrays.sort(score);
             
             // コンソール出力
-            for(int a : score) System.out.println(a); // 深雪, 白雪, 吹雪 
+            for(int a : score) System.out.println(a); // 51, 72, 100
         }
 }
