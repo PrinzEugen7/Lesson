@@ -7,6 +7,7 @@ class Main
 {
 	public static void main (String[] args) throws java.lang.Exception
 	{
+		// インスタンス生成
         TypeFubuki fubuki = new TypeFubuki();
 	}
 }
