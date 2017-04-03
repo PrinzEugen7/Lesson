@@ -1,0 +1,18 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+// メイン
+class Main
+{
+	public static void main (String[] args) throws java.lang.Exception
+	{
+        TypeFubuki fubuki = new TypeFubuki();
+	}
+}
+
+// クラス宣言
+class TypeFubuki
+{
+ 
+}
