@@ -2,8 +2,8 @@
 body {
     margin: 0;
     padding: 0;
-    font-size: 15px;
-    line-height: 1.618;
+    font-size: 17px;
+    line-height: 1;
     background: #eee;
 }
 
@@ -18,6 +18,28 @@ body {
     width: 400px;
     font: 22px "Trebuchet MS", Arial, Helvetica, sans-serif;
     color: #eee;
+    float: left;
+}
+
+.nav {
+    width: 100px;
+    height: 40px;
+    padding-top: 5px;
+    list-style-type: none;
+    text-align: center;
+    float: left;
+    overflow: hidden
+}
+
+.nav a {
+    font: 20px "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font-weight: 700;
+    color: #ba9b89;
+    text-decoration: none;
+}
+
+.nav:hover {
+    background: #36281f;
 }
 
 .footer {
@@ -31,25 +53,18 @@ body {
 .wrapper {
     width: 1000px;
     margin: 0 auto;
-    /* 左右に[auto]を指定することで、真ん中に寄る */
     padding: 0;
-    /* 上下左右の余白を0にしておく */
 }
 
 .main {
-    width: 618px;
+    width: 600px;
     padding: 20px;
-}
-
-.side {
-    width: 320px;
-}
-
-.main {
+    border: 1px solid #ccc;
     float: left;
 }
 
 .side {
+    width: 300px;
     float: right;
 }
 
@@ -57,29 +72,34 @@ body {
     overflow: hidden;
 }
 
+h2 {
+    border-left: 6px solid #36281f;
+    padding-left: 10px;
+}
+
 
 /* スマホ用CSS */
 
-@media screen and (max-width:479px) {
+@media screen and (max-width:450px) {
     body {
         font-size: 13px;
     }
 }
 
-@media screen and (max-width:479px) {
+@media screen and (max-width:450px) {
     .logo {
         width: 200px;
     }
 }
 
-@media screen and (max-width:479px) {
+@media screen and (max-width:450px) {
     .wrapper {
         width: auto;
         padding: 0 10px;
     }
 }
 
-@media screen and (max-width:479px) {
+@media screen and (max-width:450px) {
     .main {
         width: auto;
         padding: 0;
@@ -90,7 +110,7 @@ body {
     }
 }
 
-@media screen and (max-width:479px) {
+@media screen and (max-width:450px) {
     .main,
     .side {
         float: none;
