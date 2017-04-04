@@ -1,137 +1,98 @@
-@charset "UTF-8" ;
-
-
-body
-{
-	margin: 0 ;		/* スペース */
-	padding: 0 ;		/* 余白 */
-	font-size: 15px ;	/* 文字サイズ */
-	line-height: 1.618 ;	/* 行の高さ */
+@charset "UTF-8";
+body {
+    margin: 0;
+    padding: 0;
+    font-size: 15px;
+    line-height: 1.618;
+    background: #eee;
 }
 
-/* スマホだけに適用するCSS */
-@media screen and (max-width:479px)
-{
-	/* ボディ */
-	body
-	{
-		font-size: 13px ;	/* 文字サイズ */
-	}
+.header {
+    text-align: center;
+    padding: 0.5em 0.5em 0.5em 0.5em;
+    background: #150D0F;
+    height: 40px;
 }
 
-/* ヘッダー */
-.header
-{
-	border-bottom: 3px solid #888 ;		/* 枠線 */
-	text-align: center ;			/* テキスト、画像の真ん中寄せ */
-	padding: 1em 0 ;			/* 上下の余白 */
-	margin-bottom: 2em ;			/* 他のブロックとのスペース */
-	background: #e8e8e8 ;			/* 背景色(確認用) */
+.logo {
+    width: 400px;
+    font: 22px "Trebuchet MS", Arial, Helvetica, sans-serif;
+    color: #eee;
 }
 
-/* ロゴ画像を囲むh1 */
-.logo-wrapper
-{
-	margin: 0 ;
-	padding: 0 ;
-	line-height: 1 ;
+.footer {
+    color: #ccc;
+    text-align: center;
+    margin-top: 2em;
+    padding: 1em 0;
+    background: #150D0F;
 }
 
-/* ロゴ画像 */
-.logo
-{
-	width: 400px ;
-	height: auto ;
+.wrapper {
+    width: 1000px;
+    margin: 0 auto;
+    /* 左右に[auto]を指定することで、真ん中に寄る */
+    padding: 0;
+    /* 上下左右の余白を0にしておく */
 }
 
-/* スマホだけに適用するCSS */
-@media screen and (max-width:479px)
-{
-	/* ロゴ画像 */
-	.logo
-	{
-		width: 200px ;
-	}
+.main {
+    width: 618px;
+    padding: 20px;
 }
 
-/* フッター */
-.footer
-{
-	border-top: 3px solid #888 ;		/* 枠線 */
-	text-align: center ;			/* テキスト、画像の真ん中寄せ */
-	margin-top: 2em ;			/* 他のブロックとのスペース */
-	padding: 1em 0 ;			/* 上下の余白 */
-	background: #e8e8e8 ;
+.side {
+    width: 320px;
 }
 
-/* 全体(デスクトップPCとスマホ)に適用するCSS */
-.wrapper
-{
-	width: 1000px ;
-	margin: 0 auto ;		/* 左右に[auto]を指定することで、真ん中に寄る */
-	padding: 0 ;			/* 上下左右の余白を0にしておく */
+.main {
+    float: left;
 }
 
-/* スマホだけに適用するCSS */
-@media screen and (max-width:479px)
-{
-	.wrapper
-	{
-		width: auto ;
-		padding: 0 10px ;
-	}
+.side {
+    float: right;
 }
 
-/* 全体(デスクトップPCとスマホ)に適用するCSS */
-.main
-{
-	width: 618px ;
-	padding: 20px ;					/* 上下左右に20pxの余白 */
-	border: 1px solid rgba(0,0,0,.1) ;		/* 枠線 */
+.wrapper {
+    overflow: hidden;
 }
 
-.side
-{
-	width: 320px ;
+
+/* スマホ用CSS */
+
+@media screen and (max-width:479px) {
+    body {
+        font-size: 13px;
+    }
 }
 
-/* スマホだけに適用するCSS */
-@media screen and (max-width:479px)
-{
-	.main
-	{
-		width: auto ;
-		padding: 0 ;		/* 余白 */
-		border: none ;		/* 枠線 */
-	}
-
-	.side
-	{
-		width: auto ;
-	}
+@media screen and (max-width:479px) {
+    .logo {
+        width: 200px;
+    }
 }
 
-/* 全体(デスクトップPCとスマホ)に適用するCSS */
-.main
-{
-	float: left ;		/* 左に寄せる */
+@media screen and (max-width:479px) {
+    .wrapper {
+        width: auto;
+        padding: 0 10px;
+    }
 }
 
-.side
-{
-	float: right ;		/* 右に寄せる */
+@media screen and (max-width:479px) {
+    .main {
+        width: auto;
+        padding: 0;
+        border: none;
+    }
+    .side {
+        width: auto;
+    }
 }
 
-/* スマホだけに適用するCSS */
-@media screen and (max-width:479px)
-{
-	.main , .side
-	{
-		float: none ;
-	}
-}
-
-.wrapper
-{
-	overflow: hidden ;
+@media screen and (max-width:479px) {
+    .main,
+    .side {
+        float: none;
+    }
 }
