@@ -2,30 +2,38 @@
 /* スマホ用（画面サイズ450px以下） */
 
 @media screen and (max-width:450px) {
+    /* 文字サイズを小さく */
     body {
         font-size: 13px;
     }
+     /* サイトロゴの幅を小さくし、回り込み解除 */
     .logo {
         width: 200px;
         float: none;
     }
+     /* ナビゲーションを非表示 */
     .nav {
         display: none;
     }
+    /* ページ幅をスマホ画面に合わせる */
     .wrapper {
         width: auto;
         padding: 0 10px;
     }
+    /* 幅をスマホ画面に合わせて枠線を消す */
     .main {
         width: auto;
         padding: 0;
         border: none;
     }
+    /* 幅をスマホ画面に合わせる */
     .side {
         width: auto;
     }
+    /* 回り込み解除(記事の下にサイドメニューが来る) */
     .main,
     .side {
         float: none;
     }
 }
+
