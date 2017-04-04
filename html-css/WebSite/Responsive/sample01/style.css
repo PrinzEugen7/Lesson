@@ -80,7 +80,7 @@ h2 {
 
 /* スマホ用CSS */
 
-@media screen and (max-width:450px) {
+@media screen and {
     body {
         font-size: 13px;
     }
