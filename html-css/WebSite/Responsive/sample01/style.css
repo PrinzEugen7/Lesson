@@ -1,0 +1,137 @@
+@charset "UTF-8" ;
+
+
+body
+{
+	margin: 0 ;		/* スペース */
+	padding: 0 ;		/* 余白 */
+	font-size: 15px ;	/* 文字サイズ */
+	line-height: 1.618 ;	/* 行の高さ */
+}
+
+/* スマホだけに適用するCSS */
+@media screen and (max-width:479px)
+{
+	/* ボディ */
+	body
+	{
+		font-size: 13px ;	/* 文字サイズ */
+	}
+}
+
+/* ヘッダー */
+.header
+{
+	border-bottom: 3px solid #888 ;		/* 枠線 */
+	text-align: center ;			/* テキスト、画像の真ん中寄せ */
+	padding: 1em 0 ;			/* 上下の余白 */
+	margin-bottom: 2em ;			/* 他のブロックとのスペース */
+	background: #e8e8e8 ;			/* 背景色(確認用) */
+}
+
+/* ロゴ画像を囲むh1 */
+.logo-wrapper
+{
+	margin: 0 ;
+	padding: 0 ;
+	line-height: 1 ;
+}
+
+/* ロゴ画像 */
+.logo
+{
+	width: 400px ;
+	height: auto ;
+}
+
+/* スマホだけに適用するCSS */
+@media screen and (max-width:479px)
+{
+	/* ロゴ画像 */
+	.logo
+	{
+		width: 200px ;
+	}
+}
+
+/* フッター */
+.footer
+{
+	border-top: 3px solid #888 ;		/* 枠線 */
+	text-align: center ;			/* テキスト、画像の真ん中寄せ */
+	margin-top: 2em ;			/* 他のブロックとのスペース */
+	padding: 1em 0 ;			/* 上下の余白 */
+	background: #e8e8e8 ;
+}
+
+/* 全体(デスクトップPCとスマホ)に適用するCSS */
+.wrapper
+{
+	width: 1000px ;
+	margin: 0 auto ;		/* 左右に[auto]を指定することで、真ん中に寄る */
+	padding: 0 ;			/* 上下左右の余白を0にしておく */
+}
+
+/* スマホだけに適用するCSS */
+@media screen and (max-width:479px)
+{
+	.wrapper
+	{
+		width: auto ;
+		padding: 0 10px ;
+	}
+}
+
+/* 全体(デスクトップPCとスマホ)に適用するCSS */
+.main
+{
+	width: 618px ;
+	padding: 20px ;					/* 上下左右に20pxの余白 */
+	border: 1px solid rgba(0,0,0,.1) ;		/* 枠線 */
+}
+
+.side
+{
+	width: 320px ;
+}
+
+/* スマホだけに適用するCSS */
+@media screen and (max-width:479px)
+{
+	.main
+	{
+		width: auto ;
+		padding: 0 ;		/* 余白 */
+		border: none ;		/* 枠線 */
+	}
+
+	.side
+	{
+		width: auto ;
+	}
+}
+
+/* 全体(デスクトップPCとスマホ)に適用するCSS */
+.main
+{
+	float: left ;		/* 左に寄せる */
+}
+
+.side
+{
+	float: right ;		/* 右に寄せる */
+}
+
+/* スマホだけに適用するCSS */
+@media screen and (max-width:479px)
+{
+	.main , .side
+	{
+		float: none ;
+	}
+}
+
+.wrapper
+{
+	overflow: hidden ;
+}
