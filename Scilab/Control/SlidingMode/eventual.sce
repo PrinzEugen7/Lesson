@@ -38,7 +38,7 @@ for i = 1:250;
   // 外乱パラメータ
   w=1;t=i;
   // SMCの切換関数・制御入力・状態方程式
-  sigma = S*X; // switching function //
+  sigma = S*X;
   U = -inv(S*BF)*{(S*AF*X)+Q*sign(sigma)+P*sigma};//等価制御入力
   dX =A*X+B*U;//+[0; 0; 1 ; 1 ]*0.1*sin(w*t); //状態方程式 
   // データ格納
@@ -60,7 +60,6 @@ xlabel('Time   [s]')
 ylabel('Control Input   [N]')
 
 //　状態変数(第2象限)
-//subplot(221),plot(tt,Xh1(3,:),tt,Xh1(4,:)),xgrid(2)
 subplot(221),plot(tt,Xh1(1,:),tt,Xh1(2,:),tt,Xh1(3,:),tt,Xh1(4,:)),xgrid(2)
 title('状態変数')
 xlabel('Time   [s]')
