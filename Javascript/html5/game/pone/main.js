@@ -12,7 +12,7 @@ class Pone {
         this.ctx = null;
         this.score1p = 0; // 1P(プレイヤー)のスコア
         this.score2p = 0; // 2P(CPU)のスコア
-        this.scoreMax = 2; // スコアの最大値
+        this.scoreMax = 5; // スコアの最大値
         this.gameSet = false; // ゲームセットフラグ
         this.bx = 50; // ボールのx座標
         this.by = 50; // ボールのy座標
@@ -62,17 +62,16 @@ class Pone {
     }
     // 各物体の描画
     draw() {
-        // 1Pのパドル
-        this.paddle(0, 0, this.cvs.width, this.cvs.height, 'black');
 
+        this.screen(0, 0, this.cvs.width, this.cvs.height, '#111');
+        this.line(this.cvs.width / 2, 0, this.cvs.width / 2, this.cvs.height, '#333');
         if (this.gameSet) {
             this.gameSetWindow();
             return;
         }
-
-        this.paddle(0, this.p1y, this.paddleW, this.paddleH, 'white');
-        this.paddle(this.cvs.width - this.paddleW, this.p2y, this.paddleW, this.paddleH, 'white');
-        this.ball(this.bx, this.by, 10, 'white');
+        this.paddle(0, this.p1y, this.paddleW, this.paddleH, '#22aa22');
+        this.paddle(this.cvs.width - this.paddleW, this.p2y, this.paddleW, this.paddleH, '#aa2222');
+        this.ball(this.bx, this.by, 10, '#ddd');
         this.ctx.font = "50px Georgia";
         this.ctx.fillText(this.score1p, 100, 100);
         this.ctx.fillText(this.score2p, this.cvs.width - 100, 100);
@@ -90,6 +89,19 @@ class Pone {
         this.ctx.fillRect(x, y, w, h);
     }
 
+    screen(x, y, w, h, color) {
+        this.ctx.fillStyle = color;
+        this.ctx.fillRect(x, y, w, h);
+    }
+
+    line(x1, y1, x2, y2, color) {
+        this.ctx.beginPath();
+        this.ctx.strokeStyle = color;
+        this.ctx.moveTo(x1, y1);
+        this.ctx.lineTo(x2, y2);
+        this.ctx.closePath();
+        this.ctx.stroke();
+    }
     resetBall() {
         if (this.score1p >= this.scoreMax || this.score2p >= this.scoreMax) {
             this.gameSet = true;
@@ -110,10 +122,10 @@ class Pone {
     }
     gameSetWindow() {
         if (this.score1p >= this.scoreMax) {
-            this.ctx.fillStyle = 'white';
+            this.ctx.fillStyle = '#aa2222';
             this.ctx.fillText("You're WINNER!", 150, 200);
         } else {
-            this.ctx.fillStyle = 'white';
+            this.ctx.fillStyle = '#2222aa';
             this.ctx.fillText("You're LOSEER!", 200, 200);
         }
         this.ctx.font = "25px Georgia";
