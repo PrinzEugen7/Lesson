@@ -19,11 +19,17 @@ var game = {
     ball: {
         size: 5,
         speed: 5,
+        x: 320,
+        y: 240,
         color: '#dd0000'
     }, // ボール：サイズ, 速さ, 色
     block: {
         size: 5,
         speed: 5,
+        x: 0,
+        y: 0,
+        row: 10,
+        col: 14,
         color: '#00aa00',
         strokeColor: '#003300'
     }, // ブロック：サイズ, 速さ, 色(内部), 色(外枠)
@@ -149,10 +155,11 @@ window.addEventListener('mousemove', function (e) {
     game.pos.y = e.clientY - rect.top;
 }, false);
 
+// ブロックの初期化
 function initBlocks() {
     var blocks = [];
-    var col = 14; // ブロックの列数
-    var row = 10; // ブロックの行数
+    var col = game.block.col;
+    var row = game.block.row;
     for (var i = 0; i < row; i++) {
         for (var j = 0; j < col; j++) {
             blocks[i * col + j] = new Block({
@@ -166,6 +173,7 @@ function initBlocks() {
     return blocks;
 }
 
+
 function main() {
     var cvs = document.getElementById('sample');
     game.ctx = cvs.getContext('2d');
@@ -176,8 +184,8 @@ function main() {
         y: 0,
         speed: game.ball.speed
     });
-    ball.x = 320;
-    ball.y = 400;
+    ball.x = game.ball.x;
+    ball.y = game.ball.y;
     ball.dx = game.ball.speed;
     ball.dy = game.ball.speed * -1;
     // パドル初期化
@@ -186,10 +194,10 @@ function main() {
     });
     // ブロック初期化
     blocks = initBlocks();
-    var col = 14; // ブロックの列数
-    var row = 10; // ブロックの行数
     // アニメーション
     setInterval(function () {
+        var col = game.block.col; // ブロックの列数
+        var row = game.block.row; // ブロックの行数
         if (game.status != 'play') {
             game.ctx.fillStyle = game.background.color;
             game.ctx.fillRect(0, 0, game.cvs.width, game.cvs.height);
