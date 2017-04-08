@@ -134,12 +134,12 @@ class Pone {
             pone.draw();
         }, 1000 / fps);
 
-        this.cvs.addEventListener('mousemove', function (evt) {
+        document.addEventListener('mousemove', function (evt) {
             pone.mousePos(evt);
             p1y = pone.mouseY - (pone.paddleH / 2);
         });
 
-        this.cvs.addEventListener('mousedown', pone.mouseClick);
+        document.addEventListener('mousedown', pone.mouseClick);
     }
 }
 
