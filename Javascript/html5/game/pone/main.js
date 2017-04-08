@@ -77,12 +77,8 @@ class Pone {
         }
 
         Pone.paddle(0, p1y, this.paddleW, this.paddleH, 'white');
-
         Pone.paddle(cvs.width - this.paddleW, p2y, this.paddleW, this.paddleH, 'white');
-
-        // Next line draws the balls
         Pone.ball(bx, by, 10, 'white');
-
         ctx.fillText(score1p, 100, 100);
         ctx.fillText(score2p, cvs.width - 100, 100);
     }
