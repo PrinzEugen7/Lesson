@@ -15,8 +15,8 @@ const PADDLE_WIDTH = 10;
 
 class Pone {
     constructor(name = '吹雪', arm1 = '10cm連装高角砲') {
-        this.name = name;
-        this.arm1 = arm1;
+        this.mouseX = 0;
+        this.mouseY = 0;
     }
     move() {
         if (showingWinScreen) {
@@ -115,26 +115,21 @@ class Pone {
             p2y -= 6;
         }
     }
-
-}
-
-function calculateMousePosition(evt) {
-    var rect = cvs.getBoundingClientRect();
-    var root = document.documentElement;
-    var mousex = evt.clientx - rect.left - root.scrollLeft;
-    var mouseY = evt.clientY - rect.top - root.scrollTop;
-    return {
-        x: mousex,
-        y: mouseY
-    };
-}
-
-function handleMouseClick(evt) {
-    if (showingWinScreen) {
-        score1p = 0;
-        score2p = 0;
-        showingWinScreen = false;
+    mousePos(evt) {
+        var rect = cvs.getBoundingClientRect();
+        var root = document.documentElement;
+        this.mouseX = evt.clientx - rect.left - root.scrollLeft;
+        this.mouseY = evt.clientY - rect.top - root.scrollTop;
     }
+
+    mouseClick(evt) {
+        if (showingWinScreen) {
+            score1p = 0;
+            score2p = 0;
+            showingWinScreen = false;
+        }
+    }
+
 }
 
 window.onclick = function () {
@@ -148,9 +143,9 @@ window.onclick = function () {
     }, 1000 / fps);
 
     cvs.addEventListener('mousemove', function (evt) {
-        var mousePos = calculateMousePosition(evt);
-        p1y = mousePos.y - (PADDLE_HEIGHT / 2);
+        pone.mousePos(evt);
+        p1y = pone.mouseY - (PADDLE_HEIGHT / 2);
     });
 
-    cvs.addEventListener('mousedown', handleMouseClick);
+    cvs.addEventListener('mousedown', pone.mouseClick);
 }
