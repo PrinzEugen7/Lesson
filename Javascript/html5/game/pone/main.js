@@ -10,13 +10,14 @@ const WINNING_SCORE = 3;
 var showingWinScreen = false;
 var p1y = 250;
 var p2y = 250;
-const PADDLE_HEIGHT = 100;
-const PADDLE_WIDTH = 10;
+
 
 class Pone {
     constructor(name = '吹雪', arm1 = '10cm連装高角砲') {
         this.mouseX = 0;
         this.mouseY = 0;
+        this.paddleW = 10;
+        this.paddleH = 100;
     }
     move() {
         if (showingWinScreen) {
@@ -29,10 +30,10 @@ class Pone {
         by += vy;
 
         if (bx < 0) {
-            if (by > p1y && by < p1y + PADDLE_HEIGHT) {
+            if (by > p1y && by < p1y + this.paddleH) {
                 vx = -vx;
 
-                var dy = by - (p1y + PADDLE_HEIGHT / 2);
+                var dy = by - (p1y + this.paddleH / 2);
                 vy = dy * 0.35;
             } else {
                 score2p++; // Must come first for win checking
@@ -42,10 +43,10 @@ class Pone {
         }
 
         if (bx > cvs.width) {
-            if (by > p2y && by < p2y + PADDLE_HEIGHT) {
+            if (by > p2y && by < p2y + this.paddleH) {
                 vx = -vx;
 
-                var dy = by - (p2y + PADDLE_HEIGHT / 2);
+                var dy = by - (p2y + this.paddleH / 2);
                 vy = dy * 0.35;
             } else {
                 score1p++; // Must come first for win checking
@@ -75,9 +76,9 @@ class Pone {
             return;
         }
 
-        Pone.paddle(0, p1y, PADDLE_WIDTH, PADDLE_HEIGHT, 'white');
+        Pone.paddle(0, p1y, this.paddleW, this.paddleH, 'white');
 
-        Pone.paddle(cvs.width - PADDLE_WIDTH, p2y, PADDLE_WIDTH, PADDLE_HEIGHT, 'white');
+        Pone.paddle(cvs.width - this.paddleW, p2y, this.paddleW, this.paddleH, 'white');
 
         // Next line draws the balls
         Pone.ball(bx, by, 10, 'white');
@@ -108,7 +109,8 @@ class Pone {
         vx = -vx;
     }
     static cpu() {
-        var p2yCentre = p2y + (PADDLE_HEIGHT / 2);
+        // 100をthis.paddleHにするとエラー
+        var p2yCentre = p2y + (100 / 2);
         if (p2yCentre < by - 35) {
             p2y += 6;
         } else if (p2yCentre > by + 35) {
@@ -144,7 +146,7 @@ window.onclick = function () {
 
     cvs.addEventListener('mousemove', function (evt) {
         pone.mousePos(evt);
-        p1y = pone.mouseY - (PADDLE_HEIGHT / 2);
+        p1y = pone.mouseY - (pone.paddleH / 2);
     });
 
     cvs.addEventListener('mousedown', pone.mouseClick);
