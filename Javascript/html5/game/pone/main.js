@@ -62,24 +62,18 @@ class Pone {
     }
     // 各物体の描画
     draw() {
+        // 1Pのパドル
         this.paddle(0, 0, this.cvs.width, this.cvs.height, 'black');
 
         if (this.gameSet) {
-            if (this.score1p >= this.scoreMax) {
-                this.ctx.fillStyle = 'white';
-                this.ctx.fillText("Left Player Won!!!", 350, 200);
-            } else {
-                this.ctx.fillStyle = 'white';
-                this.ctx.fillText("Right Player Won!!!", 350, 200);
-            }
-
-            this.ctx.fillText("click to continue", 350, 500);
+            this.gameSetWindow();
             return;
         }
 
         this.paddle(0, this.p1y, this.paddleW, this.paddleH, 'white');
         this.paddle(this.cvs.width - this.paddleW, this.p2y, this.paddleW, this.paddleH, 'white');
         this.ball(this.bx, this.by, 10, 'white');
+        this.ctx.font = "50px Georgia";
         this.ctx.fillText(this.score1p, 100, 100);
         this.ctx.fillText(this.score2p, this.cvs.width - 100, 100);
     }
@@ -113,6 +107,17 @@ class Pone {
         } else if (p2yCentre > this.by + 35) {
             this.p2y -= 6;
         }
+    }
+    gameSetWindow() {
+        if (this.score1p >= this.scoreMax) {
+            this.ctx.fillStyle = 'white';
+            this.ctx.fillText("You're WINNER!", 150, 200);
+        } else {
+            this.ctx.fillStyle = 'white';
+            this.ctx.fillText("You're LOSEER!", 200, 200);
+        }
+        this.ctx.font = "25px Georgia";
+        this.ctx.fillText("Continue? [Yes:click ok button]", 350, 500);
     }
     // マウスの位置
     mousePos(evt) {
