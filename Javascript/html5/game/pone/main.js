@@ -12,12 +12,13 @@ class Pone {
         this.ctx = null;
         this.score1p = 0; // 1P(プレイヤー)のスコア
         this.score2p = 0; // 2P(CPU)のスコア
-        this.scoreMax = 5; // スコアの最大値
+        this.scoreMax = 3; // スコアの最大値
         this.gameSet = false; // ゲームセットフラグ
         this.bx = 50; // ボールのx座標
         this.by = 50; // ボールのy座標
         this.p2y = 250; // 2Pのy座標
         this.p1y = 250; // 1Pのy座標
+        this.fps = 60; // フレームレート
     }
     // 各物体の動きを計算
     move() {
@@ -62,7 +63,6 @@ class Pone {
     }
     // 各物体の描画
     draw() {
-
         this.screen(0, 0, this.cvs.width, this.cvs.height, '#111');
         this.line(this.cvs.width / 2, 0, this.cvs.width / 2, this.cvs.height, '#333');
         if (this.gameSet) {
@@ -129,7 +129,7 @@ class Pone {
             this.ctx.fillText("You're LOSEER!", 200, 200);
         }
         this.ctx.font = "25px Georgia";
-        this.ctx.fillText("Continue? [Yes:click ok button]", 350, 500);
+        this.ctx.fillText("Continue? [Yes:click window]", 350, 500);
     }
     // マウスの位置
     mousePos(evt) {
@@ -142,6 +142,7 @@ class Pone {
     mouseClick(evt) {
         // ゲームセット状態なら再スタート
         if (this.gameSet) {
+            this.cvs.clearRect(0, 0, this.cvs.width, this.cvs.height);
             this.gameSet = false;
             this.init();
             this.play();
@@ -151,11 +152,10 @@ class Pone {
     play(pone) {
         this.cvs = document.getElementById('pone');
         this.ctx = this.cvs.getContext('2d');
-        var fps = 30;
         setInterval(function () {
             pone.move();
             pone.draw();
-        }, 1000 / fps);
+        }, 1000 / this.fps);
         // マウスポインタ移動イベント
         document.addEventListener('mousemove', function (evt) {
             pone.mousePos(evt);
