@@ -35,7 +35,7 @@ int main()
     // 2分法
     bisection(0.0, 2.0, 1.0e-5, &solution, &N);
 
-    printf("解:%f (繰り返し回数：%d )",solution,N);
+    printf("解:%f (繰り返し回数：%d )",solution,N); // 解:1.165901 (繰り返し回数：18 )
 
     return 0;
 }
