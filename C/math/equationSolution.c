@@ -1,40 +1,41 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <math.h>
 
-// 方程式の解を計算
-void equationSolution(double a, double b, double c, 
-                  double *re1, double *re2, double *im1, double*im2, double *D)
+// 計算する関数
+double f(double x)
 {
-        *D = b*b-4.0*a*c;                      
-    
-        if(*D>0) {                           
-                *re1 = (-b + sqrt(*D))/(2.0*a);
-                *re2 = (-b - sqrt(*D))/(2.0*a);
-                *im1 = 0.0;
-                *im2 = 0.0;
-        }
-        else if(*D==0) {
-                *re1 = -b/(2.0*a);
-                *re2 = 0.0;
-                *im1 = 0.0;
-                *im2 = 0.0;
-        }
-        else {                            
-                *re1 = *re2 =-b/(2.0*a);
-                *im1 = sqrt(-*D)/(2.0*a);
-                *im2 = -*im1;
-        }
+    return x*x*x-3*x*x+9*x-8;
 }
+
+// 2分法
+void bisection(double a, double b, double eps, double *solution, int *N)
+{
+    int i = 0;
+    double s;
+
+    // 解が収束条件を満たせば終了
+    while (!(fabs(a-b)<eps)){
+        i++;
+        s = (a+b)/2.0;
+        if(f(s) * f(a)<0) b=s;
+        else a = s;
+        if(i==1000) break; // 1000回繰り返したら強制終了
+    };
+    *N = i; 
+    *solution = s; 
+}
+
+
 
 int main()
 {
-        double a=1,b=2,c=1;
-        double re1 = 0, re2 = 0, im1 = 0,im2 = 0, D = 0;
+    double solution;
+    int N;
+    // 2分法
+    bisection(0.0, 2.0, 1.0e-5, &solution, &N);
 
-        equationSolution(a, b, c, &re1, &re2, &im1, &im2, &D);
+    printf("解:%f (繰り返し回数：%d )",solution,N);
 
-        if(D==0) printf("%f + %f j\n",re1,im1); // -1.000000 + 0.000000 j
-        else printf("%f + %f j\n%f + %f j\n",re1,im1,re2,im2)
-        
-        return 0;
+    return 0;
 }
