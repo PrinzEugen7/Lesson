@@ -11,7 +11,7 @@ def main():
   GPIO.setmode(GPIO.BCM)          # GPIO番号で指定
   GPIO.setup(pin_num, GPIO.OUT)   # 出力モード
     
-  # 点滅を5セット繰り返し
+  # 点滅を10回繰り返し
   for i in range(10):
     GPIO.output(pin_num, GPIO.HIGH) # 点灯
     time.sleep(2)                   # 2秒待機
