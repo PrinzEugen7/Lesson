@@ -3,7 +3,7 @@ unsigned long t0;
 unsigned long ts = 30000; // 30000ms
 unsigned long lowOc = 0;
 float ratio = 0;
-float concentration = 0;
+float concent = 0;
 
 void setup() {
   Serial.begin(9600);
