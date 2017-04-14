@@ -21,7 +21,7 @@ void loop() {
     ratio = lowOc/(ts*10.0);
     // ほこりの濃度を算出
     concent = 1.1 * pow(ratio,3) - 3.8 * pow(ratio,2) + 520 * ratio + 0.62;
-    Serial.println(String(lowOc) + ","+String(ratio) + "," + String(concent));
+    Serial.println(String(concent) + " [pcs/0.01cf]");
     lowOc = 0;
     t0 = millis();
   }
