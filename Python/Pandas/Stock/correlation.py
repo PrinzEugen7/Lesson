@@ -37,6 +37,9 @@ def main():
     s2 = df2.asfreq('B')['終値'].pct_change().dropna()
     corr = pd.rolling_corr(s1, s2, 5).dropna()
     
+    # 相関の平均値
+    print(corr.mean())
+    
     # グラフにプロット
     plt.plot(corr)
     plt.grid()
