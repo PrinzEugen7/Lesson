@@ -1,6 +1,6 @@
 using System;
 
-public class 
+public class NewtonMethod
 {
     double f(double x)
     {
@@ -21,18 +21,17 @@ public class
             i++;
             ah = a - f(a)/df(a);
             // 収束条件を満たせばループ終了
-            if(Math.abs(ah - a)<eps) break;
+            if(Math.Abs(ah - a)<eps) break;
             a = ah;
         }
         return ah; 
     }
 
-	public static void Main()
-	{
-	    NewtonMethod nm = new NewtonMethod();
-	    // 解を計算(初期値, 収束条件)
-	    double ah = nm.calc(1.0, 0.0001);
+    public static void Main()
+    {
+        NewtonMethod nm = new NewtonMethod();
+        // 解を計算(初期値, 収束条件)
+        double ah = nm.calc(1.0, 0.0001);
         // 結果表示
-        System.out.printf("解：%f\n", ah); // 解：2.000000
-	}
+        System.Console.WriteLine(ah); // 解：2
 }
