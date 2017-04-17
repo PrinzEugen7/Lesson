@@ -31,10 +31,10 @@ class NewtonMethod
  
 	public static void main (String[] args) throws java.lang.Exception
 	{
-	NewtonMethod nm = new NewtonMethod();
-	// 解を計算(初期値, 収束条件)
-	double ah = nm.calc(1.0, 0.0001);
-    // 結果表示
-    System.out.printf("解：%f\n", ah); // 解：2.000000
+	    NewtonMethod nm = new NewtonMethod();
+	    // 解を計算(初期値, 収束条件)
+	    double ah = nm.calc(1.0, 0.0001);
+            // 結果表示
+            System.out.printf("解：%f\n", ah); // 解：2.000000
 	}
 }
