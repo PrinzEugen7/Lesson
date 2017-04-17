@@ -21,6 +21,7 @@ void newtonMethod(double a, double eps, double *result, double *num)
         i++;
         ah = a - f(a)/df(a);
         // 収束条件を満たせばループ終了
+        if(abs(ah - a)<eps) break;
         a = ah;
     }
     *result = a;
