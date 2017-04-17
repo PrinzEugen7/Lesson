@@ -1,3 +1,5 @@
+import math
+
 # 解を求める関数
 def f(x):
    return x*x*x-3*x*x+9*x-8;
