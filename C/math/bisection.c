@@ -15,7 +15,7 @@ void bisection(double a, double b, double eps, double *solution, int *N)
     double s;
 
     // 解が収束条件を満たせば終了
-    while (!(fabs(a-b)<eps)){
+    while (!(abs(a-b)<eps)){
         i++;
         s = (a+b)/2.0;
         if(f(s) * f(a)<0) b=s;
