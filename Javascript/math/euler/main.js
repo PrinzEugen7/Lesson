@@ -6,7 +6,7 @@ var dxdt = function(x){
     return (e-x)/r/c;
 };
 
-// ニュートン法
+// オイラー法
 var euler = function(x0, t0, tn, n){
     x = x0;
     t = t0;
@@ -23,5 +23,5 @@ var euler = function(x0, t0, tn, n){
 
 
 window.onload=function () {
-    alert(euler(0, 0, 1, 100)); // 2.0000000929222947
+    alert(euler(0, 0, 1, 100)); // x(0)～x(1.0)の値を配列表示
 };
