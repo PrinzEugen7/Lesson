@@ -22,7 +22,7 @@ def euler(x0, t0, tn, n):
     
     
 def main():
-    X = euler(0.0, 0.0, 2.0, 100)
+    X = euler(0.0, 0.0, 1.0, 100)
     print(X)
    
     
