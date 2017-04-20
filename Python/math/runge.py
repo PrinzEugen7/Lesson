@@ -14,12 +14,12 @@ def runge(x0, t0, tn, n):
     X = []
     # 漸化式を計算
     for i in range(n):
-        X.append(x)
         d1 = dxdt(x);
         d2 = dxdt(x + d1*h*0.5);
         d3 = dxdt(x + d2*h*0.5);
         d4 = dxdt(x + d3*h);
         x += (d1 + 2 * d2 + 2 * d3 + d4)*(h/6.0); 
+        X.append(x)
     return X
  
 def main():
