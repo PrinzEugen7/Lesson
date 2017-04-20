@@ -23,10 +23,10 @@ double runge(double x0, double t0, double tn, int n)
     for ( i=1; i <= n ; i++){
         t = t0 + i*h;
         d1 = dxdt(x);
-        d2 = dxdt(d1*h*0.5);
-        d3 = dxdt(d2*h*0.5);
-        d4 = dxdt(d3*h);
-        x += (h/6.0) * (d1 + 2 * d2 + 2 * d3 + d4); 
+        d2 = dxdt(x + d1*h*0.5);
+        d3 = dxdt(x + d2*h*0.5);
+        d4 = dxdt(x + d3*h);
+        x += (d1 + 2 * d2 + 2 * d3 + d4)*(h/6.0); 
         printf("x(%f)=%f\n", t, x);
     }
     return x;
@@ -37,4 +37,3 @@ int main(void)
     runge(0, 0, 1, 100);
     return 0;
 }
-
