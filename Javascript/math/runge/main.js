@@ -26,5 +26,5 @@ var runge = function(x0, t0, tn, n){
 
 
 window.onload=function () {
-    alert(runge(0, 0, 1, 100)); // 2.0000000929222947
+    alert(runge(0, 0, 1, 100));
 };
