@@ -10,7 +10,7 @@ double dxdt( double x)
     return (e-x)/(r*c);
 }
 
-// オイラー法(初期条件x0,  区間[t0, tn])
+// ルンゲクッタ法(初期条件x0,  区間[t0, tn])
 double runge(double x0, double t0, double tn, int n)
 {
     int i;
