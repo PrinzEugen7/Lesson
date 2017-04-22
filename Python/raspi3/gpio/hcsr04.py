@@ -27,10 +27,8 @@ def main():
 
         timepassed = signalon - signaloff
         distance = timepassed * 17000
-        return(distance, "cm")
-        if c == 's':
-            GPIO.cleanup()
-            break
+        print(distance, "cm")
+
         
 if __name__ == "__main__":
     main()
