@@ -5,15 +5,13 @@ import time
 import sys
 import thread
 
-def calc_distance():
-    TRIG = 14
-    ECHO = 15
+def calc_distance(TRIG, ECHO, num, v=17000):
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setup(TRIG,GPIO.OUT)
+    GPIO.setup(ECHO,GPIO.IN)
+    GPIO.setwarnings(False)
+    while(num):
 
-    while(1):
-        GPIO.setmode(GPIO.BCM)
-        GPIO.setup(TRIG,GPIO.OUT)
-        GPIO.setup(ECHO,GPIO.IN)
-        GPIO.setwarnings(False)
         GPIO.output(TRIG, GPIO.LOW)
         time.sleep(0.3)
         
@@ -22,25 +20,18 @@ def calc_distance():
         GPIO.output(TRIG, False)
 
         while GPIO.input(ECHO) == 0:
-          signaloff = time.time()
+          t_start = time.time()
         
         while GPIO.input(ECHO) == 1:
-          signalon = time.time()
+          t_end = time.time()
 
-        timepassed = signalon - signaloff
-        distance = timepassed * 17000
+        time = t_end - t_start
+        distance = v * time
         print(distance, "cm")
-        GPIO.cleanup()
+    GPIO.cleanup()
         
 def main():
-    thread.start_new_thread(calc_distance, ())
-    while(1):
-        c = sys.stdin.read(1)
-        if c == 's':
-            sys.exit()
-        
-while True:
-
+    calc_distance(14, 15, 10)
 
         
 if __name__ == "__main__":
