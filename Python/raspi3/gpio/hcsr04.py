@@ -29,10 +29,10 @@ def main():
         timepassed = signalon - signaloff
         distance = timepassed * 17000
         print(distance, "cm")
+        GPIO.cleanup()
         c = sys.stdin.read(1)
         if c == 's':
-            # GPIOピンの設定解除        
-            GPIO.cleanup()   
+            # GPIOピンの設定解除                  
             break
         
 if __name__ == "__main__":
