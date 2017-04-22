@@ -9,7 +9,8 @@ def main():
     ECHO = 15
     GPIO.setmode(GPIO.BCM)
     GPIO.setup(TRIG,GPIO.OUT)
-    GPIO.setup(ECHO,GPIO.IN)    
+    GPIO.setup(ECHO,GPIO.IN)
+    GPIO.setwarnings(False)
     while(1):
 
         GPIO.output(TRIG, GPIO.LOW)
