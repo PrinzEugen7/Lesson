@@ -27,14 +27,14 @@ def calc_distance(TRIG_PIN, ECHO_PIN, num, v=34000):
             t_end = time.time()
 
         t = t_end - t_start
-        # 距離[cm] = 音速[cm/ms] * 時間[ms]/2
+        # 距離[cm] = 音速[cm/s] * 時間[s]/2
         distance = v * t/2
         print(distance, "cm")
     # ピン設定解除
     GPIO.cleanup()
         
 def main():
-    # 距離計測(TRIGピン番号, ECHO_PIN番号, 計測回数, 音速[cm/ms])
+    # 距離計測(TRIGピン番号, ECHO_PIN番号, 計測回数, 音速[cm/s])
     calc_distance(14, 15, 10, 34000)
 
         
