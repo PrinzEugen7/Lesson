@@ -3,16 +3,17 @@
 import RPi.GPIO as GPIO
 import time
 import sys
+import thread
 
-def main():
+def calc_distance():
     TRIG = 14
     ECHO = 15
-    GPIO.setmode(GPIO.BCM)
-    GPIO.setup(TRIG,GPIO.OUT)
-    GPIO.setup(ECHO,GPIO.IN)
-    GPIO.setwarnings(False)
-    while(1):
 
+    while(1):
+        GPIO.setmode(GPIO.BCM)
+        GPIO.setup(TRIG,GPIO.OUT)
+        GPIO.setup(ECHO,GPIO.IN)
+        GPIO.setwarnings(False)
         GPIO.output(TRIG, GPIO.LOW)
         time.sleep(0.3)
         
@@ -30,10 +31,17 @@ def main():
         distance = timepassed * 17000
         print(distance, "cm")
         GPIO.cleanup()
+        
+def main():
+    thread.start_new_thread(calc_distance, ())
+    while(1):
         c = sys.stdin.read(1)
         if c == 's':
-            # GPIOピンの設定解除                  
-            break
+            sys.exit()
+        
+while True:
+
+
         
 if __name__ == "__main__":
     main()
