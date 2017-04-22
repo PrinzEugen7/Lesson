@@ -34,7 +34,7 @@ def calc_distance(TRIG_PIN, ECHO_PIN, num, v=34000):
     GPIO.cleanup()
         
 def main():
-    # 気温[℃]を考慮した音速[cm/s]
+    # 気温24[℃]の場合の音速[cm/s]
     v = 33150 + 60*24
     # 距離計測(TRIGピン番号, ECHO_PIN番号, 計測回数, 音速[cm/s])
     calc_distance(14, 15, 10, v)
