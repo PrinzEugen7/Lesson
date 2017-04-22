@@ -2,31 +2,33 @@
 # -*- coding: utf-8 -*-
 import RPi.GPIO as GPIO
 import time
-import sys
-import thread
 
-def calc_distance(TRIG, ECHO, num, v=17000):
+def pulseIn(pin, start):
+    if start==1: end = 0
+    else: end = 1
+    while GPIO.input(ECHO_PIN) == end:
+        t_start = time.time()
+        
+    while GPIO.input(ECHO_PIN) == start:
+        t_end = time.time()
+
+    return t_end - t_start
+
+def calc_distance(TRIG_PIN, ECHO_PIN, num, v=17000):
     GPIO.setmode(GPIO.BCM)
-    GPIO.setup(TRIG,GPIO.OUT)
-    GPIO.setup(ECHO,GPIO.IN)
+    GPIO.setup(TRIG_PIN,GPIO.OUT)
+    GPIO.setup(ECHO_PIN,GPIO.IN)
     GPIO.setwarnings(False)
     while(num):
 
-        GPIO.output(TRIG, GPIO.LOW)
+        GPIO.output(TRIG_PIN, GPIO.LOW)
         time.sleep(0.3)
         
-        GPIO.output(TRIG, True)
+        GPIO.output(TRIG_PIN, True)
         time.sleep(0.00001)
-        GPIO.output(TRIG, False)
-
-        while GPIO.input(ECHO) == 0:
-          t_start = time.time()
-        
-        while GPIO.input(ECHO) == 1:
-          t_end = time.time()
-
-        time = t_end - t_start
-        distance = v * time
+        GPIO.output(TRIG_PIN, False)
+        t = pulseIn(TRIG, 1)
+        distance = v * t
         print(distance, "cm")
     GPIO.cleanup()
         
