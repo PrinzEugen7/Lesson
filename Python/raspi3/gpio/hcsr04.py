@@ -6,8 +6,8 @@ import time
 def main():
     GPIO.setwarnings(False)
     GPIO.setmode(GPIO.BOARD)
-    TRIG = 11
-    ECHO = 13
+    TRIG = 14
+    ECHO = 15
     
     while(1):
         GPIO.setup(TRIG,GPIO.OUT)
