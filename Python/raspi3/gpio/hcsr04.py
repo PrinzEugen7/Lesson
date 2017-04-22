@@ -11,7 +11,7 @@ def calc_distance(TRIG_PIN, ECHO_PIN, num, v=34000):
     GPIO.setup(ECHO_PIN,GPIO.IN)
     GPIO.setwarnings(False)
     
-    while(num):
+    for i in range(num):
         # TRIGピンを0.3[s]だけLOW
         GPIO.output(TRIG_PIN, GPIO.LOW)
         time.sleep(0.3)
