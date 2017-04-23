@@ -2,11 +2,12 @@
 # -*- coding: utf-8 -*-
 import RPi.GPIO as GPIO
 import time
-import math
 
 # HIGH or LOWの時計測
 def pulseIn(PIN, start=1, end=0):
     if start==0: end = 1
+    t_start = 0
+    t_end = 0
     # ECHO_PINがHIGHである時間を計測
     while GPIO.input(PIN) == end:
         t_start = time.time()
@@ -20,10 +21,11 @@ def pulseIn(PIN, start=1, end=0):
 def get_pm25(PIN):
     t0 = time.time()
     low_oc = 0
+    ts = 30 # サンプリング時間
     while(1):
         # LOWの占有率
-        low_oc += pulseIn(PIN, 0);
-        if ((time.time() - t0) > 30)
+        low_oc = low_oc + pulseIn(PIN, 0);
+        if ((time.time() - t0) > ts)
             # LOWの割合
             ratio = low_oc/(ts*10.0)
             # ほこりの濃度を算出
