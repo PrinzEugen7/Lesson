@@ -15,9 +15,11 @@ def pulseIn(PIN, start=1, end=0):
         t_end = time.time()
     return t_end - t_start
 
-# 距離計測
+
+# pm2.5計測
 def get_pm25(PIN):
     t0 = time.time()
+    low_oc = 0
     while(1):
         # LOWの占有率
         low_oc += pulseIn(PIN, 0);
@@ -26,9 +28,7 @@ def get_pm25(PIN):
             ratio = low_oc/(ts*10.0)
             # ほこりの濃度を算出
             concent = 1.1 * ratio**3 - 3.8 * ratio**2 + 520 * ratio + 0.62
-            print(concent, " [pcs/0.01cf]")
-            low_oc = 0
-            t0 = time.time()
+            print(pcs2ugm3(concent), " [pcs/0.01cf]")
             break
 
 
