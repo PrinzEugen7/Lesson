@@ -2,7 +2,19 @@
 # -*- coding: utf-8 -*-
 import RPi.GPIO as GPIO
 import time
-    
+
+# HIGH or LOWの時計測
+def pulseIn(PIN, start=1, end=0)
+    if start=0: end = 1
+    # ECHO_PINがHIGHである時間を計測
+    while GPIO.input(PIN) == end:
+    t_start = time.time()
+        
+    while GPIO.input(PIN) == start:
+    t_end = time.time()
+    return t_end - t_start
+
+# 距離計測
 def calc_distance(TRIG_PIN, ECHO_PIN, num, v=34000): 
     for i in range(num):
         # TRIGピンを0.3[s]だけLOW
@@ -12,20 +24,15 @@ def calc_distance(TRIG_PIN, ECHO_PIN, num, v=34000):
         GPIO.output(TRIG_PIN, True)
         time.sleep(0.00001)
         GPIO.output(TRIG_PIN, False)
-        # ECHO_PINがHIGHである時間を計測
-        while GPIO.input(ECHO_PIN) == 0:
-            t_start = time.time()
-        
-        while GPIO.input(ECHO_PIN) == 1:
-            t_end = time.time()
-
-        t = t_end - t_start
+        # HIGHの時間計測
+        t = pulseIn(ECHO_PIN)
         # 距離[cm] = 音速[cm/s] * 時間[s]/2
         distance = v * t/2
         print(distance, "cm")
     # ピン設定解除
     GPIO.cleanup()
 
+    
 TRIG_PIN = 14
 ECHO_PIN = 15
 # ピン番号をGPIOで指定
