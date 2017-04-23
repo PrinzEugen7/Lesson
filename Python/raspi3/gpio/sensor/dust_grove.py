@@ -47,7 +47,7 @@ def get_pm25(PIN):
             print(pcs2ugm3(concent), " [ug/m^3]")
             break
 
-PIN = 15
+PIN = 14
 # ピン番号をGPIOで指定
 GPIO.setmode(GPIO.BCM)
 # TRIG_PINを出力, ECHO_PINを入力
