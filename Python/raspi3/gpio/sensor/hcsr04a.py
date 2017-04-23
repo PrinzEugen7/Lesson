@@ -2,13 +2,6 @@
 # -*- coding: utf-8 -*-
 import RPi.GPIO as GPIO
 import time
-
-# ピン番号をGPIOで指定
-GPIO.setmode(GPIO.BCM)
-# TRIG_PINを出力, ECHO_PINを入力
-GPIO.setup(TRIG_PIN,GPIO.OUT)
-GPIO.setup(ECHO_PIN,GPIO.IN)
-GPIO.setwarnings(False)
     
 def calc_distance(TRIG_PIN, ECHO_PIN, num, v=34000): 
     for i in range(num):
@@ -32,11 +25,14 @@ def calc_distance(TRIG_PIN, ECHO_PIN, num, v=34000):
         print(distance, "cm")
     # ピン設定解除
     GPIO.cleanup()
-        
 
+TRIG_PIN = 14
+ECHO_PIN = 15
+# ピン番号をGPIOで指定
+GPIO.setmode(GPIO.BCM)
+# TRIG_PINを出力, ECHO_PINを入力
+GPIO.setup(TRIG_PIN,GPIO.OUT)
+GPIO.setup(ECHO_PIN,GPIO.IN)
+GPIO.setwarnings(False)
 # 距離計測(TRIGピン番号, ECHO_PIN番号, 計測回数, 音速[cm/s])
-calc_distance(14, 15, 10, 34000)
-
-        
-if __name__ == "__main__":
-    main()
+calc_distance(TRIG_PIN, ECHO_PIN, 10, 34000)
