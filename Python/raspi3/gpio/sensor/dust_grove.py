@@ -36,10 +36,10 @@ def get_pm25(PIN):
     ts = 30 # サンプリング時間
     while(1):
         # LOWの占有率
-        low_oc = low_oc + int(pulseIn(PIN, 0)*1000)
+        low_oc = low_oc + int(pulseIn(PIN, 0))
         if ((time.time() - t0) > ts):
             # LOWの割合
-            ratio = low_oc/(ts*1000*10.0)
+            ratio = (100*low_oc)/ts
             # ほこりの濃度を算出
             concent = 1.1 * pow(ratio,3) - 3.8 * pow(ratio,2) + 520 * ratio + 0.62
             print(ratio, " [%]")
