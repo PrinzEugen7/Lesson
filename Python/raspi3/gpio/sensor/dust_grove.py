@@ -16,6 +16,18 @@ def pulseIn(PIN, start=1, end=0):
         t_end = time.time()
     return t_end - t_start
 
+# 単位をμg/m^3に変換
+def pcs2ugm3 (pcs):
+  pi = 3.14159
+  # 全粒子密度(1.65E12μg/ m3)
+  density = 1.65 * pow (10, 12)
+  # PM2.5粒子の半径(0.44μm)
+  r25 = 0.44 * pow (10, -6)
+  vol25 = (4/3) * pi * pow (r25, 3)
+  mass25 = density * vol25 # μg
+  K = 3531.5 # per m^3 
+  # μg/m^3に変換して返す
+  return pcs * K * mass25
 
 # pm2.5計測
 def get_pm25(PIN):
@@ -24,14 +36,15 @@ def get_pm25(PIN):
     ts = 30 # サンプリング時間
     while(1):
         # LOWの占有率
-        low_oc = low_oc + pulseIn(PIN, 0)
+        low_oc = low_oc + int(pulseIn(PIN, 0)*10000)
         if ((time.time() - t0) > ts):
             # LOWの割合
-            ratio = low_oc/(ts*10.0)
+            ratio = low_oc/(ts*1000*10.0)
             # ほこりの濃度を算出
-            concent = 1.1 * ratio**3 - 3.8 * ratio**2 + 520 * ratio + 0.62
+            concent = 1.1 * pow(ratio,3) - 3.8 * pow(ratio,2) + 520 * ratio + 0.62
             print(ratio, " [%]")
             print(concent, " [pcs/0.01cf]")
+            print(pcs2ugm3(concent), " [ug/m^3]")
             break
 
 
