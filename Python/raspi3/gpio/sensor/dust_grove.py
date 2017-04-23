@@ -30,7 +30,8 @@ def get_pm25(PIN):
             ratio = low_oc/(ts*10.0)
             # ほこりの濃度を算出
             concent = 1.1 * ratio**3 - 3.8 * ratio**2 + 520 * ratio + 0.62
-            print(pcs2ugm3(concent), " [pcs/0.01cf]")
+            print(ratio, " [%]")
+            print(concent, " [pcs/0.01cf]")
             break
 
 
@@ -39,8 +40,7 @@ PIN = 15
 # ピン番号をGPIOで指定
 GPIO.setmode(GPIO.BCM)
 # TRIG_PINを出力, ECHO_PINを入力
-GPIO.setup(TRIG_PIN,GPIO.OUT)
-GPIO.setup(ECHO_PIN,GPIO.IN)
+GPIO.setup(PIN,GPIO.IN)
 GPIO.setwarnings(False)
 
 for i in range(10):
