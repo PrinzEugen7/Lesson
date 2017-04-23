@@ -47,8 +47,6 @@ def get_pm25(PIN):
             print(pcs2ugm3(concent), " [ug/m^3]")
             break
 
-
-    
 PIN = 15
 # ピン番号をGPIOで指定
 GPIO.setmode(GPIO.BCM)
