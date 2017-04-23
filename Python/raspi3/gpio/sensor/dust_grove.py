@@ -32,7 +32,7 @@ def pcs2ugm3 (pcs):
 # pm2.5計測
 def get_pm25(PIN):
     t0 = time.time()
-    low_oc = 0
+    t = 0
     ts = 30 # サンプリング時間
     while(1):
         # LOW状態の時間tを求める
