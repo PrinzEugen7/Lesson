@@ -14,7 +14,7 @@ def pulseIn(PIN, start=1, end=0):
         
     while GPIO.input(PIN) == start:
         t_end = time.time()
-    return int((t_end - t_start)*1000000)
+    return t_end - t_start
 
 # 単位をμg/m^3に変換
 def pcs2ugm3 (pcs):
@@ -36,7 +36,7 @@ def get_pm25(PIN):
     ts = 30 # サンプリング時間
     while(1):
         # LOWの占有率
-        low_oc = low_oc + pulseIn(PIN, 0)
+        low_oc = low_oc + int(pulseIn(PIN, 0)*1000)
         if ((time.time() - t0) > ts):
             # LOWの割合
             ratio = low_oc/(ts*1000*10.0)
