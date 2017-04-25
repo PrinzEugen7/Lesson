@@ -1,5 +1,5 @@
 char data[10];   // 文字列格納用
-
+int i = 0;  // 文字数のカウンタ
 
 void setup() {
   Serial.begin(9600);
@@ -9,7 +9,6 @@ void setup() {
 
 // データ受信
 String serialRead(){
-  int i = 0;  // 文字数のカウンタ
   // データ受信したとき
   if (Serial.available()) {
     // 1文字ずつ読み込み
