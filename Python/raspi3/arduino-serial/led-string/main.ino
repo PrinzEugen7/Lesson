@@ -1,4 +1,4 @@
-char data[30];   // 文字列格納用
+char data[10];   // 文字列格納用
 int i = 0;  // 文字数のカウンタ
 
 void setup() {
@@ -13,10 +13,7 @@ String serialRead(){
   if (Serial.available()) {
     data[i] = Serial.read();
      // 文字数が30以上 or 終端文字
-    if (i > 30 || data[i] == '\0') {
-      i = 0;      // カウンタの初期化
-      break;
-    }
+    if (i > 10 || data[i] == '\0') i = 0;
     else { i++; }
   }
   return String(data);
