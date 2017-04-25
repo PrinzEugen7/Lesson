@@ -2,9 +2,9 @@ String cmds[3] = {"\0"}; // 分割された文字列を格納する配列
 char data[20];   // 文字列格納用
 int i = 0;  // 文字数のカウンタ
 int index;
-#define PIN1 13
+#define PIN1 11
 #define PIN2 12
-#define PIN3 11
+#define PIN3 13
 
 // 文字列分割
 int split(String data, char delimiter, String *dst){
