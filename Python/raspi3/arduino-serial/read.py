@@ -6,7 +6,7 @@ def main():
     time.sleep(2)
     t0 = time.time()
 
-    while time.time() - t0 > 5:
+    while time.time() - t0 < 5:
         # シリアル通信でデータを受信
         str = con.read(30)
         print(str)
