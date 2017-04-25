@@ -8,8 +8,10 @@ def main():
 
     while time.time() - t0 < 5:
         # シリアル通信でデータを受信
-        str = con.read(30)
-        print(str)
+        str = ser.read(4)
+        # 読み込んだデータの表示
+        print(str.decode())
+        #print str #python2系の場合
 
 if __name__ == '__main__':
     main()
