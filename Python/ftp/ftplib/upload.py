@@ -2,7 +2,7 @@
 import ftplib
 
 def main():
-    # 接続先サーバーのホスト名 or IP adress
+    # 接続先サーバーのホスト名
     ftp = ftplib.FTP("xxx.xxx.xxx")
     ftp.set_pasv("true")
     # ユーザ名とパスワードを指定しログイン
