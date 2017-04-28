@@ -4,8 +4,6 @@ var drawGraph = function(data){
   var data1 = { 
     label:'今日', 
     data:data[1],
-    fill: false,
-    lineTension: 0,
     backgroundColor: "#DE4E33",
     borderColor: "#DE4E33",
     pointHoverBackgroundColor: "#DE4E33",
@@ -15,8 +13,6 @@ var drawGraph = function(data){
   var data2 = {
     label:'昨日',
     data:data[2],
-    fill: false,
-    lineTension: 0,
     backgroundColor: "#97DBF2",
     borderColor: "#97DBF2",
     pointHoverBackgroundColor: "#97DBF2",
