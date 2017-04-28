@@ -1,8 +1,7 @@
-
 var drawGraph = function(data){
   var ctx = document.getElementById('graph').getContext('2d');
-  // 折れ線1
-  var line1 = { 
+  // 棒1
+  var data1 = { 
     label:'今日', 
     data:data[1],
     fill: false,
@@ -12,8 +11,8 @@ var drawGraph = function(data){
     pointHoverBackgroundColor: "#DE4E33",
     pointHoverBorderColor: "#DE4E33",
   };
-  // 折れ線2
-  var line2 = {
+  // 棒2
+  var data2 = {
     label:'昨日',
     data:data[2],
     fill: false,
@@ -25,7 +24,7 @@ var drawGraph = function(data){
   }
   // ラベル(横軸)
   var label = data[0];
-
+  // x軸, y軸の設定
   var xAxes = [{ 
     gridLines:{
       color: "#5f5f5f",
@@ -44,13 +43,13 @@ var drawGraph = function(data){
       fontSize: 15,
     }
   }]
-       var scales = {xAxes, yAxes};
+  var scales = {xAxes, yAxes};
   // グラフ全体の設定
   var option = {scales};
   // データの設定
   var config = {
-    type: 'bar',
-    data: { labels: label, datasets: [line1, line2]},
+    type: 'bar', // グラフの種類（棒グラフを指定）
+    data: { labels: label, datasets: [data1, data2]},
     options: option,
     
   }
