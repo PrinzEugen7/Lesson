@@ -23,7 +23,7 @@ var drawGraph = function(data){
 
   // データの設定
   var config = {
-    type: 'radar', // グラフの種類（棒グラフを指定）
+    type: 'radar', // グラフの種類（レーダーチャートを指定）
     data: { labels: label, datasets: [data1, data2]}, 
   }
   var myChart = new Chart(ctx, config);
