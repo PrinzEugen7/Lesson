@@ -1,6 +1,6 @@
 
 // CSV to Array 2D
-function csvToArray(path) {
+var csvToArray = function(path) {
   var csvData = new Array();
   var data = new XMLHttpRequest();        
   data.open("GET", path, false);
@@ -16,7 +16,7 @@ function csvToArray(path) {
   return csvData;
 }
 
-function getDateData(date, src) {
+var getDateData = function(date, src) {
   var dst = new Array();
   for(var i = 0; i < src.length; i++)
   if (src[i][0].indexOf(date) !== -1) {
@@ -25,7 +25,7 @@ function getDateData(date, src) {
   return dst;
 };
 
-function arrayT(array){
+var arrayT = function(array){
   var arrayT = [];
   for (var i = 0; i < array.length; i++) {
     for (var j = 0; j < array[i].length; j++) {
@@ -35,11 +35,20 @@ function arrayT(array){
   return arrayT;
 }
 
-function replaceElement(array, before, after) {
+var replaceElement = function(array, before, after) {
   for(var i=0; i<array.length; i++){
     array[i] = array[i].replace(before, after);
   }
   return array;
+}
+
+var getDate = function(day) {
+  var date = new Date();
+  date.setDate(date.getDate() + day);
+  var year  = date.getFullYear();
+  var month = date.getMonth() + 1;
+  var day   = date.getDate();
+  return String(year) + "-" + String(month) + "-" + String(day);
 }
 
 var drawGraph = function(id, today, yesterday, labels){
@@ -74,7 +83,7 @@ var drawGraph = function(id, today, yesterday, labels){
     },
     ticks: {
       fontColor: "#aaa",
-      fontSize: 15,
+      fontSize: 12
     }
   }]
   var yAxes = [{ 
@@ -90,6 +99,7 @@ var drawGraph = function(id, today, yesterday, labels){
   var legend = {labels:{fontColor:"#eee", fontSize: 15}, position:"bottom"};
   // グラフ全体の設定
   var option = {scales, legend};
+  
   // データの設定
   var config = {
     type: 'line',
@@ -103,8 +113,10 @@ var drawGraph = function(id, today, yesterday, labels){
 
 window.onload = function () {
   var csvData = csvToArray("data.csv");
-  today = "2016-12-12 ";
-  yesterday = "2016-12-11 ";
+  var today = "2016-12-12 ";
+  var yesterday = "2016-12-11 ";
+  //var today = getDate(0);
+  //var yesterday = getDate(-1);
   var dataToday = getDateData(today, csvData);
   var dataTodayT = arrayT(dataToday);
   var label = replaceElement(dataTodayT[0], today, ""); // 0:00, 1:00, 2:00
