@@ -1,0 +1,21 @@
+body{
+background:#222;
+color:#fff;
+}
+
+h2 {
+border-left: 7px solid #008c00;
+color: #eee;
+padding: 10px 30px;
+}
+
+.graph{
+border:solid 1px #666 ;
+background:#333;
+}
+
+.box{
+width:400px;
+padding-right:20px;
+float:left;
+}
