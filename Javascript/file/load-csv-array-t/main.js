@@ -15,8 +15,14 @@ function csvToArray(path) {
 	return csvData;
 }
 
-function arrayT(array) {
-  return array.map( (a, i) => a.map( (v, j) => array[j][i] ) )
+function arrayT(array){
+  var arrayT = [];
+  for (var i = 0; i < array.length; i++) {
+    for (var j = 0; j < array[i].length; j++) {
+      (i > 0)? arrayT[j].push(array[i][j]) :arrayT[j] = [array[i][j]];
+    }
+  }
+  return arrayT;
 }
 
 // ページロード時に実行
