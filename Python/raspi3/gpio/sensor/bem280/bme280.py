@@ -4,51 +4,49 @@ import smbus
 import time
 import datetime
 
-i2c_address = 0x76
-bus_number  = 1
-bus = smbus.SMBus(bus_number)
-digT = []
-digP = []
-digH = []
-
-sensor_data = {'temp':'0.0', 'pressure':'0.0','humidity':'0.0'}
-
-def get_calib_param():
-    calib = []
+class bme280():
+    i2c_address = 0x76
+    bus_number  = 1
+    bus = smbus.SMBus(bus_number)
+    digT = []
+    digP = []
+    digH = []
+    def get_calib_param():
+        calib = []
      
-    for i in range (0x88,0x88+24):
-        calib.append(bus.read_byte_data(i2c_address,i))
-    calib.append(bus.read_byte_data(i2c_address,0xA1))
-    for i in range (0xE1,0xE1+7):
-         calib.append(bus.read_byte_data(i2c_address,i))
+        for i in range (0x88,0x88+24):
+            calib.append(bus.read_byte_data(i2c_address,i))
+        calib.append(bus.read_byte_data(i2c_address,0xA1))
+        for i in range (0xE1,0xE1+7):
+             calib.append(bus.read_byte_data(i2c_address,i))
 
-    digT.append((calib[1] << 8) | calib[0])
-    digT.append((calib[3] << 8) | calib[2])
-    digT.append((calib[5] << 8) | calib[4])
-    digP.append((calib[7] << 8) | calib[6])
-    digP.append((calib[9] << 8) | calib[8])
-    digP.append((calib[11]<< 8) | calib[10])
-    digP.append((calib[13]<< 8) | calib[12])
-    digP.append((calib[15]<< 8) | calib[14])
-    digP.append((calib[17]<< 8) | calib[16])
-    digP.append((calib[19]<< 8) | calib[18])
-    digP.append((calib[21]<< 8) | calib[20])
-    digP.append((calib[23]<< 8) | calib[22])
-    digH.append( calib[24] )
-    digH.append((calib[26]<< 8) | calib[25])
-    digH.append( calib[27] )
-    digH.append((calib[28]<< 4) | (0x0F & calib[29]))
-    digH.append((calib[30]<< 4) | ((calib[29] >> 4) & 0x0F))
-    digH.append( calib[31] )
+        digT.append((calib[1] << 8) | calib[0])
+        digT.append((calib[3] << 8) | calib[2])
+        digT.append((calib[5] << 8) | calib[4])
+        digP.append((calib[7] << 8) | calib[6])
+        digP.append((calib[9] << 8) | calib[8])
+        digP.append((calib[11]<< 8) | calib[10])
+        digP.append((calib[13]<< 8) | calib[12])
+        digP.append((calib[15]<< 8) | calib[14])
+        digP.append((calib[17]<< 8) | calib[16])
+        digP.append((calib[19]<< 8) | calib[18])
+        digP.append((calib[21]<< 8) | calib[20])
+        digP.append((calib[23]<< 8) | calib[22])
+        digH.append( calib[24] )
+        digH.append((calib[26]<< 8) | calib[25])
+        digH.append( calib[27] )
+        digH.append((calib[28]<< 4) | (0x0F & calib[29]))
+        digH.append((calib[30]<< 4) | ((calib[29] >> 4) & 0x0F))
+        digH.append( calib[31] )
 
-    for i in range(1,2):
-         if digT[i] & 0x8000: digT[i] = (-digT[i] ^ 0xFFFF) + 1
+        for i in range(1,2):
+            if digT[i] & 0x8000: digT[i] = (-digT[i] ^ 0xFFFF) + 1
 
-    for i in range(1,8):
-         if digP[i] & 0x8000: digP[i] = (-digP[i] ^ 0xFFFF) + 1
+        for i in range(1,8):
+            if digP[i] & 0x8000: digP[i] = (-digP[i] ^ 0xFFFF) + 1
 
-    for i in range(0,6):
-        if digH[i] & 0x8000: digH[i] = (-digH[i] ^ 0xFFFF) + 1  
+        for i in range(0,6):
+            if digH[i] & 0x8000: digH[i] = (-digH[i] ^ 0xFFFF) + 1  
 
 def  get_data_bme280():
     setup()
