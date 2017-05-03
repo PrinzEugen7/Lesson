@@ -1,5 +1,4 @@
 #coding: utf-8
-
 import smbus
 import time
 import datetime
@@ -93,8 +92,6 @@ def compensate_P(adc_P):
 	v1 = (digP[8] * (((pressure / 8.0) * (pressure / 8.0)) / 8192.0)) / 4096
 	v2 = ((pressure / 4.0) * digP[7]) / 8192.0
 	pressure = pressure + ((v1 + v2 + digP[6]) / 16.0)  
-
-	# print "pressure : %7.2f hPa" % (pressure/100)
         sensor_data['pressure'] = pressure/100
 
 def compensate_T(adc_T):
@@ -138,20 +135,16 @@ def setup():
 	writeReg(0xF4,ctrl_meas_reg)
 	writeReg(0xF5,config_reg)
 
-
-setup()
-get_calib_param()
+def get_bme280_data():
+    setup()
+    get_calib_param()
+    try:
+        readData()
+        return str(sensor_data['temp']), str(sensor_data['humidity']), str(sensor_data['pressure'])
+        
+    except KeyboardInterrupt:
+        pass
 
 
 if __name__ == '__main__':
-	try:
-		readData()
-                time_str = datetime.datetime.today().strftime("%Y/%m/%d %H:%M:%S")
-                temp_str = str(sensor_data['temp'])
-                humid_str = str(sensor_data['humidity'])
-                pressure_str = str(sensor_data['pressure'])
-
-		# print(sensor_data)
-                print(time_str+","+temp_str+","+humid_str+","+pressure_str)
-	except KeyboardInterrupt:
-		pass
+    get_bme280_data()
