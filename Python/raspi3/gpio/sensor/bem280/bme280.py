@@ -57,30 +57,26 @@ class BME280:
 
 
 	def getPressure(self):
-		data = self.bus.read_i2c_block_data(self.address,0xF7,3)
-		press_raw = (data[0] << 12) | (data[1] << 4) | (data[2] >> 4)
+		    data = self.bus.read_i2c_block_data(self.address,0xF7,3)
+		    press_raw = (data[0] << 12) | (data[1] << 4) | (data[2] >> 4)
 
-		var1 = (self.t_fine >> 1) - 64000
-		var2 = (((var1 >> 2) * (var1 >> 2)) >> 11) * self.dig_P6
-		var2 = var2 + ((var1 * self.dig_P5) << 1)
-		var2 = (var2 >> 2) + (self.dig_P4 << 16)
-		var1 = (((self.dig_P3 * (((var1 >> 2)*(var1 >> 2)) >> 13)) >> 3) + ((self.dig_P2 * var1) >> 1)) >> 18
-		var1 = ((32768 + var1) * self.dig_P1) >> 15
-		if var1 == 0:
-			return 0
+		    v1 = (self.t_fine / 2.0) - 64000.0
+                    v2 = (((v1 / 4.0) * (v1 / 4.0)) / 2048) * dig_P6
+                    v2 = v2 + ((v1 * dig_P5) * 2.0)
+                    v2 = (v2 / 4.0) + (dig_P4 * 65536.0)
+                    v1 = (((dig_P3 * (((v1 / 4.0) * (v1 / 4.0)) / 8192)) / 8)  + ((dig_P2 * v1) / 2.0)) / 262144
+                    v1 = ((32768 + v1) * dig_P1) / 32768
+     
+                    if v1 == 0: return 0
+                    press = ((1048576 - press_raw) - (v2 / 4096)) * 3125
+                    if press < 0x80000000: press = (press * 2.0) / v1
+                    else: press = (pressure / v1) * 2
+                    v1 = (dig_P9 * (((press / 8.0) * (press / 8.0)) / 8192.0)) / 4096
+                    v2 = ((press / 4.0) * dig_P8) / 8192.0
+                    press = press + ((v1 + v2 + dig_P7) / 16.0)  
+                    return press/100
 
-		press = (((1048576 - press_raw) - (var2 >> 12))) * 3125
-		if press < 0x80000000:
-			press = (press << 1) / var1
-		else :
-			press = (press / var1) * 2
-
-		var1 = (self.dig_P9 * ((((press >> 3) * (press >> 3)) >> 13))) >> 12
-		var2 = (((press >> 2)) * self.dig_P8) >> 13
-		press = (press + ((var1 + var2 + self.dig_P7) >> 4))
-
-		return (press/100.0)
-
+	
 	def getHumidity(self):
 		data = self.bus.read_i2c_block_data(self.address,0xFD,2)
 
