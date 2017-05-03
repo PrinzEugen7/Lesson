@@ -1,130 +1,110 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import sys
 import smbus
-import time
-import datetime
 
-class bme280():
-    i2c_address = 0x76
-    bus_number  = 1
-    bus = smbus.SMBus(bus_number)
-    digT = []
-    digP = []
-    digH = []
-    def get_calib_param():
-        calib = []
-     
-        for i in range (0x88,0x88+24):
-            calib.append(bus.read_byte_data(i2c_address,i))
-        calib.append(bus.read_byte_data(i2c_address,0xA1))
-        for i in range (0xE1,0xE1+7):
-             calib.append(bus.read_byte_data(i2c_address,i))
+ALTITUDE= 600
 
-        digT.append((calib[1] << 8) | calib[0])
-        digT.append((calib[3] << 8) | calib[2])
-        digT.append((calib[5] << 8) | calib[4])
-        digP.append((calib[7] << 8) | calib[6])
-        digP.append((calib[9] << 8) | calib[8])
-        digP.append((calib[11]<< 8) | calib[10])
-        digP.append((calib[13]<< 8) | calib[12])
-        digP.append((calib[15]<< 8) | calib[14])
-        digP.append((calib[17]<< 8) | calib[16])
-        digP.append((calib[19]<< 8) | calib[18])
-        digP.append((calib[21]<< 8) | calib[20])
-        digP.append((calib[23]<< 8) | calib[22])
-        digH.append( calib[24] )
-        digH.append((calib[26]<< 8) | calib[25])
-        digH.append( calib[27] )
-        digH.append((calib[28]<< 4) | (0x0F & calib[29]))
-        digH.append((calib[30]<< 4) | ((calib[29] >> 4) & 0x0F))
-        digH.append( calib[31] )
 
-        for i in range(1,2):
-            if digT[i] & 0x8000: digT[i] = (-digT[i] ^ 0xFFFF) + 1
+class BME280:
+	DEVICE_ADDRESS = 0x76
+	BUS_CHANNEL = 1
 
-        for i in range(1,8):
-            if digP[i] & 0x8000: digP[i] = (-digP[i] ^ 0xFFFF) + 1
+	def __init__(self,address = DEVICE_ADDRESS,channel = BUS_CHANNEL):
+		self.address = address
+		self.channel = channel
+		self.bus = smbus.SMBus(self.channel)
+		self.t_fine = 0
+        
+		data = self.bus.read_byte_data(self.address,0xD0)
+		self.bus.write_byte_data(self.address,0xF2,0x01)
+		self.bus.write_byte_data(self.address,0xF4,0x27)
+		self.bus.write_byte_data(self.address,0xF5,0xA0)
+		data = self.bus.read_i2c_block_data(self.address,0x88,6)
+		self.dig_T1 = (data[1] << 8) | data[0]
+		self.dig_T2 = (data[3] << 8) | data[2]
+		self.dig_T3 = (data[5] << 8) | data[4]
+		data = self.bus.read_i2c_block_data(self.address,0x8E,18)
+		self.dig_P1 = (data[ 1] << 8) | data[ 0]
+		self.dig_P2 = (data[ 3] << 8) | data[ 2]
+		self.dig_P3 = (data[ 5] << 8) | data[ 4]
+		self.dig_P4 = (data[ 7] << 8) | data[ 6]
+		self.dig_P5 = (data[ 9] << 8) | data[ 8]
+		self.dig_P6 = (data[11] << 8) | data[10]
+		self.dig_P7 = (data[13] << 8) | data[12]
+		self.dig_P8 = (data[15] << 8) | data[14]
+		self.dig_P9 = (data[17] << 8) | data[16]
+		data[0] = self.bus.read_byte_data(self.address,0xA1)
+		self.dig_H1 = data[0]
+		data = self.bus.read_i2c_block_data(self.address,0xE1,7)
+		self.dig_H2 = (data[1] << 8) | data[0]
+		self.dig_H3 = data[2]
+		self.dig_H4 = (data[3] << 4) | (data[4] & 0x0f)
+		self.dig_H5 = (data[5] << 4) | ((data[4]>>4) & 0x0f)
+		self.dig_H6 = data[6]
 
-        for i in range(0,6):
-            if digH[i] & 0x8000: digH[i] = (-digH[i] ^ 0xFFFF) + 1  
 
-def  get_data_bme280():
-    setup()
-    get_calib_param()
-    data = []
-    for i in range (0xF7, 0xF7+8):
-        data.append(bus.read_byte_data(i2c_address,i))
-    pres_raw = (data[0] << 12) | (data[1] << 4) | (data[2] >> 4)
-    temp_raw = (data[3] << 12) | (data[4] << 4) | (data[5] >> 4)
-    hum_raw  = (data[6] << 8)  |  data[7]
-     
-    temp, t_fine = get_temp(temp_raw)
-    pressure = get_pressure(pres_raw,  t_fine )
-    humid = get_humid(hum_raw,  t_fine )
+	def getTemperature(self):
+		temp_xlsb = self.bus.read_byte_data(self.address,0xFC)
+		temp_lsb = self.bus.read_byte_data(self.address,0xFB)
+		temp_msb = self.bus.read_byte_data(self.address,0xFA)
+		temp_raw = (temp_msb << 12) | (temp_lsb << 4) | (temp_xlsb >> 4)
+		temp_data = (((((temp_raw >> 3) - (self.dig_T1 << 1))) * self.dig_T2) >> 11) +\
+			 ((((((temp_raw >> 4) - self.dig_T1) * ((temp_raw >> 4) - self.dig_T1)) >> 12) * self.dig_T3) >> 14)
+		self.t_fine = temp_data
+		temp_data = (temp_data * 5 + 128) >> 8
+		return temp_data / 100.0
 
-    return temp, humid, pressure
-    
-def get_pressure(adc_P,  t_fine ):
-    pressure = 0.0
-    
-    v1 = (t_fine / 2.0) - 64000.0
-    v2 = (((v1 / 4.0) * (v1 / 4.0)) / 2048) * digP[5]
-    v2 = v2 + ((v1 * digP[4]) * 2.0)
-    v2 = (v2 / 4.0) + (digP[3] * 65536.0)
-    v1 = (((digP[2] * (((v1 / 4.0) * (v1 / 4.0)) / 8192)) / 8)  + ((digP[1] * v1) / 2.0)) / 262144
-    v1 = ((32768 + v1) * digP[0]) / 32768
-     
-    if v1 == 0: return 0
-    pressure = ((1048576 - adc_P) - (v2 / 4096)) * 3125
-    if pressure < 0x80000000: pressure = (pressure * 2.0) / v1
-    else: pressure = (pressure / v1) * 2
-    v1 = (digP[8] * (((pressure / 8.0) * (pressure / 8.0)) / 8192.0)) / 4096
-    v2 = ((pressure / 4.0) * digP[7]) / 8192.0
-    pressure = pressure + ((v1 + v2 + digP[6]) / 16.0)  
-    return pressure/100
 
-def get_temp(adc_T):
-    t_fine = 0.0
-    v1 = (adc_T / 16384.0 - digT[0] / 1024.0) * digT[1]
-    v2 = (adc_T / 131072.0 - digT[0] / 8192.0) * (adc_T / 131072.0 - digT[0] / 8192.0) * digT[2]
-    t_fine = v1 + v2
-    return t_fine / 5120.0,  t_fine 
+	def getPressure(self):
+		data = self.bus.read_i2c_block_data(self.address,0xF7,3)
+		press_raw = (data[0] << 12) | (data[1] << 4) | (data[2] >> 4)
 
-def get_humid(adc_H,  t_fine ):
-    var_h =   t_fine  - 76800.0
-    if var_h != 0:
-         var_h = (adc_H - (digH[3] * 64.0 + digH[4]/16384.0 * var_h)) * (digH[1] / 65536.0 * (1.0 + digH[5] / 67108864.0 * var_h * (1.0 + digH[2] / 67108864.0 * var_h)))
-    else:
-         return 0
-    var_h = var_h * (1.0 - digH[0] * var_h / 524288.0)
-    if var_h > 100.0:
-         var_h = 100.0
-    elif var_h < 0.0:
-         var_h = 0.0
-         
-    return var_h
+		var1 = (self.t_fine >> 1) - 64000
+		var2 = (((var1 >> 2) * (var1 >> 2)) >> 11) * self.dig_P6
+		var2 = var2 + ((var1 * self.dig_P5) << 1)
+		var2 = (var2 >> 2) + (self.dig_P4 << 16)
+		var1 = (((self.dig_P3 * (((var1 >> 2)*(var1 >> 2)) >> 13)) >> 3) + ((self.dig_P2 * var1) >> 1)) >> 18
+		var1 = ((32768 + var1) * self.dig_P1) >> 15
+		if var1 == 0:
+			return 0
 
-def setup():
-    osrs_t = 1                #Temperature oversampling x 1
-    osrs_p = 1                #Pressure oversampling x 1
-    osrs_h = 1                #Humidity oversampling x 1
-    mode   = 3                #Normal mode
-    t_sb   = 5                #Tstandby 1000ms
-    filter = 0                #Filter off
-    spi3w_en = 0              #3-wire SPI Disable
+		press = (((1048576 - press_raw) - (var2 >> 12))) * 3125
+		if press < 0x80000000:
+			press = (press << 1) / var1
+		else :
+			press = (press / var1) * 2
 
-    ctrl_meas_reg = (osrs_t << 5) | (osrs_p << 2) | mode
-    config_reg    = (t_sb << 5) | (filter << 2) | spi3w_en
-    ctrl_hum_reg  = osrs_h
-    bus.write_byte_data(i2c_address, 0xF2,ctrl_hum_reg)
-    bus.write_byte_data(i2c_address, 0xF4,ctrl_meas_reg)
-    bus.write_byte_data(i2c_address, 0xF5,config_reg)
+		var1 = (self.dig_P9 * ((((press >> 3) * (press >> 3)) >> 13))) >> 12
+		var2 = (((press >> 2)) * self.dig_P8) >> 13
+		press = (press + ((var1 + var2 + self.dig_P7) >> 4))
 
-def main():
-    temp, humid, pressure = get_data_bme280()
-    print("Temp:", temp)
-    print("Humid:", humid)
-    print("Pressure:", pressure)
-    
-if __name__ == '__main__':
-    main()
+		return (press/100.0)
+
+	def getHumidity(self):
+		data = self.bus.read_i2c_block_data(self.address,0xFD,2)
+
+		hum_raw = (data[0] << 8) | data[1]
+
+		v_x1 = self.t_fine - 76800
+		v_x1 =  (((((hum_raw << 14) -((self.dig_H4) << 20) - ((self.dig_H5) * v_x1)) +\
+			(16384)) >> 15) * (((((((v_x1 * self.dig_H6) >> 10) *\
+			(((v_x1 * (self.dig_H3)) >> 11) + 32768)) >> 10) + 2097152) *\
+			self.dig_H2 + 8192) >> 14))
+		v_x1 = (v_x1 - (((((v_x1 >> 15) * (v_x1 >> 15)) >> 7) * self.dig_H1) >> 4))
+		if v_x1 < 0:
+			v_x1 = 0
+		if v_x1 > 419430400:
+			v_x1 = 419430400
+		
+		hum = (v_x1 >> 12)
+		
+		return (hum/1024.0)
+
+bme280 = BME280()
+temp = round(bme280.getTemperature(),1)
+humid = round(bme280.getHumidity(),1)
+press = round(bme280.getPressure(),1)
+print("気温：", temp_str + "[C]")
+print("湿度：", humid +"[%]")
+print("気圧:", pressure_str)
