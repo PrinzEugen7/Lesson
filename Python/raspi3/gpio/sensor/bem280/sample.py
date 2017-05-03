@@ -13,8 +13,6 @@ digT = []
 digP = []
 digH = []
 
-t_fine = 0.0
-
 sensor_data = {'temp':'0.0', 'pressure':'0.0','humidity':'0.0'}
 
 def writeReg(reg_address, data):
@@ -67,16 +65,13 @@ def  get_data_bme280():
     temp_raw = (data[3] << 12) | (data[4] << 4) | (data[5] >> 4)
     hum_raw  = (data[6] << 8)  |  data[7]
      
-    compensate_T(temp_raw)
-    compensate_P(pres_raw)
-    compensate_H(hum_raw)
-    temp = str(sensor_data['temp'])
-    humid = str(sensor_data['humidity'])
-    pressure = str(sensor_data['pressure'])
+    temp, t_fine = get_temp(temp_raw)
+    pressure = get_pressure(pres_raw,  t_fine )
+    humid = get_humid(hum_raw,  t_fine )
+
     return temp, humid, pressure
     
-def compensate_P(adc_P):
-    global  t_fine
+def get_pressure(adc_P,  t_fine ):
     pressure = 0.0
     
     v1 = (t_fine / 2.0) - 64000.0
@@ -93,22 +88,17 @@ def compensate_P(adc_P):
     v1 = (digP[8] * (((pressure / 8.0) * (pressure / 8.0)) / 8192.0)) / 4096
     v2 = ((pressure / 4.0) * digP[7]) / 8192.0
     pressure = pressure + ((v1 + v2 + digP[6]) / 16.0)  
+    return pressure/100
 
-    # print "pressure : %7.2f hPa" % (pressure/100)
-    sensor_data['pressure'] = pressure/100
-
-def compensate_T(adc_T):
-    global t_fine
+def get_temp(adc_T):
+    t_fine = 0.0
     v1 = (adc_T / 16384.0 - digT[0] / 1024.0) * digT[1]
     v2 = (adc_T / 131072.0 - digT[0] / 8192.0) * (adc_T / 131072.0 - digT[0] / 8192.0) * digT[2]
     t_fine = v1 + v2
-    temperature = t_fine / 5120.0
-    # print "temp : %-6.2f ℃" % (temperature)
-    sensor_data['temp'] = temperature
+    return t_fine / 5120.0,  t_fine 
 
-def compensate_H(adc_H):
-    global t_fine
-    var_h = t_fine - 76800.0
+def get_humid(adc_H,  t_fine ):
+    var_h =   t_fine  - 76800.0
     if var_h != 0:
          var_h = (adc_H - (digH[3] * 64.0 + digH[4]/16384.0 * var_h)) * (digH[1] / 65536.0 * (1.0 + digH[5] / 67108864.0 * var_h * (1.0 + digH[2] / 67108864.0 * var_h)))
     else:
@@ -118,8 +108,8 @@ def compensate_H(adc_H):
          var_h = 100.0
     elif var_h < 0.0:
          var_h = 0.0
-    # print "hum : %6.2f ％" % (var_h)
-    sensor_data['humidity'] = var_h
+         
+    return var_h
 
 def setup():
     osrs_t = 1                #Temperature oversampling x 1
