@@ -57,7 +57,9 @@ def get_calib_param():
     for i in range(0,6):
         if digH[i] & 0x8000: digH[i] = (-digH[i] ^ 0xFFFF) + 1  
 
-def readData():
+def  get_data_bme280():
+    setup()
+    get_calib_param()
     data = []
     for i in range (0xF7, 0xF7+8):
         data.append(bus.read_byte_data(i2c_address,i))
@@ -68,7 +70,11 @@ def readData():
     compensate_T(temp_raw)
     compensate_P(pres_raw)
     compensate_H(hum_raw)
-
+    temp = str(sensor_data['temp'])
+    humid = str(sensor_data['humidity'])
+    pressure = str(sensor_data['pressure'])
+    return temp, humid, pressure
+    
 def compensate_P(adc_P):
     global  t_fine
     pressure = 0.0
@@ -132,18 +138,11 @@ def setup():
     writeReg(0xF4,ctrl_meas_reg)
     writeReg(0xF5,config_reg)
 
-def  get_data_bme280():
-    setup()
-    get_calib_param()
-    readData()
-    temp_str = str(sensor_data['temp'])
-    humid_str = str(sensor_data['humidity'])
-    pressure_str = str(sensor_data['pressure'])
-    print(temp_str+","+humid_str+","+pressure_str)
-
-
 def main():
-    get_data_bme280()
-
+    temp, humid, pressure = get_data_bme280()
+    print("Temp:", temp)
+    print("Humid:", humid)
+    print("Pressure:", pressure)
+    
 if __name__ == '__main__':
     main()
