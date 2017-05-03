@@ -3,7 +3,7 @@
 import sys
 import smbus
 
-ALTITUDE= 600
+#ALTITUDE= 600
 
 
 class BME280:
@@ -105,6 +105,6 @@ bme280 = BME280()
 temp = round(bme280.getTemperature(),1)
 humid = round(bme280.getHumidity(),1)
 press = round(bme280.getPressure(),1)
-print("気温：", temp_str + "[C]")
-print("湿度：", humid +"[%]")
-print("気圧:", pressure_str)
+print("気温：", temp + "[C]")
+print("湿度：", humid + "[%]")
+print("気圧:", press + "[hPa]")
