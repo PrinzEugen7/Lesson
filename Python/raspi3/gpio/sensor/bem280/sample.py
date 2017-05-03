@@ -4,19 +4,14 @@ import smbus
 import time
 import datetime
 
-bus_number  = 1
 i2c_address = 0x76
-
+bus_number  = 1
 bus = smbus.SMBus(bus_number)
-
 digT = []
 digP = []
 digH = []
 
 sensor_data = {'temp':'0.0', 'pressure':'0.0','humidity':'0.0'}
-
-def writeReg(reg_address, data):
-    bus.write_byte_data(i2c_address,reg_address,data)
 
 def get_calib_param():
     calib = []
@@ -123,10 +118,9 @@ def setup():
     ctrl_meas_reg = (osrs_t << 5) | (osrs_p << 2) | mode
     config_reg    = (t_sb << 5) | (filter << 2) | spi3w_en
     ctrl_hum_reg  = osrs_h
-
-    writeReg(0xF2,ctrl_hum_reg)
-    writeReg(0xF4,ctrl_meas_reg)
-    writeReg(0xF5,config_reg)
+    bus.write_byte_data(i2c_address, 0xF2,ctrl_hum_reg)
+    bus.write_byte_data(i2c_address, 0xF4,ctrl_meas_reg)
+    bus.write_byte_data(i2c_address, 0xF5,config_reg)
 
 def main():
     temp, humid, pressure = get_data_bme280()
