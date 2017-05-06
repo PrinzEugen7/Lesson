@@ -174,6 +174,7 @@ def main():
             ftp_upload(filename, destination, host, user, password)
             print(data)
             time.sleep(1)
+        time.sleep(30)
 
 if __name__ == "__main__":
     main()
