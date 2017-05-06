@@ -25,7 +25,7 @@ def main():
     csv_data = read_csv(filename)
     data = ["2017-01-01 01:00", 20, 50, 1030, 5]
     csv_data2 = update_list2d(csv_data, data)
-    write_csv(csv_data2, filename)
+    write_csv(filename, csv_data2)
     
 if __name__=='__main__':
     main()
