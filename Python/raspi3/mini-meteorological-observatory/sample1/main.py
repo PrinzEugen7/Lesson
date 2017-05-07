@@ -3,6 +3,7 @@ import datetime
 import time
 import csv
 import ftplib
+import RPi.GPIO as GPIO
 
 class Bme280():
   def __init__(self, i2c_address= 0x76, bus_number=1):
@@ -153,28 +154,77 @@ def ftp_upload(filename, destination, host, user, password):
     ftp.close()
     fp.close()
 
-def main():
-    filename = 'data.csv'
-    destination =  "STOR /sample/test.csv"
-    host = "xxx"
-    user = "xxx"
-    password = "xxx"
+# HIGH or LOWの時計測
+def pulseIn(PIN, start=1, end=0):
+    if start==0: end = 1
+    t_start = 0
+    t_end = 0
+    # ECHO_PINがHIGHである時間を計測
+    while GPIO.input(PIN) == end:
+        t_start = time.time()
+        
+    while GPIO.input(PIN) == start:
+        t_end = time.time()
+    return t_end - t_start
 
+# 単位をμg/m^3に変換
+def pcs2ugm3 (pcs):
+  pi = 3.14159
+  # 全粒子密度(1.65E12μg/ m3)
+  density = 1.65 * pow (10, 12)
+  # PM2.5粒子の半径(0.44μm)
+  r25 = 0.44 * pow (10, -6)
+  vol25 = (4/3) * pi * pow (r25, 3)
+  mass25 = density * vol25 # μg
+  K = 3531.5 # per m^3 
+  # μg/m^3に変換して返す
+  return pcs * K * mass25
+
+# pm2.5計測
+def get_pm25(PIN):
+    t0 = time.time()
+    t = 0
+    ts = 30 # サンプリング時間
     while(1):
-        dt = datetime.datetime.now()
-        if str(dt.minutes) == "0":
-            bme280 = Bme280(0x76, 1)
-            temp, humid, press = bme280.get_data()
-            csv_data = read_csv(filename)
-            date = dt.strftime('%Y-%m-%d %H:%M')
-            pm25 = 1
-            data = [date, temp, humid, press, pm25]
-            csv_data2 = update_list2d(csv_data, data)
-            write_csv(filename, csv_data2)
-            ftp_upload(filename, destination, host, user, password)
-            print(data)
-            time.sleep(1)
-        time.sleep(30)
+        # LOW状態の時間tを求める
+        dt = pulseIn(PIN, 0)
+        if dt<1: t = t + dt
+        
+        if ((time.time() - t0) > ts):
+            # LOWの割合[0-100%]
+            ratio = (100*t)/ts
+            # ほこりの濃度を算出
+            concent = 1.1 * pow(ratio,3) - 3.8 * pow(ratio,2) + 520 * ratio + 0.62
+            break
+    return pcs2ugm3(concent)
+ 
+filename = 'data.csv'
+destination =  "STOR /sample/test.csv"
+host = "xxx"
+user = "xxx"
+password = "xxx"
+PIN = 14
+# ピン番号をGPIOで指定
+GPIO.setmode(GPIO.BCM)
+# TRIG_PINを出力, ECHO_PINを入力
+GPIO.setup(PIN,GPIO.IN)
+GPIO.setwarnings(False)
 
-if __name__ == "__main__":
-    main()
+while(1):
+　　　　dt = datetime.datetime.now()
+    if str(dt.minutes) == "0":
+        bme280 = Bme280(0x76, 1)
+        temp, humid, press = bme280.get_data()
+        csv_data = read_csv(filename)
+        date = dt.strftime('%Y-%m-%d %H:%M')
+        pm25 = get_pm25(PIN)
+        data = [date, temp, humid, press, pm25]
+        csv_data2 = update_list2d(csv_data, data)
+        write_csv(filename, csv_data2)
+        ftp_upload(filename, destination, host, user, password)
+        print(data)
+        time.sleep(1)
+    time.sleep(30)
+
+# ピン設定解除
+GPIO.cleanup()
