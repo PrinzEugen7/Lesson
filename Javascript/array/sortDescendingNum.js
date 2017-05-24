@@ -5,5 +5,5 @@ function sortFunc(a, b){
 window.onload = function () {
     array = [2, 5, 3, 1, 4]
     array.sort(sortFunc);
-    alert(array);
+    alert(array); // 5, 4, 3, 2, 1
 }
