@@ -16,5 +16,5 @@ function sortFunc(a, b){
 window.onload = function () {
     array = ["えみや", "じゃんぬ", "あるとりあ"]
     array.sort(sortFunc);
-    alert(array); // アルトリア,エミヤ,ジャンヌ
+    alert(array); // あるとりあ,えみや,じゃんぬ
 }
