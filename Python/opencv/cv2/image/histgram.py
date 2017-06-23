@@ -1,11 +1,13 @@
 #-*- coding:utf-8 -*-
 import cv2
+import numpy as np
 from matplotlib import pyplot as plt
 
+    
 def main():
     # 画像ファイルを8bitで読み込む
-    gray = cv2.imread('test.jpg', 0)
-    #　画像ヒストグラムを作成
+    gray = cv2.imread('input1.jpg', 0)
+    #　画像ヒストグラムの作成
     plt.rcParams["font.family"] = "Times New Roman"
     plt.hist(gray.ravel(),256,[0,256])
     plt.xlim(0, 255)
