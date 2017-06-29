@@ -10,8 +10,8 @@ void setup() {
 void loop() {
   // 超音波の出力終了
   digitalWrite(trig,LOW);
-  delayMicroseconds(1)
-  // 超音波を出力;
+  delayMicroseconds(1);
+  // 超音波を出力
   digitalWrite(trig,HIGH);
   delayMicroseconds(11);
   // 超音波を出力終了
