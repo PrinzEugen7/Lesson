@@ -13,7 +13,7 @@ def template_matching_sad(img, temp):
     # 走査
     for dy in range(0, h - ht):
         for dx in range(0, w - wt):
-            # 差分の絶対和を計算
+            #　二乗誤差の和を計算
             diff = (img[dy:dy + ht, dx:dx + wt] - temp)**2
             score[dy, dx] = diff.sum()
             
@@ -26,7 +26,7 @@ def main():
     img = cv2.imread("input.jpg", 0)
     temp = cv2.imread("temp.jpg", 0)
     
-    # テンプレートマッチング（評価値SAD）
+    # テンプレートマッチング（評価値SSD）
     point = template_matching_sad(img, temp)
     
     # 入力画像をRGBに変換
