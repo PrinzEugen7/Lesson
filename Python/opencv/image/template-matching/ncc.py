@@ -15,13 +15,14 @@ def template_matching_sad(img, temp):
         for dx in range(0, w - wt):
             # 差分の絶対和を計算
             img2 = img[dy:dy + ht, dx:dx + wt].reshape(-1)
-            temp2 = temp.reshape(-1)
-            num = np.dot(img2, temp2.T)
+            temp2 = temp.reshape(-1).astype(np.double)
+            num = np.dot(img2, temp2.T).astype(np.double)
             den = np.sqrt(np.sum(img2 ** 2)) / np.sqrt(np.sum(temp2 ** 2))
             if den == 0: score[dy, dx] = 0
             score[dy, dx] = num / den
               
     # スコアが最大の走査位置を返す
+    score /= np.max(score)
     return np.unravel_index(score.argmax(), score.shape)
 
 
@@ -30,7 +31,7 @@ def main():
     img = cv2.imread("input.jpg", 0)
     temp = cv2.imread("temp.jpg", 0)
     
-    # テンプレートマッチング（評価値NCC）
+    # テンプレートマッチング（評価値SAD）
     point = template_matching_sad(img, temp)
     
     # 入力画像をRGBに変換
