@@ -2,7 +2,7 @@
 import cv2
 import numpy as np
 
-def template_matching_sad(img, temp):
+def template_matching_ssd(img, temp):
     # 画像の高さ・幅を取得
     h, w = img.shape
     ht, wt = temp.shape
@@ -27,7 +27,7 @@ def main():
     temp = cv2.imread("temp.jpg", 0)
     
     # テンプレートマッチング（評価値SSD）
-    point = template_matching_sad(img, temp)
+    point = template_matching_ssd(img, temp)
     
     # 入力画像をRGBに変換
     img2 = cv2.cvtColor(img, cv2.COLOR_GRAY2RGB)
