@@ -13,8 +13,8 @@ def filter2d(src, kernel):
     return dst
     
 def main():
-    # 入力画像の読み込み
-    img = cv2.imread("input.jpg", 0)
+    # 入力画像をグレースケールで読み込み
+    gray = cv2.imread("input.jpg", 0)
     
     # カーネル（オペレータ）
     kernel = np.array([[-1, 0, 1],
@@ -22,14 +22,14 @@ def main():
                        [-1, 0, 1]])
 
     # 方法1
-    dst1 = filter2d(img, kernel)
+    dst1 = filter2d(gray, kernel)
     
     # 方法2       
-    dst2 = cv2.filter2D(img, -1, kernel)
+    dst2 = cv2.filter2D(gray, -1, kernel)
     
     # 結果を出力
-    cv2.imwrite("hsv1.jpg", dst1)
-    cv2.imwrite("hsv2.jpg", dst2)
+    cv2.imwrite("output1.jpg", dst1)
+    cv2.imwrite("output2.jpg", dst2)
     
 if __name__ == "__main__":
     main()
