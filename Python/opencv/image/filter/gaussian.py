@@ -36,7 +36,7 @@ def main():
     dst2 = cv2.filter2D(gray, -1, kernel)
     
     # 方法3
-    dst3 = cv2.GaussianBlur(gray, ksize=(3,3), sigmaX=2)
+    dst3 = cv2.GaussianBlur(gray, ksize=(3,3), sigmaX=1.3)
     
     # 結果を出力
     cv2.imwrite("output1.jpg", dst1)
