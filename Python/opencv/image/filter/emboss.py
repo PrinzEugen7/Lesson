@@ -2,21 +2,22 @@
 import cv2
 import numpy as np
 
-def filter2d(src, kernel):
+def emboss_filter(src, kernel, offset=128):
     # カーネルサイズ
     m, n = kernel.shape
     
     # 畳み込み演算をしない領域の幅
     d = int((m-1)/2)
     h, w = src.shape[0], src.shape[1]
-    
-    # 出力画像用の配列（要素は全て0）
-    dst = np.zeros((h,w))
+
+    # 出力画像用の配列（要素は全てoffset値）
+    dst = np.empty((h,w))
+    dst.fill(offset)
     
     for y in range(d, h - d - 1):
         for x in range(d, w - d - 1):
             # 畳み込み演算
-            dst[y][x] = np.sum(src[y:y+m, x:x+m]*kernel)
+            dst[y][x] = np.sum(src[y:y+m, x:x+m]*kernel) + offset
             
     return dst
     
@@ -29,11 +30,14 @@ def main():
                        [-1, 1, 1],
                        [-1, 1, 2]])
 
+    # オフセット値
+    offset = 128
+    
     # 方法1
-    dst1 = filter2d(gray, kernel)
+    dst1 = emboss_filter(gray, kernel, offset)
     
     # 方法2       
-    dst2 = cv2.filter2D(gray, -1, kernel)
+    dst2 = cv2.filter2D(gray, -1, kernel, delta=offset)
     
     # 結果を出力
     cv2.imwrite("output1.jpg", dst1)
@@ -42,4 +46,3 @@ def main():
     
 if __name__ == "__main__":
     main()
-
