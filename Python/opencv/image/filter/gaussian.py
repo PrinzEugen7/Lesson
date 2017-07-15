@@ -2,7 +2,7 @@
 import cv2
 import numpy as np
 
-def filter2d(src, kernel):
+def gaussian_filter(src, kernel):
     # カーネルサイズ
     m, n = kernel.shape
     
@@ -10,9 +10,9 @@ def filter2d(src, kernel):
     d = int((m-1)/2)
     h, w = src.shape[0], src.shape[1]
     
-    # 出力画像用の配列（要素は全て0）
-    dst = np.zeros((h,w))
-    
+    # 出力画像用の配列（要素値は入力画像と同じ）
+    dst = src.copy()
+
     for y in range(d, h - d - 1):
         for x in range(d, w - d - 1):
             # 畳み込み演算
@@ -26,17 +26,17 @@ def main():
     
     # カーネル（縦方向の輪郭検出用）
     kernel = np.array([[1/16, 1/8, 1/16],
-                              [1/8, 1/4, 1/8],
-                              [1/16, 1/8, 1/16]])
+                       [1/8, 1/4, 1/8],
+                       [1/16, 1/8, 1/16]])
 
     # 方法1
-    dst1 = filter2d(gray, kernel)
+    dst1 = gaussian_filter(gray, kernel)
     
     # 方法2       
     dst2 = cv2.filter2D(gray, -1, kernel)
     
     # 方法3
-    dst3 = cv2.GaussianBlur(gray, ksize=3,sigmaX=2)
+    dst3 = cv2.GaussianBlur(gray, ksize=(3,3), sigmaX=2)
     
     # 結果を出力
     cv2.imwrite("output1.jpg", dst1)
