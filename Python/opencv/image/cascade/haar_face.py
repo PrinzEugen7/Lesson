@@ -14,7 +14,7 @@ def main():
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     
     # 顔領域の探索
-    face = cascade.detectMultiScale(gray, 1.1, 3)
+    face = cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=3, minSize=(30, 30))
     
     # 顔領域を赤色の矩形で囲む
     for (x, y, w, h) in face:
