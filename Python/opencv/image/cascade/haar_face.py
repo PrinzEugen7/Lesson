@@ -16,17 +16,12 @@ def main():
     # 顔領域の探索
     face = cascade.detectMultiScale(gray, 1.1, 3)
     
-    # 顔領域を赤枠で囲む
+    # 顔領域を赤色の矩形で囲む
     for (x, y, w, h) in face:
-        im2 = im[y:y+h, x:x+w]
-        im2 = cv2.resize(im2, (w/10, h/10))
-        im2 = cv2.resize(im2, (w, h), interpolation=cv2.cv.CV_INTER_NN)
-        im[y:y+h, x:x+w] = im2
+        cv2.rectangle(img, (x, y), (x + w, y+h), (0,0,200), 3)
 
-    # 結果を表示
-    cv2.imshow("Show Image",img)
-    cv2.waitKey(0)              # キー入力待機
-    cv2.destroyAllWindows()     # ウィンドウ破棄
+    # 結果を出力
+    cv2.imshow("result.jpg",img)
 
 if __name__ == '__main__':
 main()
