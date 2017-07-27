@@ -11,8 +11,8 @@ def main():
 
     # yの値を計算
     y = x
-    y1 = x - 50
-
+    y1 = x + 50
+    y2 = x - 50
     # フォントの種類
     plt.rcParams["font.family"] = "Times New Roman"
 
@@ -21,7 +21,8 @@ def main():
 
     # 線を引く
     plt.plot(x, y, "k-", label="$k=0$",linewidth=2)
-    plt.plot(x, y1, "r--", label="$k=-50$", linewidth=2)
+    plt.plot(x, y1, "r--", label="$k=50$", linewidth=2)
+    plt.plot(x, y2, "b--", label="$k=-50$", linewidth=2)
 
     # 軸の設定
     plt.xlim(0, 255)
