@@ -3,7 +3,7 @@ import cv2
 import numpy as np
 
 def median_filter(src, ksize):
-    # 畳み込み演算をしない領域の幅
+    # 処理しない領域の幅
     d = int((ksize-1)/2)
     h, w = src.shape[0], src.shape[1]
     
@@ -12,7 +12,7 @@ def median_filter(src, ksize):
     
     for y in range(d, h - d - 1):
         for x in range(d, w - d - 1):
-            # 畳み込み演算
+            # 近傍にある画素値の中央値を出力画像の画素値に設定
             dst[y][x] = np.median(src[y:y+ksize, x:x+ksize])
             
     return dst
