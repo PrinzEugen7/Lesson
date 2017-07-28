@@ -36,7 +36,7 @@ def main():
     dst2 = cv2.filter2D(gray, -1, kernel)
     
     # 方法3
-    dst3 = cv2.blur(gray, ksize=3)
+    dst3 = cv2.blur(gray, ksize=(3,3))
     
     # 結果を出力
     cv2.imwrite("output1.jpg", dst1)
