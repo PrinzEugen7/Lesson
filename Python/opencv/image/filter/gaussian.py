@@ -21,8 +21,11 @@ def gaussian_filter(src, kernel):
     return dst
     
 def main():
-    # 入力画像をグレースケールで読み込み
-    gray = cv2.imread("input.jpg", 0)
+    # 入力画像を読み込み
+    img = cv2.imread("input.jpg")
+
+    # グレースケール変換
+    gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
     
     # カーネル（縦方向の輪郭検出用）
     kernel = np.array([[1/16, 1/8, 1/16],
