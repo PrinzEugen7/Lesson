@@ -3,7 +3,7 @@ import cv2
 import numpy as np
 
 def median_filter(src, ksize):
-    # 処理しない領域の幅
+    # 畳み込み演算をしない領域の幅
     d = int((ksize-1)/2)
     h, w = src.shape[0], src.shape[1]
     
@@ -19,16 +19,13 @@ def median_filter(src, ksize):
     
 def main():
     # 入力画像をグレースケールで読み込み
-    gray = cv2.imread("input.png", 0)
+    gray = cv2.imread("input.jpg", 0)
 
     # 方法1
     dst1 = median_filter(gray, ksize=5)
     
     # 方法2       
     dst2 = cv2.medianBlur(gray, ksize=5)
-    
-    # 方法3
-
     
     # 結果を出力
     cv2.imwrite("output1.jpg", dst1)
