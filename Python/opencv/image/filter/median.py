@@ -14,7 +14,7 @@ def median_filter(src, ksize):
     for y in range(d, h - d):
         for x in range(d, w - d):
             # 近傍にある画素値の中央値を出力画像の画素値に設定
-            dst[y][x] = np.median(src[y-d:y+d, x-d:x+d])
+            dst[y][x] = np.median(src[y-d:y+d+1, x-d:x+d+1])
 
     return dst
     
