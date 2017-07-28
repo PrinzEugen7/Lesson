@@ -9,12 +9,12 @@ def median_filter(src, ksize):
     
     # 出力画像用の配列（要素は入力画像と同じ）
     dst = src.copy()
-    
-    for y in range(d, h - d - 1):
-        for x in range(d, w - d - 1):
+
+    for y in range(d, h - d):
+        for x in range(d, w - d):
             # 近傍にある画素値の中央値を出力画像の画素値に設定
             dst[y][x] = np.median(src[y:y+ksize, x:x+ksize])
-            
+
     return dst
     
 def main():
@@ -22,11 +22,11 @@ def main():
     gray = cv2.imread("input.jpg", 0)
 
     # 方法1
-    dst1 = median_filter(gray, ksize=5)
+    dst1 = median_filter(gray, ksize=3)
     
     # 方法2       
-    dst2 = cv2.medianBlur(gray, ksize=5)
-    
+    dst2 = cv2.medianBlur(gray, ksize=3)
+
     # 結果を出力
     cv2.imwrite("output1.jpg", dst1)
     cv2.imwrite("output2.jpg", dst2)
