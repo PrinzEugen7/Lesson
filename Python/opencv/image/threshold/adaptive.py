@@ -26,13 +26,17 @@ def threshold(src, ksize=3, c=2):
     
 def main():
     # 入力画像をグレースケールで読み込み
-    gray = cv2.imread("input.jpg", 0)
+    img = cv2.imread("input.jpg")
+
+    # グレースケール変換
+    gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
 
     # 方法1
     dst1 = threshold(gray, ksize=11, c=2)
     
     # 方法2       
     dst2 = cv2.adaptiveThreshold(gray,255,cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY,11,2)
+
     
     # 結果を出力
     cv2.imwrite("output1.jpg", dst1)
@@ -40,4 +44,4 @@ def main():
 
     
 if __name__ == "__main__":
- main()
+    main()
