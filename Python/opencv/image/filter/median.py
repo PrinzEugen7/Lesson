@@ -10,8 +10,8 @@ def median_filter(src, ksize):
     # 出力画像用の配列（要素は入力画像と同じ）
     dst = src.copy()
 
-    for y in range(d, h - d):
-        for x in range(d, w - d):
+    for y in range(d, h - d - 1):
+        for x in range(d, w - d - 1):
             # 近傍にある画素値の中央値を出力画像の画素値に設定
             dst[y][x] = np.median(src[y:y+ksize, x:x+ksize])
 
