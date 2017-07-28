@@ -14,10 +14,10 @@ def emboss_filter(src, kernel, offset=128):
     dst = np.empty((h,w))
     dst.fill(offset)
     
-    for y in range(d, h - d - 1):
-        for x in range(d, w - d - 1):
+    for y in range(d, h - d):
+        for x in range(d, w - d):
             # 畳み込み演算
-            dst[y][x] = np.sum(src[y:y+m, x:x+m]*kernel) + offset
+            dst[y][x] = np.sum(src[y-d:y+d+1, x-d:x+d+1]*kernel) + offset
             
     return dst
     
