@@ -25,7 +25,7 @@ def threshold(src, ksize=3, c=2):
     return dst
     
 def main():
-    # 入力画像をグレースケールで読み込み
+    # 入力画像を読み込み
     img = cv2.imread("input.jpg")
 
     # グレースケール変換
