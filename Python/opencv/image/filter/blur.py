@@ -13,10 +13,10 @@ def filter2d(src, kernel):
     # 出力画像用の配列（要素は全て0）
     dst = np.zeros((h,w))
     
-    for y in range(d, h - d - 1):
-        for x in range(d, w - d - 1):
+    for y in range(d, h - d):
+        for x in range(d, w - d):
             # 畳み込み演算
-            dst[y][x] = np.sum(src[y:y+m, x:x+m]*kernel)
+            dst[y][x] = np.sum(src[y-d:y+d+1, x-d:x+d+1]*kernel)
             
     return dst
     
@@ -26,8 +26,8 @@ def main():
     
     # カーネル（縦方向の輪郭検出用）
     kernel = np.array([[1/9, 1/9, 1/9],
-                              [1/9, 1/9, 1/9],
-                              [1/9, 1/9, 1/9]])
+                       [1/9, 1/9, 1/9],
+                       [1/9, 1/9, 1/9]])
 
     # 方法1
     dst1 = filter2d(gray, kernel)
