@@ -25,6 +25,7 @@ def filter2d(src, kernel, fill_value=-1):
             
     return dst
 
+
 # Non maximum Suppression処理
 def non_max_sup(G, Gth):
 
@@ -35,18 +36,19 @@ def non_max_sup(G, Gth):
     for y in range(1, h - 1):
         for x in range(1, w - 1):
             if Gth[y][x]==0:
-                if (G[y][x]<=G[y][x+1]) or (G[y][x]<=G[y][x-1]):
-                    dst[y][x]=0
-            elif Gth[y][x]==45:
-                if (G[y][x]<=G[y-1][x+1]) or (G[y][x]<=G[y+1][x-1]):
-                    dst[y][x]=0
-            elif Gth[y][x]==90:
-                if (G[y][x]<=G[y+1][x]) or (G[y][x]<=G[y-1][x]):
-                    dst[y][x]=0
+                if (G[y][x] <=G [y][x+1]) or (G[y][x] <= G[y][x-1]):
+                    dst[y][x] = 0
+            elif Gth[y][x] == 45:
+                if (G[y][x] <= G[y-1][x+1]) or (G[y][x] <= G[y+1][x-1]):
+                    dst[y][x] = 0
+            elif Gth[y][x] == 90:
+                if (G[y][x] <= G[y+1][x]) or (G[y][x] <= G[y-1][x]):
+                    dst[y][x] = 0
             else:
-                if (G[y][x]<=G[y+1][x+1]) or  (G[y][x]<=G[y-1][x-1]):
-                    dst[y][x]=0
+                if (G[y][x] <= G[y+1][x+1]) or  (G[y][x] <= G[y-1][x-1]):
+                    dst[y][x] = 0
     return dst
+
 
 # Hysteresis Threshold処理
 def hysteresis_threshold(src, t_min=75, t_max=150, d=1):
@@ -62,29 +64,12 @@ def hysteresis_threshold(src, t_min=75, t_max=150, d=1):
             elif src[y][x] < t_min: dst[y][x] = 0
             # 最小閾値～最大閾値の間なら、近傍に信頼性の高い輪郭が1つでもあれば輪郭と判定、無ければ除去
             else:
-                if len(np.where(src[y-d:y+d+1, x-d:x+d+1] > t_max)) > 0:
+                if np.max(src[y-d:y+d+1, x-d:x+d+1]) > t_max:
                     dst[y][x] = 255
                 else: dst[y][x] = 0
 
     return dst
 
-
-def main():
-    # 入力画像を読み込み
-    img = cv2.imread("input.jpg")
-
-    # グレースケール変換
-    gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
-
-    # 方法1 NumPyで実装
-    edge1 = canny_edge_detecter(gray, 100, 200, 1)
-    
-    # 方法2 OpenCVで実装
-    edge2 = cv2.Canny(gray, 100, 200)
-
-    # 結果を出力
-    cv2.imwrite("output1.jpg", edge1)
-    cv2.imwrite("output2.jpg", edge2)
 
 def canny_edge_detecter(gray, t_min, t_max, d):
 
@@ -109,18 +94,17 @@ def canny_edge_detecter(gray, t_min, t_max, d):
     
     # 処理3 勾配強度・方向を算出
     G = np.hypot(gradx, grady)
-    Gth = np.arctan2(grady, gradx)
-
+    Gth = np.arctan2(grady, gradx) * 180 / np.pi
     # 勾配方向を4方向(垂直・水平・斜め右上・斜め左上)に近似
-    Gth[np.where((Gth >= 0) & (Gth < 22.5))] = 0
+    Gth[np.where((Gth >= -22.5) & (Gth < 22.5))] = 0
+    Gth[np.where((Gth >= 157.5 ) & (Gth < 180))] = 0
+    Gth[np.where((Gth >= -180 ) & (Gth < -157.5))] = 0
     Gth[np.where((Gth >= 22.5) & (Gth < 67.5))] = 45
+    Gth[np.where((Gth >= -157.5 ) & (Gth < -112.5))] = 45
     Gth[np.where((Gth >= 67.5) & (Gth < 112.5))] = 90
+    Gth[np.where((Gth >= -112.5) & (Gth < -67.5))] = 90
     Gth[np.where((Gth >= 112.5) & (Gth < 157.5))] = 135
-    Gth[np.where((Gth >= 157.5 ) & (Gth < 202.5))] = 0
-    Gth[np.where((Gth >= 202.5 ) & (Gth < 247.5))] = 45
-    Gth[np.where((Gth >= 247.5) & (Gth < 292.5))] = 90
-    Gth[np.where((Gth >= 292.5) & (Gth < 337.5))] = 135
-    Gth[np.where((Gth >= 337.5) & (Gth < 360))] = 0
+    Gth[np.where((Gth >= -67.5) & (Gth < -22.5))] = 135
 
     # 処理4 Non maximum Suppression処理
     G = non_max_sup(G, Gth)
@@ -128,6 +112,23 @@ def canny_edge_detecter(gray, t_min, t_max, d):
     # 処理5 Hysteresis Threshold処理
     return hysteresis_threshold(G, t_min, t_max, d)
 
+
+def main():
+    # 入力画像を読み込み
+    img = cv2.imread("input.jpg")
+
+    # グレースケール変換
+    gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
+
+    # 方法1 NumPyで実装
+    edge1 = canny_edge_detecter(gray, 100, 200, 1)
+    
+    # 方法2 OpenCVで実装
+    edge2 = cv2.Canny(gray, 100, 200)
+
+    # 結果を出力
+    cv2.imwrite("output1.jpg", edge1)
+    cv2.imwrite("output2.jpg", edge2)
     
 
 if __name__ == "__main__":
