@@ -81,24 +81,6 @@ def hysteresis_threshold(G, t_min=75, t_max=150):
                 traverse(i, j, gnh, gnl)
     return gnh
 
-
-def main():
-    # 入力画像を読み込み
-    img = cv2.imread("input.jpg")
-
-    # グレースケール変換
-    gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
-
-    # 方法1 NumPyで実装
-    edge1 = canny_edge_detecter(gray, t_min=100, t_max=200)
-    
-    # 方法2 OpenCVで実装
-    edge2 = cv2.Canny(gray, 100, 200)
-
-    # 結果を出力
-    cv2.imwrite("output1.jpg", edge1)
-    cv2.imwrite("output2.jpg", edge2)
-
 def canny_edge_detecter(gray, t_min, t_max):
 
 
@@ -142,7 +124,24 @@ def canny_edge_detecter(gray, t_min, t_max):
     # 処理5 Hysteresis Threshold処理
     return hysteresis_threshold(G, t_min, t_max)
 
-    
 
+def main():
+    # 入力画像を読み込み
+    img = cv2.imread("input.jpg")
+
+    # グレースケール変換
+    gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
+
+    # 方法1（NumPyでCannyアルゴリズムを実装）
+    edge1 = canny_edge_detecter(gray, t_min=100, t_max=200)
+    
+    # 方法2（OpenCVでCannyアルゴリズムを実装）
+    edge2 = cv2.Canny(gray, 100, 200)
+
+    # 結果を出力
+    cv2.imwrite("output1.jpg", edge1)
+    cv2.imwrite("output2.jpg", edge2)
+
+    
 if __name__ == "__main__":
     main()
