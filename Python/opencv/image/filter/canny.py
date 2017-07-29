@@ -62,7 +62,7 @@ def hysteresis_threshold(src, t_min=75, t_max=150, d=1):
             elif src[y][x] < t_min: dst[y][x] = 0
             # 最小閾値～最大閾値の間なら、近傍に信頼性の高い輪郭が1つでもあれば輪郭と判定、無ければ除去
             else:
-                if len(np.where((src[y-d:y+d+1, x-d:x+d+1] > t_max))) > 0:
+                if len(np.where(src[y-d:y+d+1, x-d:x+d+1] > t_max)) > 0:
                     dst[y][x] = 255
                 else: dst[y][x] = 0
 
