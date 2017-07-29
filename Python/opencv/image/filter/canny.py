@@ -32,7 +32,7 @@ def non_max_sup(G, Gth):
     h, w = G.shape
     dst = G.copy()
 
-    # 勾配方向を4方向(垂直・水平・斜め右上・斜め左上)に近似
+    # 勾配方向を4値化(垂直・右斜め上・水平・左斜め上)
     Gth[np.where((Gth >= -22.5) & (Gth < 22.5))] = 0
     Gth[np.where((Gth >= 157.5 ) & (Gth < 180))] = 0
     Gth[np.where((Gth >= -180 ) & (Gth < -157.5))] = 0
@@ -100,12 +100,12 @@ def canny_edge_detecter(gray, t_min, t_max, d):
     kernel_sy =  np.array([[-1,-2,-1],
                            [0,  0, 0],
                            [1,  2, 1]])
-    gradx = filter2d(G, kernel_sx, 0)
-    grady = filter2d(G, kernel_sy, 0)
+    Gx = filter2d(G, kernel_sx, 0)
+    Gy = filter2d(G, kernel_sy, 0)
     
     # 処理3 勾配強度・方向を算出
-    G = np.hypot(gradx, grady)
-    Gth = np.arctan2(grady, gradx) * 180 / np.pi
+    G = np.sqrt(Gx**2 + Gy**2)
+    Gth = np.arctan2(Gy, Gx) * 180 / np.pi
 
     # 処理4 Non maximum Suppression処理
     G = non_max_sup(G, Gth)
@@ -121,10 +121,10 @@ def main():
     # グレースケール変換
     gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
 
-    # 方法1 NumPyで実装
+    # 方法1(NumPyで実装)
     edge1 = canny_edge_detecter(gray, 100, 200, 1)
     
-    # 方法2 OpenCVで実装
+    # 方法2(OpenCVで実装)
     edge2 = cv2.Canny(gray, 100, 200)
 
     # 結果を出力
