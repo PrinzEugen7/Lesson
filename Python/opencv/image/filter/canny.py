@@ -32,7 +32,7 @@ def non_max_sup(G, Gth):
     h, w = G.shape
     dst = G.copy()
 
-    # 勾配方向を4値化(垂直・右斜め上・水平・左斜め上)
+    # 勾配方向を4方向(垂直・水平・斜め右上・斜め左上)に近似
     Gth[np.where((Gth >= -22.5) & (Gth < 22.5))] = 0
     Gth[np.where((Gth >= 157.5 ) & (Gth < 180))] = 0
     Gth[np.where((Gth >= -180 ) & (Gth < -157.5))] = 0
@@ -76,7 +76,7 @@ def hysteresis_threshold(src, t_min=75, t_max=150, d=1):
             # 最小閾値～最大閾値の間なら、近傍に信頼性の高い輪郭が1つでもあれば輪郭と判定、無ければ除去
             else:
                 if np.max(src[y-d:y+d+1, x-d:x+d+1]) >= t_max:
-                    dst[y][x] = 0
+                    dst[y][x] = 255
                 else: dst[y][x] = 0
 
     return dst
