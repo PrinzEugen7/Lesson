@@ -32,20 +32,31 @@ def non_max_sup(G, Gth):
     h, w = G.shape
     dst = G.copy()
 
+    # 勾配方向を4方向(垂直・水平・斜め右上・斜め左上)に近似
+    Gth[np.where((Gth >= -22.5) & (Gth < 22.5))] = 0
+    Gth[np.where((Gth >= 157.5 ) & (Gth < 180))] = 0
+    Gth[np.where((Gth >= -180 ) & (Gth < -157.5))] = 0
+    Gth[np.where((Gth >= 22.5) & (Gth < 67.5))] = 45
+    Gth[np.where((Gth >= -157.5 ) & (Gth < -112.5))] = 45
+    Gth[np.where((Gth >= 67.5) & (Gth < 112.5))] = 90
+    Gth[np.where((Gth >= -112.5) & (Gth < -67.5))] = 90
+    Gth[np.where((Gth >= 112.5) & (Gth < 157.5))] = 135
+    Gth[np.where((Gth >= -67.5) & (Gth < -22.5))] = 135
+
     # 注目画素と勾配方向に隣接する2つの画素値を比較し、注目画素値が最大でなければ0に
     for y in range(1, h - 1):
         for x in range(1, w - 1):
             if Gth[y][x]==0:
-                if (G[y][x] <=G [y][x+1]) or (G[y][x] <= G[y][x-1]):
+                if (G[y][x] < G[y][x+1]) or (G[y][x] < G[y][x-1]):
                     dst[y][x] = 0
             elif Gth[y][x] == 45:
-                if (G[y][x] <= G[y-1][x+1]) or (G[y][x] <= G[y+1][x-1]):
+                if (G[y][x] < G[y-1][x+1]) or (G[y][x] < G[y+1][x-1]):
                     dst[y][x] = 0
             elif Gth[y][x] == 90:
-                if (G[y][x] <= G[y+1][x]) or (G[y][x] <= G[y-1][x]):
+                if (G[y][x] < G[y+1][x]) or (G[y][x] < G[y-1][x]):
                     dst[y][x] = 0
             else:
-                if (G[y][x] <= G[y+1][x+1]) or  (G[y][x] <= G[y-1][x-1]):
+                if (G[y][x] < G[y+1][x+1]) or  (G[y][x] < G[y-1][x-1]):
                     dst[y][x] = 0
     return dst
 
@@ -64,8 +75,8 @@ def hysteresis_threshold(src, t_min=75, t_max=150, d=1):
             elif src[y][x] < t_min: dst[y][x] = 0
             # 最小閾値～最大閾値の間なら、近傍に信頼性の高い輪郭が1つでもあれば輪郭と判定、無ければ除去
             else:
-                if np.max(src[y-d:y+d+1, x-d:x+d+1]) > t_max:
-                    dst[y][x] = 255
+                if np.max(src[y-d:y+d+1, x-d:x+d+1]) >= t_max:
+                    dst[y][x] = 0
                 else: dst[y][x] = 0
 
     return dst
@@ -95,16 +106,6 @@ def canny_edge_detecter(gray, t_min, t_max, d):
     # 処理3 勾配強度・方向を算出
     G = np.hypot(gradx, grady)
     Gth = np.arctan2(grady, gradx) * 180 / np.pi
-    # 勾配方向を4方向(垂直・水平・斜め右上・斜め左上)に近似
-    Gth[np.where((Gth >= -22.5) & (Gth < 22.5))] = 0
-    Gth[np.where((Gth >= 157.5 ) & (Gth < 180))] = 0
-    Gth[np.where((Gth >= -180 ) & (Gth < -157.5))] = 0
-    Gth[np.where((Gth >= 22.5) & (Gth < 67.5))] = 45
-    Gth[np.where((Gth >= -157.5 ) & (Gth < -112.5))] = 45
-    Gth[np.where((Gth >= 67.5) & (Gth < 112.5))] = 90
-    Gth[np.where((Gth >= -112.5) & (Gth < -67.5))] = 90
-    Gth[np.where((Gth >= 112.5) & (Gth < 157.5))] = 135
-    Gth[np.where((Gth >= -67.5) & (Gth < -22.5))] = 135
 
     # 処理4 Non maximum Suppression処理
     G = non_max_sup(G, Gth)
