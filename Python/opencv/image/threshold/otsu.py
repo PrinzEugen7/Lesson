@@ -38,6 +38,8 @@ def threshold_otsu(gray, min_value=0, max_value=255):
 
     return gray
 
+
+
 def main():
     # 入力画像の読み込み
     img = cv2.imread("input.jpg")
