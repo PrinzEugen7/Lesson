@@ -4,9 +4,12 @@ import numpy as np
 
 # 膨張処理
 def rgb_to_hsv(src, ksize=3):
+    
+    # 高さ・幅・チャンネル数を取得
     h, w, c = src.shape
-    dst = src.copy()
-    d = int((ksize-1)/2)
+    
+    # 入力画像と同じサイズで出力画像用の配列を生成(中身は空)
+    dst = np.empty((h, w, c))
 
     for y in range(0, h):
         for x in range(0, w):
