@@ -11,21 +11,24 @@ def threshold_otsu(gray, min_value=0, max_value=255):
     ss = []
     for th in range(256):
         
-        # クラス1とクラス2の平均値・画素数を計算
+        # クラス1とクラス2の画素数を計算
         n1 = sum(hist[:th])
         n2 = sum(hist[th:])
+        
+        # クラス1とクラス2の画素値の平均を計算
+        if n1 = 0 : mu1 = 0
+        if n2 = 0 : mu2 = 0
+        mu1 = sum([i * hist[i] for i in range(0,th)]) / n1       
+        mu2 = sum([i * hist[i] for i in range(th, 256)]) / n2
 
-        mu1 = sum([i * hist[i] for i in range(0,th)]) / n1 if n1 > 0 else 0       
-        mu2 = sum([i * hist[i] for i in range(th, 256)]) / n2 if n2 > 0 else 0
-
-        # 分離度の分子を計算
+        # クラス間分散(分離度の分子)を計算
         s = n1 * n2 * (mu1 - mu2) ** 2
 
-        # 分離度の分子が最大のとき、分離度と閾値を記録
+        # クラス間分散が最大のとき、分離度と閾値を記録
         if s > s_max[1]:
             s_max = (th, s)
     
-    # 分離度が最大のときの閾値を取得
+    # クラス間分散が最大のときの閾値を取得
     t = s_max[0]
 
     # 算出した閾値で二値化処理
