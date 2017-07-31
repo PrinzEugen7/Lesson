@@ -21,10 +21,10 @@ def threshold_otsu(gray, min_value=0, max_value=255):
         if n2 == 0 : mu2 = 0
         else : mu2 = sum([i * hist[i] for i in range(th, 256)]) / n2
 
-        # クラス間分散(分離度の分子)を計算
+        # クラス間分散の分子を計算
         s = n1 * n2 * (mu1 - mu2) ** 2
 
-        # クラス間分散が最大のとき、分離度と閾値を記録
+        # クラス間分散の分子が最大のとき、分離度と閾値を記録
         if s > s_max[1]:
             s_max = (th, s)
     
