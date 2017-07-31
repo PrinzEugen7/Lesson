@@ -17,9 +17,9 @@ def threshold_otsu(gray, min_value=0, max_value=255):
         
         # クラス1とクラス2の画素値の平均を計算
         if n1 == 0 : mu1 = 0
+        else : mu1 = sum([i * hist[i] for i in range(0,th)]) / n1   
         if n2 == 0 : mu2 = 0
-        mu1 = sum([i * hist[i] for i in range(0,th)]) / n1       
-        mu2 = sum([i * hist[i] for i in range(th, 256)]) / n2
+        else : mu2 = sum([i * hist[i] for i in range(th, 256)]) / n2
 
         # クラス間分散(分離度の分子)を計算
         s = n1 * n2 * (mu1 - mu2) ** 2
@@ -57,4 +57,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
