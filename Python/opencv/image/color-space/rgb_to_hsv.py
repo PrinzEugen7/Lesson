@@ -17,8 +17,8 @@ def rgb_to_hsv(src, ksize=3):
             [b, g, r] = src[y][x]/255.0
 
             # R, G, Bの値から最大値と最小値を計算
-
             mx, mn = max(r, g, b), min(r, g, b)
+            
             # 最大値 - 最小値
             diff = mx - mn
 
@@ -27,6 +27,7 @@ def rgb_to_hsv(src, ksize=3):
             elif mx == r : h = 60 * ((g-b)/diff)     
             elif mx == g : h = 60 * ((b-r)/diff) + 120  
             elif mx == b : h = 60 * ((r-g)/diff) + 240
+            if h < 0 : h = h + 360
                 
             # Sの値を計算
             if mx != 0:s = diff/mx       
