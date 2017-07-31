@@ -5,10 +5,11 @@ import numpy as np
 # 大津の手法
 def threshold_otsu(gray, min_value=0, max_value=255):
 
+    # ヒストグラムの算出
     hist = [np.sum(gray == i) for i in range(256)]
 
     s_max = (0,-10)
-    ss = []
+
     for th in range(256):
         
         # クラス1とクラス2の画素数を計算
