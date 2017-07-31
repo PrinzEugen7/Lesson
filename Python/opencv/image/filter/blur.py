@@ -1,8 +1,10 @@
+
+
 #-*- coding:utf-8 -*-
 import cv2
 import numpy as np
 
-def filter2d(src, kernel):
+def filter2d(src, kernel, fill_value=-1):
     # カーネルサイズ
     m, n = kernel.shape
     
@@ -10,8 +12,13 @@ def filter2d(src, kernel):
     d = int((m-1)/2)
     h, w = src.shape[0], src.shape[1]
     
-    # 出力画像用の配列（要素は全て0）
-    dst = np.zeros((h,w))
+    # 出力画像用の配列
+    if fill_value == -1: dst = src.copy()
+    elif fill_value == 0: dst = np.zeros((h, w))
+    else:
+        dst = np.zeros((h, w))
+        dst.fill(fill_value)
+
     
     for y in range(d, h - d):
         for x in range(d, w - d):
@@ -29,13 +36,13 @@ def main():
                        [1/9, 1/9, 1/9],
                        [1/9, 1/9, 1/9]])
 
-    # 方法1
-    dst1 = filter2d(gray, kernel)
+    # 方法1(NumPyで実装)
+    dst1 = filter2d(gray, kernel, -1)
     
-    # 方法2       
+    # 方法2(OpenCVで実装)    
     dst2 = cv2.filter2D(gray, -1, kernel)
     
-    # 方法3
+    # 方法3(OpenCVで実装) 
     dst3 = cv2.blur(gray, ksize=(3,3))
     
     # 結果を出力
@@ -46,3 +53,4 @@ def main():
     
 if __name__ == "__main__":
     main()
+
