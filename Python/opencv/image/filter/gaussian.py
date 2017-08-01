@@ -27,7 +27,7 @@ def main():
     # グレースケール変換
     gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
     
-    # カーネル（縦方向の輪郭検出用）
+    # カーネル
     kernel = np.array([[1/16, 1/8, 1/16],
                        [1/8, 1/4, 1/8],
                        [1/16, 1/8, 1/16]])
