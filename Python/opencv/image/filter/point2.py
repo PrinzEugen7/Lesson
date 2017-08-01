@@ -23,13 +23,10 @@ def filter2d(src, kernel):
 
 def main():
     # 入力画像を読み込み
-    img = cv2.imread("input2.jpg")
+    img = cv2.imread("input.jpg")
 
     # グレースケール変換
     gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
-
-    gray[gray<127]=0
-    gray[gray>=127]=255
 
     # カーネル
     kernel = np.array([[0, 0, 0],
