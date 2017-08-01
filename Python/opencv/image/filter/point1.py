@@ -9,8 +9,6 @@ def main():
     # グレースケール変換
     gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
 
-    gray[gray<127]=0
-    gray[gray>=127]=255
     # カーネル
     kernel = np.array([[0, 0, 0],
                        [-1, 0, 1],
