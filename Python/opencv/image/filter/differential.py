@@ -33,13 +33,12 @@ def main():
     dst1 = filter2d(gray, kernel)
     
     # 方法2       
-    dst2 = cv2.filter2D(gray, -1, kernel)
-    
+    dst2 = cv2.filter2D(gray, cv2.CV_64F, kernel)
+
     # 結果を出力
-    cv2.imwrite("output1.jpg", dst1)
-    cv2.imwrite("output2.jpg", dst2)
+    cv2.imwrite("output1.jpg", np.uint8(np.absolute(dst1)) )
+    cv2.imwrite("output2.jpg", np.uint8(np.absolute(dst2)) )
 
     
 if __name__ == "__main__":
     main()
-
