@@ -27,7 +27,7 @@ def main():
 
     # 結果を出力
     cv2.imwrite("output1.jpg", dst1 )
-    cv2.imwrite("output2.jpg", np.uint8(np.absolute(dst2)) )
+    cv2.imwrite("output2.jpg", np.uint8(np.abs(dst2)) )
  
  
 if __name__ == "__main__":
