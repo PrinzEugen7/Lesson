@@ -35,7 +35,7 @@ def main():
     
     # テンプレートマッチングの結果を出力
     cv2.rectangle(img, (point[1], point[0] ), (point[1] + temp.shape[0], point[0] + temp.shape[1]), (0,0,200), 3)
-    cv2.imwrite("result.jpg", img)
+    cv2.imwrite("result.png", img)
 
 
 if __name__ == "__main__":
