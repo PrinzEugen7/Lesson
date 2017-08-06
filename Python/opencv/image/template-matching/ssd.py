@@ -2,39 +2,41 @@
 import cv2
 import numpy as np
 
-def template_matching_ssd(img, temp):
+def template_matching_ssd(src, temp):
     # 画像の高さ・幅を取得
-    h, w = img.shape
+    h, w = src.shape
     ht, wt = temp.shape
-    
+   
     # スコア格納用の2次元リスト
-    score = np.empty((h-ht,w-wt))
-    
+    score = np.empty((h-ht, w-wt))
+  
     # 走査
     for dy in range(0, h - ht):
         for dx in range(0, w - wt):
             #　二乗誤差の和を計算
-            diff = (img[dy:dy + ht, dx:dx + wt] - temp)**2
+            diff = (src[dy:dy + ht, dx:dx + wt] - temp)**2
             score[dy, dx] = diff.sum()
-            
+
     # スコアが最小の走査位置を返す
     return np.unravel_index(score.argmin(), score.shape)
 
 
 def main():
-    # 入力画像とテンプレート画像をグレースケールで取得
-    img = cv2.imread("input.jpg", 0)
-    temp = cv2.imread("temp.jpg", 0)
+    # 入力画像とテンプレート画像をで取得
+    img = cv2.imread("input.png")
+    temp = cv2.imread("temp.png")
+
+    # グレースケール変換
+    gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)   
+    temp = cv2.cvtColor(temp, cv2.COLOR_RGB2GRAY)   
     
-    # テンプレートマッチング（評価値SSD）
-    point = template_matching_ssd(img, temp)
-    
-    # 入力画像をRGBに変換
-    img2 = cv2.cvtColor(img, cv2.COLOR_GRAY2RGB)
+    # テンプレートマッチング（評価値SAD）
+    point = template_matching_ssd(gray, temp)
     
     # テンプレートマッチングの結果を出力
-    cv2.rectangle(img2, (point[1], point[0] ), (point[1] + temp.shape[0], point[0] + temp.shape[1]), (0,0,200), 3)
-    cv2.imwrite("result.jpg", img2)
-    
+    cv2.rectangle(img, (point[1], point[0] ), (point[1] + temp.shape[0], point[0] + temp.shape[1]), (0,0,200), 3)
+    cv2.imwrite("result.png", img)
+
+
 if __name__ == "__main__":
     main()
