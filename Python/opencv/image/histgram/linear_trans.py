@@ -15,8 +15,8 @@ def main():
     zmin, zmax = 20.0, 220.0
     # gray = a * gray    # 変換1
     # gray = gray + k    # 変換2
-    # gray = a * (gray - 127.0) + 127.0 # 変換3
-    gray = gray.max() * (gray - zmin)/(zmax - zmin) # 変換4
+    gray = a * (gray - 127.0) + 127.0 # 変換3
+    #gray = gray.max() * (gray - zmin)/(zmax - zmin) # 変換4
 
     # 画素値を0～255の範囲内に収める
     gray[gray<0] = 0
