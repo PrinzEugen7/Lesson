@@ -28,18 +28,21 @@ def template_matching_sad(img, temp):
 
 def main():
     # 入力画像とテンプレート画像をグレースケールで取得
-    img = cv2.imread("input.jpg", 0)
-    temp = cv2.imread("temp.jpg", 0)
-    
+    img = cv2.imread("input.png")
+    temp = cv2.imread("temp.png")
+
+    # グレースケール変換
+    gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)   
+    temp = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)   
+
     # テンプレートマッチング（評価値SAD）
-    point = template_matching_sad(img, temp)
-    
-    # 入力画像をRGBに変換
-    img2 = cv2.cvtColor(img, cv2.COLOR_GRAY2RGB)
+    point = template_matching_sad(gray, temp)
     
     # テンプレートマッチングの結果を出力
-    cv2.rectangle(img2, (point[1], point[0] ), (point[1] + temp.shape[0], point[0] + temp.shape[1]), (0,0,200), 3)
+    cv2.rectangle(img, (point[1], point[0] ), (point[1] + temp.shape[0], point[0] + temp.shape[1]), (0,0,200), 3)
     cv2.imwrite("result.jpg", img2)
+
     
 if __name__ == "__main__":
-    main()
+main()
+
