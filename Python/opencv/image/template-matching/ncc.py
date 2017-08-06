@@ -13,16 +13,13 @@ def template_matching_ncc(src, temp):
     # 走査
     for dy in range(0, h - ht):
         for dx in range(0, w - wt):
-            v1 = src[dy:dy + ht, dx:dx + wt].reshape(-1)
-            v2 = temp.reshape(-1)#.astype(np.double)
-            num = np.dot(v1, v2.T)#.astype(np.double)
-            den = np.sqrt(np.sum(v1 ** 2)) / np.sqrt(np.sum(v2 ** 2))
+            num = np.sum(src[dy:dy + ht, dx:dx + wt] * temp)
+            den = np.sqrt(np.sum(src) ** 2) / np.sqrt(np.sum(temp) ** 2)
             if den == 0: score[dy, dx] = 0
             score[dy, dx] = num / den
-              
-    # スコアが最大の走査位置を返す
-    score /= np.max(score)
-    return np.unravel_index(score.argmax(), score.shape)
+        
+    # スコアが最小の走査位置を返す
+    return np.unravel_index(score.argmin(), score.shape)
 
 
 def main():
