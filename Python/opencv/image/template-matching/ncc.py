@@ -2,21 +2,21 @@
 import cv2
 import numpy as np
 
-def template_matching_ncc(img, temp):
+def template_matching_ncc(src, temp):
     # 画像の高さ・幅を取得
-    h, w = img.shape
+    h, w = src.shape
     ht, wt = temp.shape
     
     # スコア格納用の2次元リスト
-    score = np.empty((h-ht,w-wt))
+    score = np.empty((h-ht, w-wt))
     
     # 走査
     for dy in range(0, h - ht):
         for dx in range(0, w - wt):
-            img2 = img[dy:dy + ht, dx:dx + wt].reshape(-1)
+            src2 = src[dy:dy + ht, dx:dx + wt].reshape(-1)
             temp2 = temp.reshape(-1).astype(np.double)
-            num = np.dot(img2, temp2.T).astype(np.double)
-            den = np.sqrt(np.sum(img2 ** 2)) / np.sqrt(np.sum(temp2 ** 2))
+            num = np.dot(src2, temp2.T).astype(np.double)
+            den = np.sqrt(np.sum(src2 ** 2)) / np.sqrt(np.sum(temp2 ** 2))
             if den == 0: score[dy, dx] = 0
             score[dy, dx] = num / den
               
