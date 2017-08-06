@@ -13,10 +13,10 @@ def template_matching_ncc(src, temp):
     # 走査
     for dy in range(0, h - ht):
         for dx in range(0, w - wt):
-            src2 = src[dy:dy + ht, dx:dx + wt].reshape(-1)
-            temp2 = temp.reshape(-1).astype(np.double)
-            num = np.dot(src2, temp2.T).astype(np.double)
-            den = np.sqrt(np.sum(src2 ** 2)) / np.sqrt(np.sum(temp2 ** 2))
+            v1 = src[dy:dy + ht, dx:dx + wt].reshape(-1)
+            v2 = temp.reshape(-1)#.astype(np.double)
+            num = np.dot(v1, v2.T)#.astype(np.double)
+            den = np.sqrt(np.sum(v1 ** 2)) / np.sqrt(np.sum(v2 ** 2))
             if den == 0: score[dy, dx] = 0
             score[dy, dx] = num / den
               
@@ -34,7 +34,7 @@ def main():
     gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)   
     temp = cv2.cvtColor(temp, cv2.COLOR_RGB2GRAY)   
 
-    # テンプレートマッチング（評価値SAD）
+    # テンプレートマッチング（評価値NCC）
     point = template_matching_ncc(gray, temp)
     
     # テンプレートマッチングの結果を出力
