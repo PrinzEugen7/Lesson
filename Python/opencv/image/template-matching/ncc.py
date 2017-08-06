@@ -2,7 +2,7 @@
 import cv2
 import numpy as np
 
-def template_matching_sad(img, temp):
+def template_matching_ncc(img, temp):
     # 画像の高さ・幅を取得
     h, w = img.shape
     ht, wt = temp.shape
@@ -36,7 +36,7 @@ def main():
     temp = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)   
 
     # テンプレートマッチング（評価値SAD）
-    point = template_matching_sad(gray, temp)
+    point = template_matching_ncc(gray, temp)
     
     # テンプレートマッチングの結果を出力
     cv2.rectangle(img, (point[1], point[0] ), (point[1] + temp.shape[0], point[0] + temp.shape[1]), (0,0,200), 3)
