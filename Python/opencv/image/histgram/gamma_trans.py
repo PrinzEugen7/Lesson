@@ -6,7 +6,7 @@ import numpy as np
 def main():
 
     # 入力画像を読み込み
-    img = cv2.imread("input4.jpg")
+    img = cv2.imread("input.jpg")
 
     # グレースケール変換
     gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
