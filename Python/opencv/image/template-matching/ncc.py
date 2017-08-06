@@ -1,3 +1,5 @@
+
+
 #-*- coding:utf-8 -*-
 import cv2
 import numpy as np
@@ -13,7 +15,6 @@ def template_matching_ncc(img, temp):
     # 走査
     for dy in range(0, h - ht):
         for dx in range(0, w - wt):
-            # 差分の絶対和を計算
             img2 = img[dy:dy + ht, dx:dx + wt].reshape(-1)
             temp2 = temp.reshape(-1).astype(np.double)
             num = np.dot(img2, temp2.T).astype(np.double)
@@ -44,5 +45,5 @@ def main():
 
     
 if __name__ == "__main__":
-main()
+    main()
 
