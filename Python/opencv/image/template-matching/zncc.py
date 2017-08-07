@@ -14,36 +14,37 @@ def template_matching_zncc(src, temp):
     src = np.array(src, dtype="float")
     temp = np.array(temp, dtype="float")
 
-    # テンプレート画像の平均
-    mu_t = temp / (ht * wt) 
+    # テンプレート画像の平均画素値
+    mu_t = np.mean(temp)
 
     # 走査
     for dy in range(0, h - ht):
         for dx in range(0, w - wt):
             # 窓画像
             roi = src[dy:dy + ht, dx:dx + wt]
-            # 窓画像の平均
-            mu_r = roi/(ht * wt)
+            # 窓画像の平均画素値
+            mu_r = np.mean(roi)
             # 窓画像 - 窓画像の平均
             roi = roi - mu_r
             # テンプレート画像 - 窓画像の平均
             temp = temp - mu_t
+
             # ZNCCの計算式
             num = np.sum(roi * temp)
-            den = np.sqrt( (np.sum(roi ** 2))) * np.sqrt(np.sum(temp ** 2)) 
+            den = np.sqrt( np.sum(roi ** 2) ) * np.sqrt( np.sum(temp ** 2) ) 
             if den == 0: score[dy, dx] = 0
-            score[dy, dx] = abs(num / den)
+            score[dy, dx] = num / den
 
     # スコアが最大(1に最も近い)の走査位置を返す
-    pt = np.unravel_index(score.argmax(), score.shape)
-    
+    pt = np.unravel_index(score.argmin(), score.shape)
+
     return (pt[1], pt[0])
 
 
 def main():
     # 入力画像とテンプレート画像をで取得
-    img = cv2.imread("input.png")
-    temp = cv2.imread("temp.png")
+    img = cv2.imread("input2.png")
+    temp = cv2.imread("temp2.png")
 
     # グレースケール変換
     gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)   
