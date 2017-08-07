@@ -7,7 +7,7 @@ def template_matching_ssd(src, temp):
     h, w = src.shape
     ht, wt = temp.shape
    
-    # スコア格納用の2次元リスト
+    # スコア格納用の二次元配列
     score = np.empty((h-ht, w-wt))
   
     # 走査
@@ -18,24 +18,32 @@ def template_matching_ssd(src, temp):
             score[dy, dx] = diff.sum()
 
     # スコアが最小の走査位置を返す
-    return np.unravel_index(score.argmin(), score.shape)
+    pt = np.unravel_index(score.argmin(), score.shape)
 
+    return (pt[1], pt[0])
 
 def main():
     # 入力画像とテンプレート画像をで取得
     img = cv2.imread("input.png")
     temp = cv2.imread("temp.png")
-
+    img2 = img.copy()
     # グレースケール変換
     gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)   
     temp = cv2.cvtColor(temp, cv2.COLOR_RGB2GRAY)   
-    
-    # テンプレートマッチング（評価値SAD）
-    point = template_matching_ssd(gray, temp)
-    
+
+    # テンプレート画像の高さ・幅
+    h, w = temp.shape
+
+    # テンプレートマッチング（NumPyで実装）
+    pt = template_matching_ssd(gray, temp)
+
+    # テンプレートマッチング（OpenCVで実装）
+    #match = cv2.matchTemplate(gray, temp, cv2.TM_SQDIFF)
+    #min_value, max_value, pt, size = cv2.minMaxLoc(match)
+
     # テンプレートマッチングの結果を出力
-    cv2.rectangle(img, (point[1], point[0] ), (point[1] + temp.shape[0], point[0] + temp.shape[1]), (0,0,200), 3)
-    cv2.imwrite("result.png", img)
+    cv2.rectangle(img, (pt[0], pt[1] ), (pt[0] + w, pt[1] + h), (0,0,200), 3)
+    cv2.imwrite("output.png", img)
 
 
 if __name__ == "__main__":
