@@ -32,18 +32,18 @@ def template_matching_zncc(src, temp):
             num = np.sum(roi * temp)
             den = np.sqrt( (np.sum(roi ** 2))) * np.sqrt(np.sum(temp ** 2)) 
             if den == 0: score[dy, dx] = 0
-            score[dy, dx] = num / den
+            score[dy, dx] = abs(num / den)
 
     # スコアが最大(1に最も近い)の走査位置を返す
     pt = np.unravel_index(score.argmax(), score.shape)
-
+    
     return (pt[1], pt[0])
 
 
 def main():
     # 入力画像とテンプレート画像をで取得
-    img = cv2.imread("input.png")
-    temp = cv2.imread("temp.png")
+    img = cv2.imread("inputs.png")
+    temp = cv2.imread("temps.png")
 
     # グレースケール変換
     gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)   
