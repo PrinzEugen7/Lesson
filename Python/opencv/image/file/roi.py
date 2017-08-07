@@ -13,7 +13,7 @@ def main():
     w, h = 40, 40
 
     # 入力画像から窓画像を切り取り
-    roi = src[y:y+h, x:x+w]
+    roi = img[y:y+h, x:x+w]
 
     # 窓画像の保存
     cv2.imwrite("output.png", roi)
