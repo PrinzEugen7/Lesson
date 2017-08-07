@@ -39,9 +39,7 @@ def main():
     pt = template_matching_sad(gray, temp)
 
     # テンプレートマッチング（OpenCVで実装）
-    #match = cv2.matchTemplate(gray, temp, cv2.TM_SQDIFF_NORMED)
-    # テンプレートマッチング（OpenCVで実装）
-    #match = cv2.matchTemplate(gray, temp, cv2.TM_CCORR_NORMED)
+    #match = cv2.matchTemplate(gray, temp, cv2.TM_SQDIFF)
     #min_value, max_value, min_pt, max_pt = cv2.minMaxLoc(match)
     #pt = min_pt
 
