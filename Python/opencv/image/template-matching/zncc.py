@@ -42,8 +42,8 @@ def template_matching_zncc(src, temp):
 
 def main():
     # 入力画像とテンプレート画像をで取得
-    img = cv2.imread("inputs.png")
-    temp = cv2.imread("temps.png")
+    img = cv2.imread("input.png")
+    temp = cv2.imread("temp.png")
 
     # グレースケール変換
     gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)   
@@ -66,4 +66,4 @@ def main():
 
 
 if __name__ == "__main__":
-main()
+    main()
