@@ -9,29 +9,32 @@ def template_matching_ncc(src, temp):
     
     # スコア格納用の2次元リスト
     score = np.empty((h-ht, w-wt))
-    
+
+    # 配列のデータ型をuint8からfloatに変換
+    src = np.array(src, dtype="float")
+    temp = np.array(temp, dtype="float")
+
     # 走査
     for dy in range(0, h - ht):
         for dx in range(0, w - wt):
-            # 窓画像
             roi = src[dy:dy + ht, dx:dx + wt]
             # NCCの計算式（分子）
             num = np.sum(roi * temp)
             # NCCの計算式（分母）
-            den = np.sqrt( (np.sum(roi ** 2))) * np.sqrt(np.sum(temp ** 2)) 
+            den = np.sqrt( np.sum(roi ** 2) ) * np.sqrt( np.sum(temp ** 2) ) 
             if den == 0: score[dy, dx] = 0
             score[dy, dx] = num / den
 
-    # スコアが最小(1に最も近い)の走査位置を返す
-    pt = np.unravel_index(score.argmin(), score.shape)
+    # スコアが最大(1に最も近い)の走査位置を返す
+    pt = np.unravel_index(score.argmax(), score.shape)
 
     return (pt[1], pt[0])
 
 
 def main():
     # 入力画像とテンプレート画像をで取得
-    img = cv2.imread("input.png")
-    temp = cv2.imread("temp.png")
+    img = cv2.imread("inputs.png")
+    temp = cv2.imread("temps.png")
     img2 = img.copy()
     # グレースケール変換
     gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)   
