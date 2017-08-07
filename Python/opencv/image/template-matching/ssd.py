@@ -40,7 +40,10 @@ def main():
 
     # テンプレートマッチング（OpenCVで実装）
     #match = cv2.matchTemplate(gray, temp, cv2.TM_SQDIFF_NORMED)
-    #min_value, max_value, pt, size = cv2.minMaxLoc(match)
+    # テンプレートマッチング（OpenCVで実装）
+    #match = cv2.matchTemplate(gray, temp, cv2.TM_CCORR_NORMED)
+    #min_value, max_value, min_pt, max_pt = cv2.minMaxLoc(match)
+    #pt = min_pt
 
     # テンプレートマッチングの結果を出力
     cv2.rectangle(img, (pt[0], pt[1] ), (pt[0] + w, pt[1] + h), (0,0,200), 3)
