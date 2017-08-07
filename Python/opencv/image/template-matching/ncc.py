@@ -2,11 +2,11 @@
 import cv2
 import numpy as np
 
-def template_matching_zncc(src, temp):
+def template_matching_ncc(src, temp):
     # 画像の高さ・幅を取得
     h, w = src.shape
     ht, wt = temp.shape
-   
+    
     # スコア格納用の2次元リスト
     score = np.empty((h-ht, w-wt))
 
@@ -14,21 +14,12 @@ def template_matching_zncc(src, temp):
     src = np.array(src, dtype="float")
     temp = np.array(temp, dtype="float")
 
-    # テンプレート画像の平均
-    mu_t = temp / (ht * wt) 
-
     # 走査
     for dy in range(0, h - ht):
         for dx in range(0, w - wt):
             # 窓画像
             roi = src[dy:dy + ht, dx:dx + wt]
-            # 窓画像の平均
-            mu_r = roi/(ht * wt)
-            # 窓画像 - 窓画像の平均
-            roi = roi - mu_r
-            # テンプレート画像 - 窓画像の平均
-            temp = temp - mu_t
-            # ZNCCの計算式
+            # NCCの計算式
             num = np.sum(roi * temp)
             den = np.sqrt( (np.sum(roi ** 2))) * np.sqrt(np.sum(temp ** 2)) 
             if den == 0: score[dy, dx] = 0
@@ -36,14 +27,14 @@ def template_matching_zncc(src, temp):
 
     # スコアが最大(1に最も近い)の走査位置を返す
     pt = np.unravel_index(score.argmax(), score.shape)
-    
+
     return (pt[1], pt[0])
 
 
 def main():
     # 入力画像とテンプレート画像をで取得
-    img = cv2.imread("inputs.png")
-    temp = cv2.imread("temps.png")
+    img = cv2.imread("input.png")
+    temp = cv2.imread("temp.png")
 
     # グレースケール変換
     gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)   
@@ -53,7 +44,7 @@ def main():
     h, w = temp.shape
 
     # テンプレートマッチング（NumPyで実装）
-    pt = template_matching_zncc(gray, temp)
+    pt = template_matching_ncc(gray, temp)
 
     # テンプレートマッチング（OpenCVで実装）
     #match = cv2.matchTemplate(gray, temp, cv2.TM_CCOEFF_NORMED)
