@@ -2,7 +2,7 @@
 import cv2
 import numpy as np
 
-def template_matching_sad(src, temp):
+def template_matching_ssd(src, temp):
     # 画像の高さ・幅を取得
     h, w = src.shape
     ht, wt = temp.shape
@@ -13,8 +13,8 @@ def template_matching_sad(src, temp):
     # 走査
     for dy in range(0, h - ht):
         for dx in range(0, w - wt):
-            # 差分の絶対和を計算
-            diff = np.abs(src[dy:dy + ht, dx:dx + wt] - temp)
+            #　二乗誤差の和を計算
+            diff = (src[dy:dy + ht, dx:dx + wt] - temp)**2
             score[dy, dx] = diff.sum()
 
     # スコアが最小の走査位置を返す
@@ -36,7 +36,7 @@ def main():
     h, w = temp.shape
 
     # テンプレートマッチング（NumPyで実装）
-    pt = template_matching_sad(gray, temp)
+    pt = template_matching_ssd(gray, temp)
 
     # テンプレートマッチング（OpenCVで実装）
     #match = cv2.matchTemplate(gray, temp, cv2.TM_SQDIFF)
