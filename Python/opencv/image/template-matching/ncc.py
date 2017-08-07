@@ -13,13 +13,16 @@ def template_matching_ncc(src, temp):
     # 走査
     for dy in range(0, h - ht):
         for dx in range(0, w - wt):
+            # 窓画像
             roi = src[dy:dy + ht, dx:dx + wt]
+            # NCCの計算式（分子）
             num = np.sum(roi * temp)
+            # NCCの計算式（分母）
             den = np.sqrt( (np.sum(roi ** 2))) * np.sqrt(np.sum(temp ** 2)) 
             if den == 0: score[dy, dx] = 0
             score[dy, dx] = num / den
 
-    # スコアが最小の走査位置を返す
+    # スコアが最小(1に最も近い)の走査位置を返す
     pt = np.unravel_index(score.argmin(), score.shape)
 
     return (pt[1], pt[0])
