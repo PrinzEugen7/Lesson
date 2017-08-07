@@ -1,28 +1,56 @@
-def ZNCC(image1, image2):
-    vec1, vec2 = image1.reshape(-1), image2.reshape(-1)
-    vec1, vec2 = vec1 - np.mean(vec1), vec2 - np.mean(vec2)
-    numer = np.dot(vec1, vec2.T)
-    denom = np.sqrt(np.sum(vec1 ** 2)) / np.sqrt(np.sum(vec2 ** 2))
-    if denom == 0: return 0
-    return numer / denom
+#-*- coding:utf-8 -*-
+import cv2
+import numpy as np
 
-def matching(image1, image2):
-    image = image1.astype(np.double)
-    pattern = image2.astype(np.double)
-    height1, width1 = image.shape
-    height2, width2 = pattern.shape
-    output = np.zeros(image.shape)
+def template_matching_zncc(src, temp):
+    # 画像の高さ・幅を取得
+    h, w = src.shape
+    ht, wt = temp.shape
+    
+    # スコア格納用の2次元リスト
+    score = np.empty((h-ht, w-wt))
+    ave_temp = temp/9   
 
-    for i in range(height2 / 2, height1 - height2 / 2):
-        for j in range(width2 / 2, width1 - width2 / 2):
-            score = ZNCC(image[i-height2/2:i+height2/2+1, j-width2/2:j+width2/2+1], pattern)
-            output[i,j] = score
+    # 走査
+    for dy in range(0, h - ht):
+        for dx in range(0, w - wt):
+            roi = src[dy:dy + ht, dx:dx + wt]
+            ave_src = roi/9
+            num = np.sum( (roi - ave_src) * (temp - ave_temp) )
+            den = np.sqrt(np.sum(roi - ave_src) ** 2) / np.sqrt(np.sum(temp - ave_temp) ** 2)
+            if den == 0: score[dy, dx] = 0
+            score[dy, dx] = num / den
 
-    output /= np.max(output)
-    maxidx = np.unravel_index(output.argmax(), output.shape)
+    # スコアが最小の走査位置を返す
+    pt = np.unravel_index(score.argmin(), score.shape)
 
-    result = cv2.cvtColor(image1, cv2.COLOR_GRAY2RGB)
-    cv2.rectangle(result, (maxidx[1] - width2 / 2, maxidx[0] - height2 / 2), (maxidx[1] + width2, maxidx[0] + height2), (0,255,0), 1)
-    cv2.imshow("matching", result)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
+    return (pt[1], pt[0])
+
+
+def main():
+    # 入力画像とテンプレート画像をで取得
+    img = cv2.imread("input.png")
+    temp = cv2.imread("temp.png")
+    img2 = img.copy()
+    # グレースケール変換
+    gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)   
+    temp = cv2.cvtColor(temp, cv2.COLOR_RGB2GRAY)   
+
+    # テンプレート画像の高さ・幅
+    h, w = temp.shape
+
+    # テンプレートマッチング（NumPyで実装）
+    pt = template_matching_zncc(gray, temp)
+
+    # テンプレートマッチング（OpenCVで実装）
+    #match = cv2.matchTemplate(gray, temp, cv2.TM_CCORR_NORMED)
+    #min_value, max_value, min_pt, max_pt = cv2.minMaxLoc(match)
+    #pt = max_pt
+
+    # テンプレートマッチングの結果を出力
+    cv2.rectangle(img, (pt[0], pt[1] ), (pt[0] + w, pt[1] + h), (0,0,200), 3)
+    cv2.imwrite("output.png", img)
+
+
+if __name__ == "__main__":
+    main()
