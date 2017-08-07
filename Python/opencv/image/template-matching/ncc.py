@@ -13,8 +13,9 @@ def template_matching_ncc(src, temp):
     # 走査
     for dy in range(0, h - ht):
         for dx in range(0, w - wt):
-            num = np.sum(src[dy:dy + ht, dx:dx + wt] * temp)
-            den = np.sqrt(np.sum(src) ** 2) / np.sqrt(np.sum(temp) ** 2)
+            roi = src[dy:dy + ht, dx:dx + wt]
+            num = np.sum(roi * temp)
+            den = np.sqrt( (np.sum(roi ** 2))) * np.sqrt(np.sum(temp ** 2)) 
             if den == 0: score[dy, dx] = 0
             score[dy, dx] = num / den
 
