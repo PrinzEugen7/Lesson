@@ -23,7 +23,7 @@ def template_matching_ncc(src, temp):
             num = np.sum(roi * temp)
             den = np.sqrt( (np.sum(roi ** 2))) * np.sqrt(np.sum(temp ** 2)) 
             if den == 0: score[dy, dx] = 0
-            score[dy, dx] = abs(num / den)
+            score[dy, dx] = num / den
 
     # スコアが最大(1に最も近い)の走査位置を返す
     pt = np.unravel_index(score.argmax(), score.shape)
