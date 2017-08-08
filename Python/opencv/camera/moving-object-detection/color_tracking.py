@@ -6,7 +6,7 @@ import numpy as np
 def main():
     
     # カメラのキャプチャ
-    cap = cv2.VideoCapture("input.mp4")
+    cap = cv2.VideoCapture(0)
 
     while(cap.isOpened()):
 
