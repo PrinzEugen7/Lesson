@@ -50,7 +50,7 @@ def main():
     hsv1 = rgb_to_hsv(img)
     
     # 方法2(OpenCVで実装)       
-    hsv2 = cv2.cvtColor(img, cv2.COLOR_RGB2HSV)
+    hsv2 = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
     
     # 結果を出力
     cv2.imwrite("hsv1.jpg", hsv1)
