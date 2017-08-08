@@ -1,3 +1,5 @@
+
+
 # -*- coding: utf-8 -*-
 import cv2
 import numpy as np
@@ -8,7 +10,7 @@ def main():
     th = 30    # 差分画像の閾値
     
     # カメラのキャプチャ
-    cap = cv2.VideoCapture(0)
+    cap = cv2.VideoCapture("input.mp4")
     
     # 最初のフレームを背景画像に設定
     ret, bg = cap.read()
@@ -30,15 +32,17 @@ def main():
         mask[mask < th] = 0
         mask[mask >= th] = 255
         
-        # マスク画像を表示
+        # フレームとマスク画像を表示
         cv2.imshow("Mask", mask)
-        i += 1
+        cv2.imshow("Flame", gray)
+
+        i += 1    # カウントを1増やす
         
         # 背景画像の更新（一定間隔）
         if(i > 30):
             ret, bg = cap.read()
             bg = cv2.cvtColor(bg, cv2.COLOR_BGR2GRAY) 
-            i = 0
+            i = 0 # カウント変数の初期化
             
         # qキーが押されたら途中終了
         if cv2.waitKey(1) & 0xFF == ord('q'):
