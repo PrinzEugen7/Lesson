@@ -2,9 +2,8 @@
 import cv2
 import numpy as np
 
-# 膨張処理
+
 def rgb_to_hsv(src, ksize=3):
-    
     # 高さ・幅・チャンネル数を取得
     h, w, c = src.shape
     
