@@ -23,7 +23,7 @@ def frame_sub(src1, src2, src3, th):
 
 def main():
     # カメラのキャプチャ
-    cap = cv2.VideoCapture("input.mp4")
+    cap = cv2.VideoCapture(0)
     
     # フレームを3枚取得してグレースケール変換
     frame1 = cv2.cvtColor(cap.read()[1], cv2.COLOR_RGB2GRAY)
