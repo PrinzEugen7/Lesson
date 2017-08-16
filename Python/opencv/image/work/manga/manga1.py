@@ -4,6 +4,7 @@ import numpy as np
 
 # 漫画化フィルタ
 def manga_filter(src, screen, th1=60, th2=150):
+    
     # グレースケール変換
     gray = cv2.cvtColor(src, cv2.COLOR_BGR2GRAY)
     screen = cv2.cvtColor(screen, cv2.COLOR_BGR2GRAY)
@@ -25,7 +26,7 @@ def manga_filter(src, screen, th1=60, th2=150):
 
 def main():
 
-    # 入力画像とスクリーントーン画像をグレースケールで取得
+    # 入力画像とスクリーントーン画像を取得
     img = cv2.imread("input.jpg") 
     screen = cv2.imread("screen.jpg")
     
