@@ -31,8 +31,8 @@ def main():
     # 入力画像とスクリーントーン画像を取得
     img = cv2.imread("input.jpg") 
 
-    # 減色処理
-    dst = sub_color(img, K=5)
+    # 減色処理(三値化)
+    dst = sub_color(img, K=3)
     
     # 結果を出力
     cv2.imwrite("output.jpg", dst)
