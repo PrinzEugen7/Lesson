@@ -3,7 +3,7 @@ import cv2
 import numpy as np
 
 # バイリニア補間法でリサイズ
-def resizeNearest(src, h, w):
+def resize_bilinear(src, h, w):
 
     # 出力画像用の配列生成（要素は全て空）
     dst = np.empty((h,w))
@@ -42,7 +42,7 @@ def main():
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
     # 方法1(NumPy）
-    dst1 = resizeNearest(gray, gray.shape[1]*2, gray.shape[0]*2)
+    dst1 = resize_bilinear(gray, gray.shape[1]*2, gray.shape[0]*2)
 
     # 方法2(OpenCV)
     dst2 = cv2.resize(gray, (gray.shape[1]*2, gray.shape[0]*2), interpolation=cv2.INTER_LINEAR)
