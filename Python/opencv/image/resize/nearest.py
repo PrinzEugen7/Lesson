@@ -31,6 +31,7 @@ def main():
 
     # 入力画像の読み込み
     img = cv2.imread("input.jpg")
+    
     # グレースケール変換
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
