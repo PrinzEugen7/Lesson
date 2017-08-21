@@ -23,5 +23,6 @@ def main():
     # 結果を出力
     cv2.imshow("result.jpg",img)
 
+    
 if __name__ == '__main__':
-main()
+    main()
