@@ -12,12 +12,13 @@ def resize_nearest(src, h, w):
     hi, wi = src.shape[0], src.shape[1]
 
     # 拡大率を計算
-    a = h / float(hi)
+    ax = w / float(wi)
+    ay = h / float(hi)
 
     # 最近傍補間
     for y in range(0, h):
         for x in range(0, w):
-            xi, yi = int(round(x/a)), int(round(y/a))
+            xi, yi = int(round(x/ax)), int(round(y/ay))
             # 存在しない座標の処理
             if xi > wi -1: xi = wi -1
             if yi > hi -1: yi = hi -1
