@@ -1,5 +1,3 @@
-
-
 # -*- coding: utf-8 -*-
 import cv2
 
@@ -7,7 +5,7 @@ import cv2
 def main():
 
     # 入力画像の読み込み
-    img = cv2.imread("input2.jpg")
+    img = cv2.imread("input.jpg")
 
     # グレースケール変換
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
@@ -30,4 +28,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
