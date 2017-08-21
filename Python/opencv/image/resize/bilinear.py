@@ -12,12 +12,13 @@ def resize_bilinear(src, h, w):
     hi, wi = src.shape[0], src.shape[1]
 
     # 拡大率を計算
-    a = h / float(hi)
-
+    ax = w / float(wi)
+    ay = h / float(hi)
+    
     # バイリニア補間法
     for y in range(0, h):
         for x in range(0, w):
-            xi, yi = x/a, y/a
+            xi, yi = x/ax, y/ay
             x0, y0 = int(xi), int(yi)
 
              # 存在しない座標の処理
