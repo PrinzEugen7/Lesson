@@ -29,7 +29,7 @@ def resize_bilinear(src, h, w):
             dx = xi - x0
             dy = yi - y0
             
-            dst[y][x] = (1 - dx) * (1-dy) * src[y0][x0] + dx * (1-dy) * src[y0][x0+1] + (1-dx) * dy * src[y0][x0+1] + dx * dy * src[y0+1][x0+1]
+            dst[y][x] = (1 - dx) * (1-dy) * src[y0][x0] + dx * (1-dy) * src[y0][x0+1] + (1-dx) * dy * src[y0+1][x0] + dx * dy * src[y0+1][x0+1]
             
     return dst
 
